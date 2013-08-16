@@ -10,8 +10,12 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new \CypressLab\GitElephantRestApi\Application();
 
+// git elephant
+$app['repository'] = \GitElephant\Repository::open(__DIR__.'/../');
+
 // providers
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+$app->register(new Silex\Provider\SerializerServiceProvider());
 
 // routes
 $app->get('/', 'CypressLab\GitElephantRestApi\Controller\Main::homepage')->bind('homepage');

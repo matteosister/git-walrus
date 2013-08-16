@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="tests/bootstrap.php"
+        colors="true"
+        stopOnFailure="false">
+    <testsuites>
+        <testsuite name="GitElephantRestApi Test Suite">
+            <directory>tests/CypressLab/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src/CypressLab/</directory>
+        </whitelist>
+    </filter>
+</phpunit>
