@@ -1,0 +1,23 @@
+GitElephant\Objects\Commit:
+    exclusion_policy: ALL
+    properties:
+        ref:
+            expose: true
+        sha:
+            expose: true
+        tree:
+            expose: true
+        parents:
+            expose: true
+        author:
+            expose: true
+        committer:
+            expose: true
+        message:
+            expose: true
+            inline: true
+            type: string
+        datetime_author:
+            expose: true
+        datetime_committer:
+            expose: true

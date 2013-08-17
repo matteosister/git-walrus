@@ -15,4 +15,18 @@ class Application extends SilexApplication
     use SilexApplication\UrlGeneratorTrait;
     use SerializerTrait;
     use RepositoryTrait;
+
+    /**
+     * Convert some data into a JSON response.
+     *
+     * @param string  $data    The response data
+     * @param integer $status  The response status code
+     * @param array   $headers An array of response headers
+     *
+     * @return JsonRawResponse
+     */
+    public function rawJson($data, $status = 200, $headers = array())
+    {
+        return new JsonRawResponse($data, $status, $headers);
+    }
 }

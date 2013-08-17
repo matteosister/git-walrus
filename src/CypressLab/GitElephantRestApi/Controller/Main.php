@@ -27,7 +27,9 @@ class Main
     public function homepage(Request $request, Application $app)
     {
         $links = array(
-            'log' => $app->url('log')
+            'tree' => $app->url('tree', array('ref' => '{ref}')),
+            'log' => $app->url('log'),
+            'branches' => $app->url('branches')
         );
         return $app->json($links);
     }

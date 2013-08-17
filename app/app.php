@@ -12,13 +12,18 @@ $app = new \CypressLab\GitElephantRestApi\Application();
 
 // git elephant
 $app['repository'] = \GitElephant\Repository::open(__DIR__.'/../');
+$app['serializer'] = \JMS\Serializer\SerializerBuilder::create()
+    ->setDebug(true)
+    ->addMetadataDir(__DIR__.'/serializer')
+    ->build();
 
 // providers
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
-$app->register(new Silex\Provider\SerializerServiceProvider());
 
 // routes
 $app->get('/', 'CypressLab\GitElephantRestApi\Controller\Main::homepage')->bind('homepage');
+$app->get('/tree/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::tree')->bind('tree');
+$app->get('/branches', 'CypressLab\GitElephantRestApi\Controller\Git::branches')->bind('branches');
 $app->get('/log', 'CypressLab\GitElephantRestApi\Controller\Git::log')->bind('log');
 
 return $app;
