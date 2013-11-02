@@ -1,4 +1,6 @@
 before_commands:
+  - git config --global user.email "GitElephantRestApi@scrutinizer-ci.com"
+  - git config --global user.name "GitElephantRestApi"
   - composer install
 
 tools:
