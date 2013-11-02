@@ -14,8 +14,8 @@ namespace CypressLab\GitElephantRestApi;
  */
 trait SerializerTrait
 {
-    public function serialize($data, $format, array $context = array())
+    public function serialize($data, $format, $context = null)
     {
-        $this['serializer']->serialize($data, $format, $context);
+        return $this['serializer']->serialize($data, $format, $context);
     }
 }

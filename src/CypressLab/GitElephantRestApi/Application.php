@@ -8,6 +8,7 @@
 
 namespace CypressLab\GitElephantRestApi;
 
+use CypressLab\GitElephantRestApi\HttpFoundation\JsonRawResponse;
 use Silex\Application as SilexApplication;
 
 class Application extends SilexApplication

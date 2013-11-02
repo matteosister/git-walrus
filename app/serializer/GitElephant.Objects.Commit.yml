@@ -1,4 +1,5 @@
 GitElephant\Objects\Commit:
+    xml_root_name: commit
     exclusion_policy: ALL
     properties:
         ref:
@@ -17,7 +18,12 @@ GitElephant\Objects\Commit:
             expose: true
             inline: true
             type: string
-        datetime_author:
+        datetimeAuthor:
             expose: true
-        datetime_committer:
+        datetimeCommitter:
             expose: true
+        branches:
+            expose: true
+            access_type: public_method
+            accessor:
+                getter: getContainedIn

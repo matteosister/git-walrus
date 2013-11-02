@@ -7,13 +7,18 @@
  */
 
 
-namespace CypressLab\GitElephantRestApi;
+namespace CypressLab\GitElephantRestApi\HttpFoundation;
 
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class JsonRawResponse extends JsonResponse
 {
+    /**
+     * @param array $data
+     *
+     * @return JsonResponse
+     */
     public function setData($data = array())
     {
         $this->data = $data;
