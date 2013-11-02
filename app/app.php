@@ -8,12 +8,16 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+$debug = defined('DEBUG') ? constant('DEBUG') : false;
+
 $app = new \CypressLab\GitElephantRestApi\Application();
+$app['debug'] = $debug;
 
 // git elephant
-$app['repository'] = \GitElephant\Repository::open(__DIR__.'/../');
+$rootDir = isset($repositoryRoot) ? $repositoryRoot : __DIR__.'/../';
+$app['repository'] = \GitElephant\Repository::open($rootDir);
 $app['serializer'] = \JMS\Serializer\SerializerBuilder::create()
-    ->setDebug(true)
+    ->setDebug($debug)
     ->addMetadataDir(__DIR__.'/serializer')
     ->build();
 

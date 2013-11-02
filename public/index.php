@@ -6,7 +6,8 @@
  * Just for fun...
  */
 
-define('DEBUG', true);
+
+define('DEBUG', false);
 $app = require_once __DIR__.'/../app/app.php';
 
 $app->run();

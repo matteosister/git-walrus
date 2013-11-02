@@ -20,16 +20,30 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Git
 {
+    /**
+     * @param Request     $request
+     * @param Application $app
+     *
+     * @return \CypressLab\GitElephantRestApi\JsonRawResponse
+     */
     public function log(Request $request, Application $app)
     {
         $log = $app->getRepository()->getLog();
         $commits = iterator_to_array($log);
-        //return new JsonRe
-        return $app->rawJson($app['serializer']->serialize($commits, 'json'));
+        $results['items'] = $commits;
+        return $app->rawJson($app['serializer']->serialize($results, 'json'));
     }
 
+    /**
+     * @param Request     $request
+     * @param Application $app
+     *
+     * @return \CypressLab\GitElephantRestApi\JsonRawResponse
+     */
     public function branches(Request $request, Application $app)
     {
-
+        $branches = $app->getRepository()->getBranches();
+        $results['items'] = $branches;
+        return $app->rawJson($app['serializer']->serialize($results, 'json'));
     }
 }

@@ -1,0 +1,7 @@
+GitElephant\Objects\Branch:
+    exclusion_policy: ALL
+    properties:
+        sha:
+            expose: true
+        name:
+            expose: true

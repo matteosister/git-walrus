@@ -26,11 +26,19 @@ class Main
      */
     public function homepage(Request $request, Application $app)
     {
-        $links = array(
-            'tree' => $app->url('tree', array('ref' => '{ref}')),
+        $links = [
+            'tree' => $app->url('tree', ['ref' => '{ref}']),
             'log' => $app->url('log'),
             'branches' => $app->url('branches')
+        ];
+
+        return $app->json(
+            array_map(
+                function ($v) {
+                    return urldecode($v);
+                },
+                $links
+            )
         );
-        return $app->json($links);
     }
 }
