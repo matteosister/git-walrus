@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class JsonRawResponse extends JsonResponse
 {
-    public function setData($data)
+    public function setData($data = array())
     {
         $this->data = $data;
 
