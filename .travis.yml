@@ -16,7 +16,7 @@ before_script:
   - git config --global user.name "Travis"
 
 script:
-  - vendor/bin/phpunit --coverage-clover "clover"
+  - bin/phpunit --coverage-clover "clover"
 
 after_success:
   - curl -sL https://bit.ly/artifact-uploader | php
