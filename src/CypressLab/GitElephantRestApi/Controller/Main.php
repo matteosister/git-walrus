@@ -19,12 +19,11 @@ use CypressLab\GitElephantRestApi\Application;
 class Main
 {
     /**
-     * @param \Symfony\Component\HttpFoundation\Request  $request
      * @param \CypressLab\GitElephantRestApi\Application $app
      *
      * @return string
      */
-    public function homepage(Request $request, Application $app)
+    public function homepage(Application $app)
     {
         $links = [
             'tree' => $app->url('tree', ['ref' => '{ref}']),

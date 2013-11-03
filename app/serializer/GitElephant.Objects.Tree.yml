@@ -1,13 +1,12 @@
-GitElephant\Objects\Branch:
+GitElephant\Objects\Tree:
+    xml_root_name: tree
     exclusion_policy: ALL
     properties:
-        sha:
+        ref:
             expose: true
-        name:
+        subject:
             expose: true
-        current:
+        children:
             expose: true
-        comment:
-            expose: true
-        fullRef:
+        pathChildren:
             expose: true

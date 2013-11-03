@@ -9,6 +9,7 @@
 
 namespace CypressLab;
 
+use CypressLab\GitElephantRestApi\Application;
 use GitElephant\Command\Caller\Caller;
 use GitElephant\GitBinary;
 use GitElephant\Repository;
@@ -53,7 +54,7 @@ class WebTestCase extends SilexWebTestCase
     /**
      * Creates the application.
      *
-     * @return HttpKernel
+     * @return Application
      */
     public function createApplication()
     {
@@ -96,6 +97,11 @@ class WebTestCase extends SilexWebTestCase
     public function commit($msg = null)
     {
         $this->repo->commit($msg ?: 'commit automatic test message', true);
+    }
+
+    public function createBranch($name)
+    {
+        $this->repo->createBranch($name);
     }
 
     public function tearDown()
