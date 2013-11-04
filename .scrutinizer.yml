@@ -2,13 +2,16 @@ before_commands:
   - git config --global user.email "GitElephantRestApi@scrutinizer-ci.com"
   - git config --global user.name "GitElephantRestApi"
   - composer install
-
+filter:
+    excluded_paths:
+        - 'vendor/*'
+        - 'app/*'
+        - 'web/*'
 tools:
   php_code_coverage:
     enabled: true
     filter:
       paths: [ src/ ]
-
   php_code_sniffer:
     enabled: true
     filter:
@@ -16,20 +19,19 @@ tools:
     config:
       # Built-in standards: PEAR, PHPCS, PSR1, PSR2, Squiz, Zend
       standard: PSR2
-
   php_cpd:
     enabled: true
-
   php_cs_fixer:
     enabled: true
+    config:
+      level: psr2
     filter:
       paths: [ src/ ]
-
   php_mess_detector:
     enabled: true
     filter:
       paths: [ src/ ]
-
   php_analyzer: true
-
   sensiolabs_security_checker: true
+  php_pdepend: true
+  php_loc: true
