@@ -12,6 +12,7 @@ tools:
     enabled: true
     filter:
       paths: [ src/ ]
+    test_command: vendor/bin/phpunit
   php_code_sniffer:
     enabled: true
     filter:
