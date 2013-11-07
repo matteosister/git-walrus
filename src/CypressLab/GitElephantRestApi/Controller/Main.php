@@ -27,7 +27,7 @@ class Main
     {
         $links = [
             'tree' => $app->url('tree', ['ref' => '{ref}']),
-            'log' => $app->url('log'),
+            'log' => $app->url('log', ['ref' => '{ref}']),
             'branches' => $app->url('branches')
         ];
 

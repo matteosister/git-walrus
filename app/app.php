@@ -29,11 +29,15 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
 // routes
 $app->get('/', 'CypressLab\GitElephantRestApi\Controller\Main::homepage')->bind('homepage');
-$app->get('/tree/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::tree')->bind('tree');
+$app->get('/tree/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::tree')
+    ->bind('tree')
+    ->value('ref', 'master');
 $app->get('/tree/{ref}/{path}', 'CypressLab\GitElephantRestApi\Controller\Git::treeObject')
     ->bind('tree_object')
     ->assert('path', '.+');
 $app->get('/branches', 'CypressLab\GitElephantRestApi\Controller\Git::branches')->bind('branches');
-$app->get('/log', 'CypressLab\GitElephantRestApi\Controller\Git::log')->bind('log');
+$app->get('/log/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::log')
+    ->bind('log')
+    ->value('ref', 'master');
 
 return $app;

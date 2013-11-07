@@ -9,6 +9,7 @@
 namespace CypressLab\GitElephantRestApi\Event;
 
 use CypressLab\GitElephantRestApi\Application;
+use GitElephant\Objects\Branch;
 use GitElephant\Objects\Object;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
@@ -51,6 +52,11 @@ class SerializerSubscriber implements EventSubscriberInterface
                 'event' => 'serializer.post_serialize',
                 'method' => 'onPostSerializeTree',
                 'class' => 'GitElephant\Objects\Tree'
+            ],
+            [
+                'event' => 'serializer.post_serialize',
+                'method' => 'onPostSerializeBranch',
+                'class' => 'GitElephant\Objects\Branch'
             ]
         ];
     }
@@ -77,5 +83,13 @@ class SerializerSubscriber implements EventSubscriberInterface
         if ($tree->isBlob()) {
             $event->getVisitor()->addData('binary_data', $tree->getBinaryData());
         }
+    }
+
+    public function onPostSerializeBranch(ObjectEvent $event)
+    {
+        /** @var Branch $branch */
+        $branch = $event->getObject();
+        $logUrl = $this->app->url('tree_object', ['ref' => 'master', 'path' => $branch]);
+        $event->getVisitor()->addData('log', $branch->getPath());
     }
 }

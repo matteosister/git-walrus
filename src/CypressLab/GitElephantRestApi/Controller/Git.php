@@ -23,12 +23,13 @@ class Git
 {
     /**
      * @param Application $app
+     * @param string      $ref
      *
      * @return \CypressLab\GitElephantRestApi\HttpFoundation\JsonRawResponse
      */
-    public function log(Application $app)
+    public function log(Application $app, $ref)
     {
-        $log = $app->getRepository()->getLog();
+        $log = $app->getRepository()->getLog($ref);
         $commits = iterator_to_array($log);
         $results['items'] = $commits;
         return $app->rawJson($app->serialize($results, 'json'));

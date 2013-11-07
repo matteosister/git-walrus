@@ -32,7 +32,7 @@ class WebTestCase extends SilexWebTestCase
      *
      * @var Repository
      */
-    protected $repo;
+    private $repo;
 
     /**
      * @param Client $client
@@ -99,9 +99,20 @@ class WebTestCase extends SilexWebTestCase
         $this->repo->commit($msg ?: 'commit automatic test message', true);
     }
 
+    /**
+     * @param $name
+     */
     public function createBranch($name)
     {
         $this->repo->createBranch($name);
+    }
+
+    /**
+     * @param $name
+     */
+    public function checkout($name)
+    {
+        $this->repo->checkout($name);
     }
 
     public function tearDown()
