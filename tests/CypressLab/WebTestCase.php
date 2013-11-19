@@ -115,6 +115,17 @@ class WebTestCase extends SilexWebTestCase
         $this->repo->checkout($name);
     }
 
+    /**
+     * @return Repository
+     */
+    public function getRepo()
+    {
+        return $this->repo;
+    }
+
+    /**
+     * phpunit tearDown
+     */
     public function tearDown()
     {
         $fs = new Filesystem();

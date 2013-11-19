@@ -28,16 +28,19 @@ $app['serializer'] = \JMS\Serializer\SerializerBuilder::create()
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
 // routes
-$app->get('/', 'CypressLab\GitElephantRestApi\Controller\Main::homepage')->bind('homepage');
-$app->get('/tree/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::tree')
+/** @var \Silex\ControllerCollection $api */
+$api = $app['controllers_factory'];
+$api->get('/', 'CypressLab\GitElephantRestApi\Controller\Main::homepage')->bind('homepage');
+$api->get('/tree/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::tree')
     ->bind('tree')
     ->value('ref', 'master');
-$app->get('/tree/{ref}/{path}', 'CypressLab\GitElephantRestApi\Controller\Git::treeObject')
+$api->get('/tree/{ref}/{path}', 'CypressLab\GitElephantRestApi\Controller\Git::treeObject')
     ->bind('tree_object')
     ->assert('path', '.+');
-$app->get('/branches', 'CypressLab\GitElephantRestApi\Controller\Git::branches')->bind('branches');
-$app->get('/log/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::log')
+$api->get('/branches', 'CypressLab\GitElephantRestApi\Controller\Git::branches')->bind('branches');
+$api->get('/branch/{name}', 'CypressLab\GitElephantRestApi\Controller\Git::branch')->bind('branch');
+$api->get('/log/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::log')
     ->bind('log')
     ->value('ref', 'master');
-
+$app->mount('api', $api);
 return $app;

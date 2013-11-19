@@ -28,7 +28,8 @@ class Main
         $links = [
             'tree' => $app->url('tree', ['ref' => '{ref}']),
             'log' => $app->url('log', ['ref' => '{ref}']),
-            'branches' => $app->url('branches')
+            'branches' => $app->url('branches'),
+            'branch' => $app->url('branch', ['name' => '{name}'])
         ];
 
         return $app->json(

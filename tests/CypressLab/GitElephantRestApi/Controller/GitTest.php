@@ -23,42 +23,64 @@ class GitTest extends WebTestCase
         $this->addFile('test');
         $this->commit();
         $client = $this->createClient();
-        $client->request('get', '/log');
+        $client->request('get', '/api/log');
         $this->isJsonResponse($client);
         $this->countItems($client, 1);
         $this->addFile('test2');
         $this->commit();
-        $client->request('get', '/log');
+        $client->request('get', '/api/log');
         $this->isJsonResponse($client);
         $this->countItems($client, 2);
         $this->createBranch('develop');
-        $client->request('get', '/log/develop');
+        $client->request('get', '/api/log/develop');
         $this->isJsonResponse($client);
         $this->countItems($client, 2);
         $this->checkout('develop');
         $this->addFile('test3');
         $this->commit();
-        $client->request('get', '/log/develop');
+        $client->request('get', '/api/log/develop');
         $this->isJsonResponse($client);
         $this->countItems($client, 3);
-        $client->request('get', '/log/master');
+        $client->request('get', '/api/log/master');
         $this->isJsonResponse($client);
+        $this->countItems($client, 2);
+    }
+
+    public function testBranches()
+    {
+        $client = $this->createClient();
+        $client->request('get', '/api/branches');
+        $this->isJsonResponse($client);
+        $this->countItems($client, 0);
+        $this->addFile('test');
+        $this->commit();
+        $client->request('get', '/api/branches');
+        $this->countItems($client, 1);
+        $this->createBranch('test');
+        $client->request('get', '/api/branches');
         $this->countItems($client, 2);
     }
 
     public function testBranch()
     {
-        $client = $this->createClient();
-        $client->request('get', '/branches');
-        $this->isJsonResponse($client);
-        $this->countItems($client, 0);
         $this->addFile('test');
         $this->commit();
-        $client->request('get', '/branches');
-        $this->countItems($client, 1);
-        $this->createBranch('test');
-        $client->request('get', '/branches');
-        $this->countItems($client, 2);
+        $client = $this->createClient();
+        $client->request('get', '/api/branch/master');
+        $this->isJsonResponse($client);
+        $result = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals('master', $result['name']);
+        $this->assertEquals($this->getRepo()->getBranch('master')->getSha(), $result['sha']);
+        $this->assertTrue($result['current']);
+        $this->assertEquals('commit automatic test message', $result['comment']);
+        $this->createBranch('test-branch');
+        $client->request('get', '/api/branch/test-branch');
+        $this->isJsonResponse($client);
+        $result = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals('test-branch', $result['name']);
+        $this->assertEquals($this->getRepo()->getBranch('test-branch')->getSha(), $result['sha']);
+        $this->assertFalse($result['current']);
+        $this->assertEquals('commit automatic test message', $result['comment']);
     }
 
     public function testTree()
@@ -66,7 +88,7 @@ class GitTest extends WebTestCase
         $this->addFile('test');
         $this->commit();
         $client = $this->createClient();
-        $client->request('get', '/tree/master');
+        $client->request('get', '/api/tree/master');
         $this->isJsonResponse($client);
         $result = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('root', $result);
@@ -78,7 +100,7 @@ class GitTest extends WebTestCase
         $this->assertEquals('test', $result['children'][0]['name']);
         $this->assertStringEndsWith('test', $result['children'][0]['url']);
 
-        $client->request('get', '/tree');
+        $client->request('get', '/api/tree');
         $this->isJsonResponse($client);
         $result = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('root', $result);
@@ -96,7 +118,7 @@ class GitTest extends WebTestCase
         $this->addFile('test');
         $this->commit();
         $client = $this->createClient();
-        $client->request('get', '/tree/master/test');
+        $client->request('get', '/api/tree/master/test');
         $this->isJsonResponse($client);
         $result = json_decode($client->getResponse()->getContent(), true);
         $this->assertEquals('master', $result['ref']);

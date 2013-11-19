@@ -49,6 +49,18 @@ class Git
 
     /**
      * @param Application $app
+     * @param string      $name
+     *
+     * @return \CypressLab\GitElephantRestApi\HttpFoundation\JsonRawResponse
+     */
+    public function branch(Application $app, $name)
+    {
+        $branch = $app->getRepository()->getBranch($name);
+        return $app->rawJson($app->serialize($branch, 'json'));
+    }
+
+    /**
+     * @param Application $app
      * @param string      $ref
      *
      * @return \CypressLab\GitElephantRestApi\HttpFoundation\JsonRawResponse
