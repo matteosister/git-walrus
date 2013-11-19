@@ -10,6 +10,7 @@ namespace CypressLab\GitElephantRestApi\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use CypressLab\GitElephantRestApi\Application;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class Main
@@ -19,11 +20,21 @@ use CypressLab\GitElephantRestApi\Application;
 class Main
 {
     /**
-     * @param \CypressLab\GitElephantRestApi\Application $app
+     * @param Application $app
      *
      * @return string
      */
     public function homepage(Application $app)
+    {
+        return $app->getTwig()->render('homepage.html.twig');
+    }
+
+    /**
+     * @param \CypressLab\GitElephantRestApi\Application $app
+     *
+     * @return string
+     */
+    public function api(Application $app)
     {
         $links = [
             'tree' => $app->url('tree', ['ref' => '{ref}']),

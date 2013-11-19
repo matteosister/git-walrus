@@ -50,4 +50,12 @@ class Application extends SilexApplication
     {
         return $this['serializer']->serialize($data, $format, $context);
     }
+
+    /**
+     * @return \Twig_Environment
+     */
+    public function getTwig()
+    {
+        return $this['twig'];
+    }
 }

@@ -26,11 +26,20 @@ $app['serializer'] = \JMS\Serializer\SerializerBuilder::create()
 
 // providers
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => __DIR__.'/views',
+));
+$lexer = new Twig_Lexer($app['twig'], array(
+    'tag_comment'  => array('<%#', '%>'),
+    'tag_block'    => array('<%', '%>'),
+    'tag_variable' => array('<%=', '%>'),
+));
+$app['twig']->setLexer($lexer);
 
 // routes
 /** @var \Silex\ControllerCollection $api */
 $api = $app['controllers_factory'];
-$api->get('/', 'CypressLab\GitElephantRestApi\Controller\Main::homepage')->bind('homepage');
+$api->get('/', 'CypressLab\GitElephantRestApi\Controller\Main::api')->bind('api');
 $api->get('/tree/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::tree')
     ->bind('tree')
     ->value('ref', 'master');
@@ -43,4 +52,5 @@ $api->get('/log/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::log')
     ->bind('log')
     ->value('ref', 'master');
 $app->mount('api', $api);
+$app->get('/', 'CypressLab\GitElephantRestApi\Controller\Main::homepage')->bind('homepage');
 return $app;
