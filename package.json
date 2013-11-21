@@ -1,0 +1,32 @@
+{
+  "name": "git-walrus",
+  "version": "0.0.1",
+  "description": "work in progress",
+  "directories": {
+    "test": "public/tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.cypresslab.net:matteosister/gitelephantrestapi.git"
+  },
+  "author": "",
+  "license": "LGPL-3.0+",
+  "devDependencies": {
+    "karma-firefox-launcher": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.0",
+    "karma-script-launcher": "~0.1.0",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-jasmine": "~0.1.3",
+    "karma-requirejs": "~0.1.0",
+    "karma-coffee-preprocessor": "~0.1.0",
+    "karma-phantomjs-launcher": "~0.1.0",
+    "phantomjs": "*",
+    "karma": "~0.10.5",
+    "karma-ng-scenario": "~0.1.0",
+    "karma-junit-reporter": "~0.1.0",
+    "karma-ubuntu-reporter": "0.0.3"
+  }
+}

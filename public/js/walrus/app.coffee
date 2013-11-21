@@ -1,3 +1,5 @@
+'use strict'
+
 gitWalrusApp = angular.module 'gitWalrusApp', [
     'ngRoute'
 ]
