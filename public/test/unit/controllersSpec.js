@@ -15,7 +15,7 @@ describe('Controllers', function() {
         $scope: scope
       });
     }));
-    return it('should create "branches" in the scope with at least one object', function() {
+    it('should create "branches" in the scope with at least one object', function() {
       expect(scope.branches).toBeUndefined();
       expect(scope.log).toBeUndefined();
       $httpBackend.flush();
@@ -23,6 +23,10 @@ describe('Controllers', function() {
       expect(scope.branches[0].name).toBe('master');
       expect(scope.log.length).toBe(1);
       return expect(scope.log[0].message).toBe('test message');
+    });
+    return it('should attach a date', function() {
+      expect(scope.date).toBeDefined();
+      return expect(scope.date).toEqual(new Date());
     });
   });
 });

@@ -5,12 +5,13 @@ var gitWalrusApp;
 gitWalrusApp = angular.module('gitWalrusApp', ['ngRoute']);
 
 gitWalrusApp.config([
-  '$routeProvider', function($routeProvider) {
-    return $routeProvider.when('/', {
+  '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+    $routeProvider.when('/', {
       templateUrl: 'partials/homepage.html',
       controller: 'HomepageController'
     }).otherwise({
       redirectTo: '/'
     });
+    return $locationProvider.html5Mode(true);
   }
 ]);

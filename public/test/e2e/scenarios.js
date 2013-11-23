@@ -2,6 +2,7 @@
 'use strict';
 describe('HomepageController', function() {
   return it('should add 1 and 1', function() {
+    browser().navigateTo('/');
     return expect(browser().location().url()).toBe('/');
   });
 });

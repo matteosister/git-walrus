@@ -8,10 +8,10 @@
 
 module.exports = function (config) {
     config.set({
-        basePath: '../web/',
+        basePath: '../',
 
         files: [
-            'test/e2e/**/*.js'
+            'test/e2e/*.js'
         ],
 
         autoWatch: false,

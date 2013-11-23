@@ -26,3 +26,7 @@ describe 'Controllers', ->
             expect(scope.branches[0].name).toBe('master')
             expect(scope.log.length).toBe(1)
             expect(scope.log[0].message).toBe('test message')
+
+        it 'should attach a date', ->
+            expect(scope.date).toBeDefined()
+            expect(scope.date).toEqual(new Date())
