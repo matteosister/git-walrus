@@ -2,13 +2,16 @@
 'use strict';
 var gitWalrusApp;
 
-gitWalrusApp = angular.module('gitWalrusApp', ['ngRoute']);
+gitWalrusApp = angular.module('gitWalrusApp', ['ngRoute', 'gitWalrusFilters']);
 
 gitWalrusApp.config([
   '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.when('/', {
-      templateUrl: 'partials/homepage.html',
+      templateUrl: '/partials/homepage.html',
       controller: 'HomepageController'
+    }).when('/tree/:ref*', {
+      templateUrl: '/partials/tree.html',
+      controller: 'TreeController'
     }).otherwise({
       redirectTo: '/'
     });

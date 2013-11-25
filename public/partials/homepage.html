@@ -10,7 +10,7 @@
         <small>branches</small>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="branch in branches">
-                <i class="fa fa-random"></i> {{ branch.name }}
+                <i class="fa fa-random"></i> <a href="/tree/{{ branch.name }}">{{ branch.name }}</a>
             </li>
         </ul>
     </div>

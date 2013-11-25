@@ -9,7 +9,13 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $interval) ->
         $scope.log = data.items
 
     $scope.date = new Date()
-
     updateDate = ->
         $scope.date = new Date()
     $interval updateDate, 1000
+
+gitWalrusApp.controller 'TreeController', ($scope, $http, $location) ->
+    $http.get("/api#{ $location.path() }").success (data) ->
+        $scope.tree = data
+        $scope.location = $location
+
+

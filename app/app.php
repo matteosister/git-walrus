@@ -53,4 +53,5 @@ $api->get('/log/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::log')
     ->value('ref', 'master');
 $app->mount('api', $api);
 $app->get('/', 'CypressLab\GitElephantRestApi\Controller\Main::homepage')->bind('homepage');
+$app->match('{url}', 'CypressLab\GitElephantRestApi\Controller\Main::homepage')->assert('url', '.+');
 return $app;

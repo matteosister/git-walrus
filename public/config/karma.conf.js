@@ -41,7 +41,7 @@ module.exports = function (config) {
             'karma-jasmine'
         ],
 
-        reporters: ['ubuntu'],
+        reporters: ['ubuntu', 'progress'],
 
         junitReporter: {
             outputFile: 'test_out/unit.xml',

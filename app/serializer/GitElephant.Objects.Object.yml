@@ -6,5 +6,7 @@ GitElephant\Objects\Object:
             expose: true
         name:
             expose: true
+        type:
+            expose: true
         link:
             expose: true

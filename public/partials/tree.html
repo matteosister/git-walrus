@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-md-12">
+        <a href="/">&larr; Homepage</a>
+     </div>
+</div>
+<table class="table table-bordered table-strped">
+    <tr class="col-md-12" ng-if="!tree.root">
+        <td><a href="{{ location.path()|strip_last_tree_portion }}">indietro!</a></td>
+    </tr>
+    <tr class="col-md-12" ng-repeat="children in tree.children">
+        <td><a href="{{ location.path() }}/{{ children.name }}">{{ children.name }}</a></td>
+    </tr>
+</table>

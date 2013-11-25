@@ -30,3 +30,31 @@ describe 'Controllers', ->
         it 'should attach a date', ->
             expect(scope.date).toBeDefined()
             expect(scope.date).toEqual(new Date())
+
+    describe 'TreeController', ->
+        scope = null
+        ctrl = null
+        $httpBackend = null
+
+        beforeEach inject((_$httpBackend_, $rootScope, $controller) ->
+            $httpBackend = _$httpBackend_;
+            $httpBackend.expectGET('/api/tree/master')
+                .respond("""
+                    {
+                        "ref":"master",
+                        "children":[
+                            {"type":"tree","sha":"123","name":"test_tree"},
+                            {"type":"blob","sha":"456","name":"test_blob"}
+                        ]
+                    }
+                """)
+            scope = $rootScope.$new();
+            ctrl = $controller('TreeController', {$scope: scope, $location: { path: () -> '/tree/master' }});
+        )
+
+        it 'should attach a tree to the scope', ->
+            expect(scope.tree).toBeUndefined()
+            expect(scope.location).toBeUndefined()
+            $httpBackend.flush();
+            expect(scope.tree).toBeDefined()
+            expect(scope.location).toBeDefined()
