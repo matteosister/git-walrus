@@ -17,12 +17,12 @@ describe('Controllers', function() {
     }));
     it('should create "branches" in the scope with at least one object', function() {
       expect(scope.branches).toBeUndefined();
-      expect(scope.log).toBeUndefined();
+      expect(scope.logs).toBeUndefined();
       $httpBackend.flush();
       expect(scope.branches.length).toBe(1);
       expect(scope.branches[0].name).toBe('master');
-      expect(scope.log.length).toBe(1);
-      return expect(scope.log[0].message).toBe('test message');
+      expect(scope.logs.length).toBe(1);
+      return expect(scope.logs[0].message).toBe('test message');
     });
     return it('should attach a date', function() {
       expect(scope.date).toBeDefined();
@@ -49,10 +49,10 @@ describe('Controllers', function() {
     }));
     return it('should attach a tree to the scope', function() {
       expect(scope.tree).toBeUndefined();
-      expect(scope.location).toBeUndefined();
+      expect(scope.path).toBeUndefined();
       $httpBackend.flush();
       expect(scope.tree).toBeDefined();
-      return expect(scope.location).toBeDefined();
+      return expect(scope.path).toBeDefined();
     });
   });
 });

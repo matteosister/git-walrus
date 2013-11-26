@@ -3,11 +3,20 @@
         <a href="/">&larr; Homepage</a>
      </div>
 </div>
-<table class="table table-bordered table-strped">
+<table class="table table-bordered table-striped">
     <tr class="col-md-12" ng-if="!tree.root">
-        <td><a href="{{ location.path()|strip_last_tree_portion }}">indietro!</a></td>
+        <td>
+            <span class="glyphicon glyphicon-arrow-left"></span>
+            <a href="{{ path|strip_last_tree_portion }}">&hellip;</a>
+        </td>
     </tr>
     <tr class="col-md-12" ng-repeat="children in tree.children">
-        <td><a href="{{ location.path() }}/{{ children.name }}">{{ children.name }}</a></td>
+        <td ng-if="children.type == 'tree'">
+            <span class="fa fa-folder-open fa-1g"></span>
+            <a href="{{ path }}/{{ children.name }}">{{ children.name }}</a>
+        </td>
+        <td ng-if="children.type == 'blob'">
+            <span class="fa fa-file-o fa-1g"></span> {{ children.name }}
+        </td>
     </tr>
 </table>

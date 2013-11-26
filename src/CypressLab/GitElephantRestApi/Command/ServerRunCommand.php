@@ -89,6 +89,9 @@ EOF
 
         $builder = new ProcessBuilder(array(PHP_BINARY, '-S', $input->getArgument('address')));
         $builder->setWorkingDirectory($input->getOption('docroot'));
+        if ($input->hasOption('router')) {
+            $builder->add($input->getOption('router'));
+        }
         $builder->setTimeout(null);
         $builder->getProcess()->run(function ($type, $buffer) use ($output) {
             if (OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity()) {

@@ -18,14 +18,14 @@ describe 'Controllers', ->
 
         it 'should create "branches" in the scope with at least one object', ->
             expect(scope.branches).toBeUndefined()
-            expect(scope.log).toBeUndefined()
+            expect(scope.logs).toBeUndefined()
 
             $httpBackend.flush();
 
             expect(scope.branches.length).toBe(1)
             expect(scope.branches[0].name).toBe('master')
-            expect(scope.log.length).toBe(1)
-            expect(scope.log[0].message).toBe('test message')
+            expect(scope.logs.length).toBe(1)
+            expect(scope.logs[0].message).toBe('test message')
 
         it 'should attach a date', ->
             expect(scope.date).toBeDefined()
@@ -54,7 +54,7 @@ describe 'Controllers', ->
 
         it 'should attach a tree to the scope', ->
             expect(scope.tree).toBeUndefined()
-            expect(scope.location).toBeUndefined()
+            expect(scope.path).toBeUndefined()
             $httpBackend.flush();
             expect(scope.tree).toBeDefined()
-            expect(scope.location).toBeDefined()
+            expect(scope.path).toBeDefined()

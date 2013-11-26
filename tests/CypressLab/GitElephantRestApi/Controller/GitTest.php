@@ -116,6 +116,7 @@ class GitTest extends WebTestCase
     public function testTreeObject()
     {
         $this->addFile('test');
+        $this->addFile('.test');
         $this->commit();
         $client = $this->createClient();
         $client->request('get', '/api/tree/master/test');
@@ -126,5 +127,8 @@ class GitTest extends WebTestCase
         $this->assertEmpty($result['path_children']);
         $this->assertEquals(false, $result['root']);
         $this->assertEquals('test content', $result['binary_data']);
+
+        $client->request('get', '/api/tree/master/.test');
+        $this->isJsonResponse($client);
     }
 }

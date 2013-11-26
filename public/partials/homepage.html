@@ -1,13 +1,7 @@
 <div class="row">
-    <div class="col-md-2 col-md-offset-10">
-        <small>{{ date | date: 'mediumTime' }}</small>
-    </div>
-</div>
-
-<div class="row">
 
     <div class="col-md-4">
-        <small>branches</small>
+        <h3>branches</h3>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="branch in branches">
                 <i class="fa fa-random"></i> <a href="/tree/{{ branch.name }}">{{ branch.name }}</a>
@@ -16,6 +10,7 @@
     </div>
 
     <div class="col-md-4">
+        <h3>log</h3>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="log in logs">
                 <i class="fa fa-random"></i> {{ log.message }}

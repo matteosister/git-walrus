@@ -6,7 +6,7 @@ gitWalrusApp.controller('HomepageController', function($scope, $http, $interval)
     return $scope.branches = data.items;
   });
   $http.get('/api/log/master').success(function(data) {
-    return $scope.log = data.items;
+    return $scope.logs = data.items;
   });
   $scope.date = new Date();
   updateDate = function() {
@@ -18,6 +18,6 @@ gitWalrusApp.controller('HomepageController', function($scope, $http, $interval)
 gitWalrusApp.controller('TreeController', function($scope, $http, $location) {
   return $http.get("/api" + ($location.path())).success(function(data) {
     $scope.tree = data;
-    return $scope.location = $location;
+    return $scope.path = $location.path();
   });
 });

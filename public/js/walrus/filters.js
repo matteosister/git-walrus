@@ -2,7 +2,13 @@
 angular.module('gitWalrusFilters', []).filter('strip_last_tree_portion', function() {
   return function(input) {
     var lastOccurrence;
+    if (input == null) {
+      return input;
+    }
     lastOccurrence = input.lastIndexOf('/');
+    if (lastOccurrence === -1) {
+      return input;
+    }
     return input.substr(0, lastOccurrence);
   };
 });

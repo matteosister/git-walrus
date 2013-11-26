@@ -45,7 +45,7 @@ $api->get('/tree/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::tree')
     ->value('ref', 'master');
 $api->get('/tree/{ref}/{path}', 'CypressLab\GitElephantRestApi\Controller\Git::treeObject')
     ->bind('tree_object')
-    ->assert('path', '.+');
+    ->assert('path', '\S+');
 $api->get('/branches', 'CypressLab\GitElephantRestApi\Controller\Git::branches')->bind('branches');
 $api->get('/branch/{name}', 'CypressLab\GitElephantRestApi\Controller\Git::branch')->bind('branch');
 $api->get('/log/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::log')
