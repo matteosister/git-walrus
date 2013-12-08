@@ -31,6 +31,7 @@ describe 'Controllers', ->
             expect(scope.date).toBeDefined()
             expect(scope.date).toEqual(new Date())
 
+
     describe 'TreeController', ->
         scope = null
         ctrl = null
@@ -54,7 +55,10 @@ describe 'Controllers', ->
 
         it 'should attach a tree to the scope', ->
             expect(scope.tree).toBeUndefined()
-            expect(scope.path).toBeUndefined()
             $httpBackend.flush();
             expect(scope.tree).toBeDefined()
+
+        it 'should attach a path to the scope', ->
+            expect(scope.path).toBeUndefined()
+            $httpBackend.flush();
             expect(scope.path).toBeDefined()

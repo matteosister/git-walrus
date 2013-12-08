@@ -47,11 +47,14 @@ describe('Controllers', function() {
         }
       });
     }));
-    return it('should attach a tree to the scope', function() {
+    it('should attach a tree to the scope', function() {
       expect(scope.tree).toBeUndefined();
+      $httpBackend.flush();
+      return expect(scope.tree).toBeDefined();
+    });
+    return it('should attach a path to the scope', function() {
       expect(scope.path).toBeUndefined();
       $httpBackend.flush();
-      expect(scope.tree).toBeDefined();
       return expect(scope.path).toBeDefined();
     });
   });

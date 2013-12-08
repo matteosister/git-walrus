@@ -2,7 +2,8 @@
 
 gitWalrusApp = angular.module 'gitWalrusApp', [
     'ngRoute',
-    'gitWalrusFilters'
+    'gitWalrusFilters',
+    'angular-md5'
 ]
 
 gitWalrusApp.config ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
