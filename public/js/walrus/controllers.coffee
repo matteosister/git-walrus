@@ -13,7 +13,7 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $interval) ->
         $scope.date = new Date()
     $interval updateDate, 1000
 
-gitWalrusApp.controller 'TreeController', ($scope, $http, $location) ->
+gitWalrusApp.controller 'TreeController', ($scope, $http, $location, syntaxHighlighter) ->
     $http.get("/api#{ $location.path() }").success (data) ->
         $scope.tree = data
         $scope.path = $location.path()

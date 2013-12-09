@@ -15,7 +15,7 @@ gitWalrusApp.controller('HomepageController', function($scope, $http, $interval)
   return $interval(updateDate, 1000);
 });
 
-gitWalrusApp.controller('TreeController', function($scope, $http, $location) {
+gitWalrusApp.controller('TreeController', function($scope, $http, $location, syntaxHighlighter) {
   return $http.get("/api" + ($location.path())).success(function(data) {
     $scope.tree = data;
     return $scope.path = $location.path();

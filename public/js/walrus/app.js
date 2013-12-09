@@ -2,7 +2,7 @@
 'use strict';
 var gitWalrusApp;
 
-gitWalrusApp = angular.module('gitWalrusApp', ['ngRoute', 'gitWalrusFilters', 'angular-md5']);
+gitWalrusApp = angular.module('gitWalrusApp', ['ngRoute', 'gitWalrusFilters']);
 
 gitWalrusApp.config([
   '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
