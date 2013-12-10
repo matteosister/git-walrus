@@ -46,6 +46,8 @@ module.exports = function (config) {
         junitReporter: {
             outputFile: 'test_out/unit.xml',
             suite: 'unit'
-        }
+        },
+
+        logLevel: config.LOG_INFO
     });
 };
