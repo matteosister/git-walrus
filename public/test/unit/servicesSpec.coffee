@@ -1,4 +1,4 @@
-describe 'service', ->
+describe 'Services: ', ->
     beforeEach(module('gitWalrusApp'))
 
     describe 'md5', ->
@@ -6,7 +6,6 @@ describe 'service', ->
 
         beforeEach ->
             inject ($injector) ->
-                console.log $injector
                 md5 = $injector.get('md5')
 
         it 'should respond to generate', ->
@@ -16,21 +15,22 @@ describe 'service', ->
             expect(md5.generate('Hello world')).toEqual('3e25960a79dbc69b674cd4ec67a72c62')
 
     describe 'gravatar', ->
-        gravatar = md5Mock = null
+        gravatar = null
+
         beforeEach ->
-            md5Mock = { generate: '' }
-            module ($provide) ->
-                $provide.service 'md5', md5Mock
             inject ($injector) ->
-                console.log $injector
                 gravatar = $injector.get('gravatar')
 
-        it 'should be true', ->
+        it 'should work', ->
             expect(true).toBeTruthy()
 
-#        it 'should respond to generate', ->
-#            expect(typeof gravatar.generate).toBe 'function'
-#            #expect(mockMd5.generate).not.toHaveBeenCalled();
+        it 'should respond to generate', ->
+            expect(typeof gravatar.generate).toBe 'function'
 
-#        it 'should create an gravatar url for an email address', ->
-#            expect(gravatar.generate('test@mail.com')).toEqual('')
+        it 'should create an gravatar url for an email address', ->
+            expect(gravatar.generate 'test@mail.com')
+                .toEqual('http://www.gravatar.com/avatar/97dfebf4098c0f5c16bca61e2b76c373?s=50')
+
+        it 'should create an gravatar url for an email address and a size', ->
+            expect(gravatar.generate 'test@mail.com', 100)
+                .toEqual('http://www.gravatar.com/avatar/97dfebf4098c0f5c16bca61e2b76c373?s=100')

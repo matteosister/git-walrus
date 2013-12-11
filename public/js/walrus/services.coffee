@@ -5,9 +5,9 @@ gitWalrusApp.factory 'syntaxHighlighter', ->
             SyntaxHighlighter.all()
 
 gitWalrusApp.factory 'gravatar', ['md5', (md5) ->
-    generate: (email) ->
+    generate: (email, size = 50) ->
         emailHash = md5.generate email
-        "http://www.gravatar.com/avatar/#{ emailHash }"
+        "http://www.gravatar.com/avatar/#{ emailHash }?s=#{ size }"
 ]
 
 gitWalrusApp.factory 'md5', ->

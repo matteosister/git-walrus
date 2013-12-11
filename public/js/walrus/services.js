@@ -11,10 +11,13 @@ gitWalrusApp.factory('syntaxHighlighter', function() {
 gitWalrusApp.factory('gravatar', [
   'md5', function(md5) {
     return {
-      generate: function(email) {
+      generate: function(email, size) {
         var emailHash;
+        if (size == null) {
+          size = 50;
+        }
         emailHash = md5.generate(email);
-        return "http://www.gravatar.com/avatar/" + emailHash;
+        return "http://www.gravatar.com/avatar/" + emailHash + "?s=" + size;
       }
     };
   }

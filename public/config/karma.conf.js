@@ -11,6 +11,7 @@ module.exports = function (config) {
         basePath: '../',
 
         files: [
+            'bower/underscore/underscore.js',
             'bower/angular/angular.js',
             'bower/angular-*/angular-*.js',
             'js/**/*.js',
@@ -48,6 +49,6 @@ module.exports = function (config) {
             suite: 'unit'
         },
 
-        logLevel: config.LOG_INFO
+        logLevel: config.LOG_ERROR
     });
 };

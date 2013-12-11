@@ -11,4 +11,20 @@ angular.module('gitWalrusFilters', []).filter('strip_last_tree_portion', functio
     }
     return input.substr(0, lastOccurrence);
   };
+}).filter('gravatar', function(gravatar) {
+  return function(email, size) {
+    if (size == null) {
+      size = 50;
+    }
+    return gravatar.generate(email, size);
+  };
+}).filter('title', function() {
+  return function(value) {
+    var arr;
+    arr = value.split(' ');
+    arr = _.map(arr, function(v) {
+      return v.charAt(0).toUpperCase() + v.slice(1).toLowerCase();
+    });
+    return arr.join(' ');
+  };
 });

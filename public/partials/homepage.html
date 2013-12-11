@@ -13,7 +13,7 @@
         <h3>log</h3>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="log in logs">
-                <i class="fa fa-random"></i> {{ log.message }}
+                <img src="{{ log.author.email | gravatar:30 }}" /> {{ log.message | title }}
             </li>
         </ul>
     </div>
