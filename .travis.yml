@@ -11,6 +11,8 @@ branches:
 before_script:
   - curl -s https://getcomposer.org/installer | php
   - php composer.phar install
+  - git config --global user.email "test@travis-ci.org"
+  - git config --global user.name "Travis"
   - npm install
   - ./node_modules/.bin/bower install
 
