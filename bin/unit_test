@@ -1,1 +1,1 @@
-./node_modules/.bin/karma start public/config/karma.conf.js
+./node_modules/.bin/karma start public/config/karma.conf.js $1
