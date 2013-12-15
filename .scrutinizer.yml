@@ -1,6 +1,6 @@
 before_commands:
-  - git config --global user.email "GitElephantRestApi@scrutinizer-ci.com"
-  - git config --global user.name "GitElephantRestApi"
+  - git config --global user.email "git-walrus@scrutinizer-ci.com"
+  - git config --global user.name "git-walrus"
   - composer install
 filter:
     excluded_paths:

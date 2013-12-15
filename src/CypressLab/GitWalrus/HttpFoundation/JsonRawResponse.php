@@ -7,7 +7,7 @@
  */
 
 
-namespace CypressLab\GitElephantRestApi\HttpFoundation;
+namespace CypressLab\GitWalrus\HttpFoundation;
 
 
 use Symfony\Component\HttpFoundation\JsonResponse;

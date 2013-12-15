@@ -6,7 +6,7 @@
  * Just for fun...
  */
 
-namespace CypressLab\GitElephantRestApi\Controller;
+namespace CypressLab\GitWalrus\Controller;
 
 use CypressLab\WebTestCase;
 

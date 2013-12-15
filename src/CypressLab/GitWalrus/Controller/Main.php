@@ -6,10 +6,10 @@
  * Just for fun...
  */
 
-namespace CypressLab\GitElephantRestApi\Controller;
+namespace CypressLab\GitWalrus\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use CypressLab\GitElephantRestApi\Application;
+use CypressLab\GitWalrus\Application;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -30,7 +30,7 @@ class Main
     }
 
     /**
-     * @param \CypressLab\GitElephantRestApi\Application $app
+     * @param \CypressLab\GitWalrus\Application $app
      *
      * @return string
      */

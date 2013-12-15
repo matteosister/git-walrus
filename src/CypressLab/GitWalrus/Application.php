@@ -6,10 +6,9 @@
  * Just for fun...
  */
 
-namespace CypressLab\GitElephantRestApi;
+namespace CypressLab\GitWalrus;
 
-use CypressLab\GitElephantRestApi\Controller\Traits\ControllerTrait;
-use CypressLab\GitElephantRestApi\HttpFoundation\JsonRawResponse;
+use CypressLab\GitWalrus\HttpFoundation\JsonRawResponse;
 use GitElephant\Repository;
 use Silex\Application as SilexApplication;
 

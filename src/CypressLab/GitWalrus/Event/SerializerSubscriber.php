@@ -6,9 +6,9 @@
  * Just for fun...
  */
 
-namespace CypressLab\GitElephantRestApi\Event;
+namespace CypressLab\GitWalrus\Event;
 
-use CypressLab\GitElephantRestApi\Application;
+use CypressLab\GitWalrus\Application;
 use GitElephant\Objects\Branch;
 use GitElephant\Objects\Object;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
@@ -17,7 +17,7 @@ use JMS\Serializer\EventDispatcher\ObjectEvent;
 class SerializerSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var \CypressLab\GitElephantRestApi\Application
+     * @var \CypressLab\GitWalrus\Application
      */
     private $app;
 

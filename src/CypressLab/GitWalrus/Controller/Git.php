@@ -6,9 +6,9 @@
  * Just for fun...
  */
 
-namespace CypressLab\GitElephantRestApi\Controller;
+namespace CypressLab\GitWalrus\Controller;
 
-use CypressLab\GitElephantRestApi\Application;
+use CypressLab\GitWalrus\Application;
 use GitElephant\Objects\Tree;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,7 @@ class Git
      * @param Application $app
      * @param string      $ref
      *
-     * @return \CypressLab\GitElephantRestApi\HttpFoundation\JsonRawResponse
+     * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      */
     public function log(Application $app, $ref)
     {
@@ -38,7 +38,7 @@ class Git
     /**
      * @param Application $app
      *
-     * @return \CypressLab\GitElephantRestApi\HttpFoundation\JsonRawResponse
+     * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      */
     public function branches(Application $app)
     {
@@ -51,7 +51,7 @@ class Git
      * @param Application $app
      * @param string      $name
      *
-     * @return \CypressLab\GitElephantRestApi\HttpFoundation\JsonRawResponse
+     * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      */
     public function branch(Application $app, $name)
     {
@@ -63,7 +63,7 @@ class Git
      * @param Application $app
      * @param string      $ref
      *
-     * @return \CypressLab\GitElephantRestApi\HttpFoundation\JsonRawResponse
+     * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      */
     public function tree(Application $app, $ref)
     {
@@ -76,7 +76,7 @@ class Git
      * @param string      $ref
      * @param             $path
      *
-     * @return \CypressLab\GitElephantRestApi\HttpFoundation\JsonRawResponse
+     * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      */
     public function treeObject(Application $app, $ref, $path)
     {

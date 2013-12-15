@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.cypresslab.net:matteosister/gitelephantrestapi.git"
+    "url": "https://github.com/matteosister/git-walrus.git"
   },
   "author": "",
   "license": "LGPL-3.0+",

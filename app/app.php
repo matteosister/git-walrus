@@ -10,7 +10,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $debug = defined('DEBUG') ? constant('DEBUG') : false;
 
-$app = new \CypressLab\GitElephantRestApi\Application();
+$app = new \CypressLab\GitWalrus\Application();
 $app['debug'] = $debug;
 
 // git elephant
@@ -20,7 +20,7 @@ $app['serializer'] = \JMS\Serializer\SerializerBuilder::create()
     ->setDebug($debug)
     ->addMetadataDir(__DIR__.'/serializer')
     ->configureListeners(function (\JMS\Serializer\EventDispatcher\EventDispatcher $dispatcher) use ($app) {
-        $dispatcher->addSubscriber(new \CypressLab\GitElephantRestApi\Event\SerializerSubscriber($app));
+        $dispatcher->addSubscriber(new \CypressLab\GitWalrus\Event\SerializerSubscriber($app));
     })
     ->build();
 
@@ -39,19 +39,19 @@ $app['twig']->setLexer($lexer);
 // routes
 /** @var \Silex\ControllerCollection $api */
 $api = $app['controllers_factory'];
-$api->get('/', 'CypressLab\GitElephantRestApi\Controller\Main::api')->bind('api');
-$api->get('/tree/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::tree')
+$api->get('/', 'CypressLab\GitWalrus\Controller\Main::api')->bind('api');
+$api->get('/tree/{ref}', 'CypressLab\GitWalrus\Controller\Git::tree')
     ->bind('tree')
     ->value('ref', 'master');
-$api->get('/tree/{ref}/{path}', 'CypressLab\GitElephantRestApi\Controller\Git::treeObject')
+$api->get('/tree/{ref}/{path}', 'CypressLab\GitWalrus\Controller\Git::treeObject')
     ->bind('tree_object')
     ->assert('path', '\S+');
-$api->get('/branches', 'CypressLab\GitElephantRestApi\Controller\Git::branches')->bind('branches');
-$api->get('/branch/{name}', 'CypressLab\GitElephantRestApi\Controller\Git::branch')->bind('branch');
-$api->get('/log/{ref}', 'CypressLab\GitElephantRestApi\Controller\Git::log')
+$api->get('/branches', 'CypressLab\GitWalrus\Controller\Git::branches')->bind('branches');
+$api->get('/branch/{name}', 'CypressLab\GitWalrus\Controller\Git::branch')->bind('branch');
+$api->get('/log/{ref}', 'CypressLab\GitWalrus\Controller\Git::log')
     ->bind('log')
     ->value('ref', 'master');
 $app->mount('api', $api);
-$app->get('/', 'CypressLab\GitElephantRestApi\Controller\Main::homepage')->bind('homepage');
-$app->match('{url}', 'CypressLab\GitElephantRestApi\Controller\Main::homepage')->assert('url', '.+');
+$app->get('/', 'CypressLab\GitWalrus\Controller\Main::homepage')->bind('homepage');
+$app->match('{url}', 'CypressLab\GitWalrus\Controller\Main::homepage')->assert('url', '.+');
 return $app;

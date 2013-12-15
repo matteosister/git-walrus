@@ -6,7 +6,7 @@
  * Just for fun...
  */
 
-namespace CypressLab\GitElephantRestApi;
+namespace CypressLab\GitWalrus;
 
 use CypressLab\WebTestCase;
 
@@ -15,6 +15,6 @@ class ApplicationTest extends WebTestCase
     public function testRawJson()
     {
         $app = $this->createApplication();
-        $this->assertInstanceOf('CypressLab\GitElephantRestApi\HttpFoundation\JsonRawResponse', $app->rawJson('[]'));
+        $this->assertInstanceOf('CypressLab\GitWalrus\HttpFoundation\JsonRawResponse', $app->rawJson('[]'));
     }
 }

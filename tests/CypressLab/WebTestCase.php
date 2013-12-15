@@ -9,7 +9,7 @@
 
 namespace CypressLab;
 
-use CypressLab\GitElephantRestApi\Application;
+use CypressLab\GitWalrus\Application;
 use GitElephant\Command\Caller\Caller;
 use GitElephant\GitBinary;
 use GitElephant\Repository;

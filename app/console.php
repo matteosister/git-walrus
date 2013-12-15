@@ -9,7 +9,7 @@
 require_once __DIR__.'/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use CypressLab\GitElephantRestApi\Command\ServerRunCommand;
+use CypressLab\GitWalrus\Command\ServerRunCommand;
 
 $app = new Application();
 $app->add(new ServerRunCommand());

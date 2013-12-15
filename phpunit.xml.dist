@@ -4,7 +4,7 @@
         colors="false"
         stopOnFailure="false">
     <testsuites>
-        <testsuite name="GitElephantRestApi Test Suite">
+        <testsuite name="GitWalrus Test Suite">
             <directory>tests/CypressLab/</directory>
         </testsuite>
     </testsuites>

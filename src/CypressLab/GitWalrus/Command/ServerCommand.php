@@ -7,7 +7,7 @@
  */
 
 
-namespace CypressLab\GitElephantRestApi\Command;
+namespace CypressLab\GitWalrus\Command;
 
 
 use Symfony\Component\Console\Command\Command;
