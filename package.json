@@ -15,6 +15,7 @@
   "author": "",
   "license": "LGPL-3.0+",
   "devDependencies": {
+    "grunt": "~0.4.2",
     "karma-firefox-launcher": "~0.1.0",
     "karma-chrome-launcher": "~0.1.0",
     "karma-script-launcher": "~0.1.0",
@@ -28,6 +29,10 @@
     "karma-ng-scenario": "~0.1.0",
     "karma-junit-reporter": "~0.1.0",
     "karma-ubuntu-reporter": "0.0.3",
-    "bower": "~1.2.8"
+    "bower": "~1.2.8",
+    "grunt-protractor-runner": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-coffee": "~0.7.0"
   }
 }

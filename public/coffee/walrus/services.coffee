@@ -1,4 +1,3 @@
-
 gitWalrusApp.factory 'syntaxHighlighter', ->
     service =
         highlight: ->
