@@ -2,7 +2,7 @@
   "use strict";
   var gitWalrusApp;
 
-  gitWalrusApp = angular.module('gitWalrusApp', ['ngRoute', 'gitWalrusFilters', 'angular-underscore']);
+  gitWalrusApp = angular.module('gitWalrusApp', ['ngRoute', 'gitWalrusFilters', 'angular-underscore', 'hljs']);
 
   gitWalrusApp.config([
     '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
@@ -36,11 +36,14 @@
     return $interval(updateDate, 1000);
   });
 
-  gitWalrusApp.controller('TreeController', function($scope, $http, $location, syntaxHighlighter) {
-    return $http.get("/api" + ($location.path())).success(function(data) {
+  gitWalrusApp.controller('TreeController', function($scope, $http, $location) {
+    $http.get("/api" + ($location.path())).success(function(data) {
       $scope.tree = data;
       return $scope.path = $location.path();
     });
+    return $scope.go = function(path) {
+      return $location.path(path);
+    };
   });
 
   angular.module('gitWalrusFilters', []).filter('strip_last_tree_portion', function() {
@@ -70,15 +73,6 @@
         return v.charAt(0).toUpperCase() + v.slice(1).toLowerCase();
       });
       return arr.join(' ');
-    };
-  });
-
-  gitWalrusApp.factory('syntaxHighlighter', function() {
-    var service;
-    return service = {
-      highlight: function() {
-        return SyntaxHighlighter.all();
-      }
     };
   });
 

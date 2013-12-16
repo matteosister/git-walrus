@@ -7,28 +7,32 @@
         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
         <link rel="stylesheet" type="text/css" href="/libs/syntaxhighlighter/styles/shCore.css" />
         <link rel="stylesheet" type="text/css" href="/libs/syntaxhighlighter/styles/shThemeDefault.css" />
-        <script src="/libs/syntaxhighlighter/scripts/shCore.js"></script>
-        <script src="/libs/syntaxhighlighter/scripts/shAutoloader.js"></script>
-        <script src="/libs/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+        <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/github.min.css">
+        <link href="/compass/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+        <link href="/compass/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
+        <!--[if IE]>
+            <link href="/compass/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+        <![endif]-->
+        <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
         <script src="/bower/underscore/underscore.js"></script>
         <script src="/bower/angular/angular.js"></script>
         <script src="/bower/angular-resource/angular-resource.js"></script>
         <script src="/bower/angular-route/angular-route.js"></script>
         <script src="/bower/angular-underscore/angular-underscore.js"></script>
+        <script src="/bower/angular-highlightjs/angular-highlightjs.js"></script>
         <script src="/js/git-walrus.js"></script>
     </head>
     <body ng-controller="HomepageController">
         <div class="container">
-            <h1>Git Walrus</h1>
             <div class="row">
-                <div class="col-md-2 col-md-offset-10 text-right clock">
-                    <small>{{ date | date: 'mediumTime' }}</small>
+                <div class="col-md-12">
+                    <div class="pull-right label label-default clock">
+                        {{ date | date: 'mediumTime' }}
+                    </div>
                 </div>
             </div>
+            <h1>Git Walrus</h1>
             <div ng-view></div>
         </div>
-    <script type="text/javascript">
-        SyntaxHighlighter.all()
-    </script>
     </body>
 </html>

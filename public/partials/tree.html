@@ -1,25 +1,22 @@
-<div class="row">
-    <div class="col-md-12">
-        <a href="/">&larr; Homepage</a>
-     </div>
-</div>
+<hr />
 <table class="table table-bordered table-striped">
-    <tr class="col-md-12" data-ng-if="!tree.root">
-        <td>
-            <span class="glyphicon glyphicon-arrow-left"></span>
-            <a href="{{ path|strip_last_tree_portion }}">&hellip;</a>
+    <tr class="col-md-12">
+        <td data-ng-if="!tree.root" width="50%">
+            <a href="{{ path|strip_last_tree_portion }}"><span class="fa fa-arrow-up fa-1g"></span></a>
+        </td>
+        <td width="50%">
+            <button ng-click="go('/')" type="button" class="btn btn-default btn-xs pull-right"><span class="fa fa-arrow-left fa-1g"></span> Homepage</button>
         </td>
     </tr>
     <tr class="col-md-12" data-ng-repeat="children in tree.children">
-        <td>
+        <td colspan="2">
             <span class="fa fa-folder-open fa-1g"></span>
             <a href="{{ path }}/{{ children.name }}">{{ children.name }}</a>
         </td>
     </tr>
     <tr class="col-md-12" data-ng-if="tree.subject.type == 'blob'">
-        <td>
-            <pre class="brush: js">{{ tree.binary_data }}</pre>
+        <td class="code" colspan="2">
+            <div hljs source="tree.binary_data"></div>
         </td>
     </tr>
 </table>
-

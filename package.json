@@ -33,6 +33,9 @@
     "grunt-protractor-runner": "~0.2.0",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-jshint": "~0.7.2",
-    "grunt-contrib-coffee": "~0.7.0"
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-compass": "~0.7.0",
+    "grunt-notify": "~0.2.16",
+    "grunt-karma": "~0.6.2"
   }
 }

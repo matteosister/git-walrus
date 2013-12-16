@@ -3,7 +3,8 @@
 gitWalrusApp = angular.module 'gitWalrusApp', [
     'ngRoute',
     'gitWalrusFilters',
-    'angular-underscore'
+    'angular-underscore',
+    'hljs'
 ]
 
 gitWalrusApp.config ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->

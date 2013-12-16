@@ -3,7 +3,8 @@
 gitWalrusApp = angular.module 'gitWalrusApp', [
     'ngRoute',
     'gitWalrusFilters',
-    'angular-underscore'
+    'angular-underscore',
+    'hljs'
 ]
 
 gitWalrusApp.config ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
@@ -34,10 +35,13 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $interval) ->
         $scope.date = new Date()
     $interval updateDate, 1000
 
-gitWalrusApp.controller 'TreeController', ($scope, $http, $location, syntaxHighlighter) ->
+gitWalrusApp.controller 'TreeController', ($scope, $http, $location) ->
     $http.get("/api#{ $location.path() }").success (data) ->
         $scope.tree = data
         $scope.path = $location.path()
+
+    $scope.go = (path) ->
+        $location.path path
 
 
 
@@ -59,11 +63,6 @@ angular.module('gitWalrusFilters', [])
             arr = _.map arr, (v) ->
                 v.charAt(0).toUpperCase() + v.slice(1).toLowerCase();
             arr.join ' '
-gitWalrusApp.factory 'syntaxHighlighter', ->
-    service =
-        highlight: ->
-            SyntaxHighlighter.all()
-
 gitWalrusApp.factory 'gravatar', ['md5', (md5) ->
     generate: (email, size = 50) ->
         emailHash = md5.generate email

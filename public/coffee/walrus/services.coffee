@@ -1,8 +1,3 @@
-gitWalrusApp.factory 'syntaxHighlighter', ->
-    service =
-        highlight: ->
-            SyntaxHighlighter.all()
-
 gitWalrusApp.factory 'gravatar', ['md5', (md5) ->
     generate: (email, size = 50) ->
         emailHash = md5.generate email

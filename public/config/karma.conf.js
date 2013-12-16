@@ -14,8 +14,8 @@ module.exports = function (config) {
             'bower/underscore/underscore.js',
             'bower/angular/angular.js',
             'bower/angular-*/angular-*.js',
-            'js/**/*.js',
-            'test/unit/**/*.js'
+            'js/git-walrus.js',
+            'js/test/unit.js'
         ],
 
         exclude: [
