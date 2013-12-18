@@ -18,7 +18,7 @@ before_script:
 
 script:
   - bin/phpunit --coverage-clover "clover"
-  - bin/unit_test --single-run
+  - grunt karma
 
 after_success:
   - curl -sL https://bit.ly/artifact-uploader | php
