@@ -24,12 +24,13 @@ class Git
     /**
      * @param Application $app
      * @param string      $ref
+     * @param int         $num
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      */
-    public function log(Application $app, $ref)
+    public function log(Application $app, $ref, $num = 5)
     {
-        $log = $app->getRepository()->getLog($ref);
+        $log = $app->getRepository()->getLog($ref, null, $num);
         $commits = iterator_to_array($log);
         $results['items'] = $commits;
         return $app->rawJson($app->serialize($results, 'json'));
