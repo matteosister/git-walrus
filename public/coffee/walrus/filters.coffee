@@ -7,7 +7,7 @@ angular.module('gitWalrusFilters', [])
             return input.substr(0, lastOccurrence)
 
     .filter 'gravatar', (gravatar) ->
-        (email, size = 50) ->
+        (email, size = 80) ->
             return gravatar.generate email, size
 
     .filter 'title', ->

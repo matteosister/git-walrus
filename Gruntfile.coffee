@@ -17,7 +17,7 @@ module.exports = (grunt) ->
         watch:
             coffee:
                 files: ['Gruntfile.coffee', 'public/coffee/**/*.coffee']
-                tasks: ['coffee', 'protractor', 'karma']
+                tasks: ['coffee', 'karma']
             css:
                 files: ['public/compass/sass/*.scss']
                 tasks: ['compass']

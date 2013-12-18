@@ -29,7 +29,7 @@ describe 'Services: ', ->
 
         it 'should create an gravatar url for an email address', ->
             expect(gravatar.generate 'test@mail.com')
-                .toEqual('http://www.gravatar.com/avatar/97dfebf4098c0f5c16bca61e2b76c373?s=50')
+                .toEqual('http://www.gravatar.com/avatar/97dfebf4098c0f5c16bca61e2b76c373?s=80')
 
         it 'should create an gravatar url for an email address and a size', ->
             expect(gravatar.generate 'test@mail.com', 100)

@@ -1,7 +1,12 @@
 <hr />
 <div class="row">
     <div class="col-md-4 branches">
-        <h3>branches</h3>
+        <h3>
+            branch
+            <select>
+                <option value="{{ branch.name }}" ng-repeat="branch in branches">{{ branch.name }}</option>
+            </select>
+        </h3>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="branch in branches">
                 <i class="fa fa-random"></i> <a href="/tree/{{ branch.name }}">{{ branch.name }}</a>
@@ -10,10 +15,15 @@
     </div>
 
     <div class="col-md-4 log">
-        <h3>log</h3>
+        <h3>Log</h3>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="log in logs">
-                <img src="{{ log.author.email | gravatar:30 }}" /> {{ log.message | title }}
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="{{ log.author.email | gravatar:50 }}" class="img-circle"/>
+                    </div>
+                    <div class="col-md-10">{{ log.message | title }}</div>
+                </div>
             </li>
         </ul>
     </div>
