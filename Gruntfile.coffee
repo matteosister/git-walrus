@@ -60,6 +60,7 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-notify'
 
     grunt.registerTask 'default', ['php-server', 'watch']
+    grunt.registerTask 'e2e', ['php-server', 'coffee', 'protractor']
     grunt.registerTask 'php-server', 'start a php server instance', () ->
         done = @async()
         server = spawn('/usr/bin/php', ['-S', 'localhost:8000', '-t', 'public/', 'public/dev.php'])
