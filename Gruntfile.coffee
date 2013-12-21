@@ -47,6 +47,10 @@ module.exports = (grunt) ->
             unit:
                 configFile: 'public/config/karma.conf.js'
                 singleRun: true
+            travis:
+                configFile: 'public/config/karma.conf.js'
+                singleRun: true
+                reporters: 'dots'
 
     grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-contrib-coffee'
