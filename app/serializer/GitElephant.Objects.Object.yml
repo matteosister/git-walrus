@@ -10,3 +10,10 @@ GitElephant\Objects\Object:
             expose: true
         link:
             expose: true
+        path:
+            expose: true
+        full_path:
+            expose: true
+    virtual_properties:
+        getLastCommit: {}
+        getFullPath: {}
