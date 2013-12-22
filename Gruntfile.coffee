@@ -5,28 +5,35 @@ spawn = require('child_process').spawn
 module.exports = (grunt) ->
     grunt.initConfig
         pkg: grunt.file.readJSON 'package.json'
+        php:
+            options:
+                port: 8000
+                keepalive: false
         protractor:
             options:
                 configFile: "public/config/protractor.conf.js"
                 keepAlive: true # If false, the grunt process stops when the test fails.
                 noColor: false # If true, protractor will not use colors in its output.
                 specs: ["public/test/e2e/homepage.js"]
-            homepage:
+            firefox:
                 options:
-                    args: {}
+                    args: {browser: 'firefox'}
+            chrome:
+                options:
+                    args: {browser: 'chrome'}
         watch:
             coffee:
                 files: ['Gruntfile.coffee', 'public/coffee/**/*.coffee']
-                tasks: ['coffee', 'karma']
+                tasks: ['coffee', 'karma:unit']
             css:
                 files: ['public/compass/sass/*.scss']
                 tasks: ['compass']
             protractor_configuration:
                 files: ['public/config/protractor.conf.js']
-                tasks: ['protractor']
+                tasks: ['e2e']
             karma_configuration:
                 files: ['public/config/karma.conf.js']
-                tasks: ['karma']
+                tasks: ['karma:unit']
         coffee:
             compileWithMaps:
                 options:
@@ -58,14 +65,18 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-protractor-runner'
     grunt.loadNpmTasks 'grunt-karma'
     grunt.loadNpmTasks 'grunt-notify'
+    grunt.loadNpmTasks 'grunt-php'
 
-    grunt.registerTask 'default', ['php-server', 'watch']
-    grunt.registerTask 'e2e', ['php-server', 'coffee', 'protractor']
-    grunt.registerTask 'php-server', 'start a php server instance', () ->
+    grunt.registerTask 'default', ['php', 'watch']
+    grunt.registerTask 'e2e', ['php', 'coffee', 'protractor']
+    grunt.registerTask 'unit', ['coffee', 'karma:unit']
+    grunt.registerTask 'test', ['unit', 'e2e']
+
+    ###grunt.registerTask 'php-server', 'start a php server instance', () ->
         done = @async()
         server = spawn('/usr/bin/php', ['-S', 'localhost:8000', '-t', 'public/', 'public/dev.php'])
         server.stdout.on 'data', (data) ->
         server.stderr.on 'data', (data) ->
         server.on 'close', (code) ->
             console.log('[php-server] child process exited with code ' + code)
-        done(true)
+        done(true)###

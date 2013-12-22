@@ -22,11 +22,13 @@ describe 'HomepageController', ->
 
     it 'should show a tree of files', ->
         browser.get 'http://localhost:8000'
-        treeLink = element(findBy.linkText 'browse tree')
-        treeLink.click ->
-            expect(browser.getCurrentUrl()).toBe '..'
-
+        treeLink = element(findBy.linkText 'browse master tree')
+        treeLink.click().then ->
+            expect(browser.getCurrentUrl()).toContain 'tree/master'
 
     it 'should allows to go back to homepage by clicking on the logo', ->
         browser.get 'http://localhost:8000/tree/master'
+        mainLink = element(findBy.css 'h1.logo a')
+        mainLink.click().then ->
+            expect(browser.getCurrentUrl()).toBe 'http://localhost:8000/'
 
