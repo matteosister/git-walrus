@@ -10,7 +10,8 @@
     </tr>
     <tr class="col-md-12" data-ng-repeat="children in tree.children">
         <td>
-            <span class="fa fa-folder-open fa-1g"></span>
+            <span class="fa fa-1g fa-folder-open" ng-if="children.type !== 'blob'"></span>
+            <span class="fa fa-1g fa-file" ng-if="children.type == 'blob'"></span>
             <a href="{{ path }}/{{ children.name }}">{{ children.name }}</a>
         </td>
         <td>{{ children.last_commit.message }}</td>
