@@ -58,6 +58,8 @@ module.exports = (grunt) ->
                 configFile: 'public/config/karma.conf.js'
                 singleRun: true
                 reporters: 'dots'
+        concurrent:
+            protractor: ['protractor:firefox', 'protractor:chrome']
 
     grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-contrib-coffee'
@@ -66,9 +68,10 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-karma'
     grunt.loadNpmTasks 'grunt-notify'
     grunt.loadNpmTasks 'grunt-php'
+    grunt.loadNpmTasks 'grunt-concurrent'
 
     grunt.registerTask 'default', ['php', 'watch']
-    grunt.registerTask 'e2e', ['php', 'coffee', 'protractor']
+    grunt.registerTask 'e2e', ['php', 'coffee', 'concurrent:protractor']
     grunt.registerTask 'unit', ['coffee', 'karma:unit']
     grunt.registerTask 'test', ['unit', 'e2e']
 
