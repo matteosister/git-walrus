@@ -32,3 +32,14 @@ describe 'HomepageController', ->
         mainLink.click().then ->
             expect(browser.getCurrentUrl()).toBe 'http://localhost:8000/'
 
+    it 'should show the full commit sha on mouseover', ->
+        browser.get 'http://localhost:8000'
+        sha = element(findBy.css 'span.sha')
+        sha.getText().then (title) ->
+            expect(title.length).toBe 8
+        browser.actions().mouseMove(browser.findElement(findBy.css 'span.sha')).perform()
+        browser.findElement(findBy.css 'span.sha').getText().then (title) ->
+            expect(title.length).toBe 40
+
+
+

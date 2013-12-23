@@ -8,7 +8,14 @@ module.exports = (grunt) ->
         php:
             options:
                 port: 8000
+                base: 'public'
+                router: 'dev.php'
                 keepalive: false
+            dev:
+                options:
+                    keepalive: true
+            test:
+                options: {}
         protractor:
             options:
                 configFile: "public/config/protractor.conf.js"
@@ -24,7 +31,13 @@ module.exports = (grunt) ->
         watch:
             coffee:
                 files: ['Gruntfile.coffee', 'public/coffee/**/*.coffee']
-                tasks: ['coffee', 'karma:unit']
+                tasks: ['coffee']
+            unit_tests:
+                files: ['public/coffee/test/unit/*.coffee']
+                tasks: ['karma:unit']
+            e2e_tests:
+                files: ['public/coffee/test/e2e/*.coffee']
+                tasks: ['protractor:chrome']
             css:
                 files: ['public/compass/sass/*.scss']
                 tasks: ['compass']
@@ -60,6 +73,11 @@ module.exports = (grunt) ->
                 reporters: 'dots'
         concurrent:
             protractor: ['protractor:firefox', 'protractor:chrome']
+        shell:
+            phpserver:
+                command: '/usr/bin/php -S localhost:8000 -t public public/dev.php'
+                options:
+                    async: true
 
     grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-contrib-coffee'
@@ -69,17 +87,11 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-notify'
     grunt.loadNpmTasks 'grunt-php'
     grunt.loadNpmTasks 'grunt-concurrent'
+    grunt.loadNpmTasks 'grunt-shell-spawn'
 
-    grunt.registerTask 'default', ['php', 'watch']
-    grunt.registerTask 'e2e', ['php', 'coffee', 'concurrent:protractor']
+    grunt.registerTask 'default', ['test']
+    grunt.registerTask 'e2e', ['coffee', 'concurrent:protractor']
+    grunt.registerTask 'e2e-chrome', ['coffee', 'protractor:chrome']
     grunt.registerTask 'unit', ['coffee', 'karma:unit']
     grunt.registerTask 'test', ['unit', 'e2e']
-
-    ###grunt.registerTask 'php-server', 'start a php server instance', () ->
-        done = @async()
-        server = spawn('/usr/bin/php', ['-S', 'localhost:8000', '-t', 'public/', 'public/dev.php'])
-        server.stdout.on 'data', (data) ->
-        server.stderr.on 'data', (data) ->
-        server.on 'close', (code) ->
-            console.log('[php-server] child process exited with code ' + code)
-        done(true)###
+    grunt.registerTask 'serve', ['watch', 'php:dev']
