@@ -10,6 +10,7 @@ namespace CypressLab\GitWalrus\Controller;
 
 use CypressLab\GitWalrus\Application;
 use GitElephant\Objects\Tree;
+use JMS\Serializer\SerializationContext;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,9 +32,18 @@ class Git
     public function log(Application $app, $ref, $num = 5)
     {
         $log = $app->getRepository()->getLog($ref, null, $num);
-        $commits = iterator_to_array($log);
-        $results['items'] = $commits;
-        return $app->rawJson($app->serialize($results, 'json'));
+        return $app->rawJson($app->serialize($log, 'json', $app['serializer.list_context']));
+    }
+
+    /**
+     * @param Application $app
+     * @param int         $sha
+     *
+     * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
+     */
+    public function commit(Application $app, $sha)
+    {
+        return $app->rawJson($app->serialize($app->getRepository()->getCommit($sha), 'json'));
     }
 
     /**
@@ -44,8 +54,7 @@ class Git
     public function branches(Application $app)
     {
         $branches = $app->getRepository()->getBranches();
-        $results['items'] = $branches;
-        return $app->rawJson($app->serialize($results, 'json'));
+        return $app->rawJson($app->serialize($branches, 'json', $app['serializer.list_context']));
     }
 
     /**

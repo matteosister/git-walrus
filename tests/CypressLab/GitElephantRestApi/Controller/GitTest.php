@@ -25,25 +25,43 @@ class GitTest extends WebTestCase
         $client = $this->createClient();
         $client->request('get', '/api/log');
         $this->isJsonResponse($client);
-        $this->countItems($client, 1);
+        $this->countItems($client, 1, 'commits');
         $this->addFile('test2');
         $this->commit();
         $client->request('get', '/api/log');
         $this->isJsonResponse($client);
-        $this->countItems($client, 2);
+        $this->countItems($client, 2, 'commits');
         $this->createBranch('develop');
         $client->request('get', '/api/log/develop');
         $this->isJsonResponse($client);
-        $this->countItems($client, 2);
+        $this->countItems($client, 2, 'commits');
         $this->checkout('develop');
         $this->addFile('test3');
         $this->commit();
         $client->request('get', '/api/log/develop');
         $this->isJsonResponse($client);
-        $this->countItems($client, 3);
+        $this->countItems($client, 3, 'commits');
         $client->request('get', '/api/log/master');
         $this->isJsonResponse($client);
-        $this->countItems($client, 2);
+        $this->countItems($client, 2, 'commits');
+        $jsonContent = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayNotHasKey('diff', $jsonContent['commits'][0]);
+    }
+
+    public function testCommit()
+    {
+        $this->addFile('test');
+        $this->commit('test message');
+        $log = $this->getRepo()->getLog('HEAD', null, 1);
+        $lastCommit = $log[0];
+        $client = $this->createClient();
+        $url = '/api/commit/'.$lastCommit->getSha();
+        $client->request('get', $url);
+        $this->isJsonResponse($client);
+        $jsonResponse = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals($lastCommit->getSha(), $jsonResponse['ref']);
+        $this->assertEquals('test message', $jsonResponse['message']);
+        $this->assertArrayHasKey('diff', $jsonResponse);
     }
 
     public function testBranches()

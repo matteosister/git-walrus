@@ -42,11 +42,16 @@ class WebTestCase extends SilexWebTestCase
         $this->assertEquals('application/json', $client->getResponse()->headers->get('content-type'));
     }
 
-    protected function countItems(Client $client, $expected)
+    protected function countItems(Client $client, $expected, $key = null)
     {
+        $jsonContent = json_decode($client->getResponse()->getContent(), true);
+        $test = $jsonContent;
+        if (null !== $key) {
+            $test = $jsonContent[$key];
+        }
         $this->assertCount(
             $expected,
-            json_decode($client->getResponse()->getContent(), true)['items'],
+            $test,
             "response:\n". $client->getResponse()->getContent()
         );
     }

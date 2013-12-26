@@ -9,9 +9,9 @@ describe 'Controllers', ->
         beforeEach inject((_$httpBackend_, $rootScope, $controller) ->
             $httpBackend = _$httpBackend_;
             $httpBackend.expectGET('/api/branches')
-                .respond('{"items":[{"name":"master"}]}')
+                .respond('[{"name":"master"}]')
             $httpBackend.expectGET('/api/log/master')
-                .respond('{"items":[{"message":"test message"}]}')
+                .respond('{"commits":[{"message":"test message"}]}')
             scope = $rootScope.$new();
             ctrl = $controller('HomepageController', {$scope: scope});
         )

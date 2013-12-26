@@ -23,6 +23,9 @@ $app['serializer'] = \JMS\Serializer\SerializerBuilder::create()
         $dispatcher->addSubscriber(new \CypressLab\GitWalrus\Event\SerializerSubscriber($app));
     })
     ->build();
+$app['serializer.list_context'] = function () {
+    return \JMS\Serializer\SerializationContext::create()->setGroups(['list']);
+};
 
 // providers
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
@@ -39,17 +42,23 @@ $app['twig']->setLexer($lexer);
 // routes
 /** @var \Silex\ControllerCollection $api */
 $api = $app['controllers_factory'];
-$api->get('/', 'CypressLab\GitWalrus\Controller\Main::api')->bind('api');
+$api->get('/', 'CypressLab\GitWalrus\Controller\Main::api')
+    ->bind('api');
 $api->get('/tree/{ref}', 'CypressLab\GitWalrus\Controller\Git::tree')
     ->bind('tree')
     ->value('ref', 'master');
 $api->get('/tree/{ref}/{path}', 'CypressLab\GitWalrus\Controller\Git::treeObject')
     ->bind('tree_object')
     ->assert('path', '\S+');
-$api->get('/branches', 'CypressLab\GitWalrus\Controller\Git::branches')->bind('branches');
-$api->get('/branch/{name}', 'CypressLab\GitWalrus\Controller\Git::branch')->bind('branch');
+$api->get('/branches', 'CypressLab\GitWalrus\Controller\Git::branches')
+    ->bind('branches');
+$api->get('/branch/{name}', 'CypressLab\GitWalrus\Controller\Git::branch')
+    ->bind('branch');
 $api->get('/log/{ref}', 'CypressLab\GitWalrus\Controller\Git::log')
     ->bind('log')
+    ->value('ref', 'master');
+$api->get('/commit/{sha}', 'CypressLab\GitWalrus\Controller\Git::commit')
+    ->bind('commit')
     ->value('ref', 'master');
 $app->mount('api', $api);
 $app->get('/', 'CypressLab\GitWalrus\Controller\Main::homepage')->bind('homepage');

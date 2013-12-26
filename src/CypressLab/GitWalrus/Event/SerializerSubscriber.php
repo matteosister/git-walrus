@@ -10,6 +10,7 @@ namespace CypressLab\GitWalrus\Event;
 
 use CypressLab\GitWalrus\Application;
 use GitElephant\Objects\Branch;
+use GitElephant\Objects\Commit;
 use GitElephant\Objects\Object;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
@@ -57,6 +58,11 @@ class SerializerSubscriber implements EventSubscriberInterface
                 'event' => 'serializer.post_serialize',
                 'method' => 'onPostSerializeBranch',
                 'class' => 'GitElephant\Objects\Branch'
+            ],
+            [
+                'event' => 'serializer.post_serialize',
+                'method' => 'onPostSerializeCommit',
+                'class' => 'GitElephant\Objects\Commit'
             ]
         ];
     }
@@ -89,7 +95,15 @@ class SerializerSubscriber implements EventSubscriberInterface
     {
         /** @var Branch $branch */
         $branch = $event->getObject();
-        $logUrl = $this->app->url('tree_object', ['ref' => 'master', 'path' => $branch]);
-        $event->getVisitor()->addData('log', $branch->getPath());
+        $branchUrl = $this->app->url('branch', ['name' => $branch->getName()]);
+        $event->getVisitor()->addData('url', $branchUrl);
+    }
+
+    public function onPostSerializeCommit(ObjectEvent $event)
+    {
+        /** @var Commit $commit */
+        $commit = $event->getObject();
+        $commitUrl = $this->app->url('commit', ['sha' => $commit->getSha()]);
+        $event->getVisitor()->addData('url', $commitUrl);
     }
 }
