@@ -72,7 +72,7 @@ module.exports = (grunt) ->
                 singleRun: true
                 reporters: 'dots'
         concurrent:
-            protractor: ['protractor:firefox', 'protractor:chrome']
+            test: ['unit', 'protractor:chrome']
         shell:
             phpserver:
                 command: '/usr/bin/php -S localhost:8000 -t public public/dev.php'
@@ -93,5 +93,5 @@ module.exports = (grunt) ->
     grunt.registerTask 'e2e', ['coffee', 'concurrent:protractor']
     grunt.registerTask 'e2e-chrome', ['coffee', 'protractor:chrome']
     grunt.registerTask 'unit', ['coffee', 'karma:unit']
-    grunt.registerTask 'test', ['unit', 'e2e']
+    grunt.registerTask 'test', ['coffee', 'concurrent:test']
     grunt.registerTask 'serve', ['watch', 'php:dev']
