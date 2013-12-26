@@ -78,7 +78,7 @@ class Git
     public function tree(Application $app, $ref)
     {
         $tree = $app->getRepository()->getTree($ref);
-        return $app->rawJson($app->serialize($tree, 'json'));
+        return $app->rawJson($app->serialize($tree, 'json', $app['serializer.list_context']));
     }
 
     /**
@@ -91,6 +91,6 @@ class Git
     public function treeObject(Application $app, $ref, $path)
     {
         $tree = $app->getRepository()->getTree($ref, $path);
-        return $app->rawJson($app->serialize($tree, 'json'));
+        return $app->rawJson($app->serialize($tree, 'json', $app['serializer.list_context']));
     }
 }

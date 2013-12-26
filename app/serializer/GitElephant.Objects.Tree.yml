@@ -4,9 +4,13 @@ GitElephant\Objects\Tree:
     properties:
         ref:
             expose: true
+            groups: [list]
         subject:
             expose: true
+            groups: [list]
         children:
             expose: true
+            groups: [list]
         pathChildren:
             expose: true
+            groups: [list]

@@ -22,5 +22,5 @@ GitElephant\Objects\Object:
             groups: [list]
     virtual_properties:
         getLastCommit:
-            groups: [detail]
+            groups: [list]
         getFullPath: {}
