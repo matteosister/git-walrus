@@ -1,0 +1,14 @@
+GitElephant\Objects\Diff\DiffChunk:
+    xml_root_name: diff_chunk
+    exclusion_policy: ALL
+    properties:
+        originStartLine:
+            expose: true
+        originEndLine:
+            expose: true
+        destStartLine:
+            expose: true
+        destEndLine:
+            expose: true
+        lines:
+            expose: true

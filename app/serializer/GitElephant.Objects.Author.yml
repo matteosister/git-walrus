@@ -1,0 +1,10 @@
+GitElephant\Objects\Author:
+    xml_root_name: author
+    exclusion_policy: ALL
+    properties:
+        name:
+            expose: true
+            groups: [list]
+        email:
+            expose: true
+            groups: [list]

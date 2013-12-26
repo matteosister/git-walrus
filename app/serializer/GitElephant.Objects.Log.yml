@@ -3,3 +3,4 @@ GitElephant\Objects\Log:
     properties:
         commits:
             expose: true
+            groups: [list]

@@ -1,0 +1,6 @@
+GitElephant\Objects\Diff\Diff:
+    xml_root_name: diff
+    exclusion_policy: ALL
+    properties:
+        diffObjects:
+            expose: true

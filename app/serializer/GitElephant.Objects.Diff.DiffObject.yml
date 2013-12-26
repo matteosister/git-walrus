@@ -1,0 +1,14 @@
+GitElephant\Objects\Diff\DiffObject:
+    xml_root_name: diff_object
+    exclusion_policy: ALL
+    properties:
+        chunks:
+            expose: true
+        originalPath:
+            expose: true
+        destinationPath:
+            expose: true
+        similarityIndex:
+            expose: true
+        mode:
+            expose: true

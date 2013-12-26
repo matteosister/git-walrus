@@ -1,0 +1,11 @@
+GitElephant\Objects\Diff\DiffChunkLineChanged:
+    xml_root_name: diff_chunk_line_added
+    exclusion_policy: ALL
+    properties:
+        type:
+            expose: true
+        content:
+            expose: true
+        number:
+            expose: true
+            type: integer

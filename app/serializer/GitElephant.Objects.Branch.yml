@@ -3,11 +3,16 @@ GitElephant\Objects\Branch:
     properties:
         sha:
             expose: true
+            groups: [list]
         name:
             expose: true
+            groups: [list]
         current:
             expose: true
+            groups: [list]
         comment:
             expose: true
+            groups: [list]
         fullRef:
             expose: true
+            groups: [list]

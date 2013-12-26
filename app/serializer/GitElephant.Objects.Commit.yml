@@ -4,26 +4,39 @@ GitElephant\Objects\Commit:
     properties:
         ref:
             expose: true
+            groups: [list]
         sha:
             expose: true
+            groups: [list]
         tree:
             expose: true
+            groups: [list]
         parents:
             expose: true
+            groups: [list]
         author:
             expose: true
+            groups: [list]
         committer:
             expose: true
+            groups: [list]
         message:
             expose: true
             inline: true
             type: string
+            groups: [list]
         datetimeAuthor:
             expose: true
+            groups: [list]
         datetimeCommitter:
             expose: true
+            groups: [list]
         branches:
             expose: true
             access_type: public_method
             accessor:
                 getter: getContainedIn
+            groups: [list]
+    virtual_properties:
+        getDiff:
+            groups: [detail]
