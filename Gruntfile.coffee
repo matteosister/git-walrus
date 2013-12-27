@@ -22,6 +22,7 @@ module.exports = (grunt) ->
                 keepAlive: true # If false, the grunt process stops when the test fails.
                 noColor: false # If true, protractor will not use colors in its output.
                 specs: ["public/test/e2e/homepage.js"]
+                debug: true
             firefox:
                 options:
                     args: {browser: 'firefox'}
@@ -95,5 +96,5 @@ module.exports = (grunt) ->
     grunt.registerTask 'e2e', ['coffee', 'concurrent:protractor']
     grunt.registerTask 'e2e-chrome', ['coffee', 'protractor:chrome']
     grunt.registerTask 'unit', ['coffee', 'karma:unit']
-    grunt.registerTask 'test', ['coffee', 'concurrent:test']
+    grunt.registerTask 'test', ['coffee', 'php:test', 'karma:unit', 'protractor:chrome']
     grunt.registerTask 'serve', ['shell:phpserver', 'watch']
