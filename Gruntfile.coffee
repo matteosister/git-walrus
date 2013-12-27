@@ -77,6 +77,8 @@ module.exports = (grunt) ->
             phpserver:
                 command: '/usr/bin/php -S localhost:8000 -t public public/dev.php'
                 options:
+                    stdout: false
+                    stderr: false
                     async: true
 
     grunt.loadNpmTasks 'grunt-contrib-watch'
@@ -94,4 +96,4 @@ module.exports = (grunt) ->
     grunt.registerTask 'e2e-chrome', ['coffee', 'protractor:chrome']
     grunt.registerTask 'unit', ['coffee', 'karma:unit']
     grunt.registerTask 'test', ['coffee', 'concurrent:test']
-    grunt.registerTask 'serve', ['watch', 'php:dev']
+    grunt.registerTask 'serve', ['shell:phpserver', 'watch']
