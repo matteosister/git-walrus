@@ -4,3 +4,4 @@ GitElephant\Objects\Diff\Diff:
     properties:
         diffObjects:
             expose: true
+            groups: [detail]

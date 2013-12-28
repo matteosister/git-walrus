@@ -23,14 +23,21 @@ use Symfony\Component\HttpFoundation\Response;
 class Git
 {
     /**
-     * @param Application $app
-     * @param string      $ref
-     * @param int         $num
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Application                               $app
+     * @param string                                    $ref
+     * @param int                                       $num
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      */
-    public function log(Application $app, $ref, $num = 5)
+    public function log(Request $request, Application $app, $ref, $num = 5)
     {
+        if (null !== $context = $request->get('context', null)) {
+            $app['serializer.list_context.names'] = array_merge(
+                $app['serializer.list_context.names'],
+                [$context]
+            );
+        }
         $log = $app->getRepository()->getLog($ref, null, $num);
         return $app->rawJson($app->serialize($log, 'json', $app['serializer.list_context']));
     }

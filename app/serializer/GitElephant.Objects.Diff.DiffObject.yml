@@ -4,11 +4,16 @@ GitElephant\Objects\Diff\DiffObject:
     properties:
         chunks:
             expose: true
+            groups: [detail]
         originalPath:
             expose: true
+            groups: [detail]
         destinationPath:
             expose: true
+            groups: [detail]
         similarityIndex:
             expose: true
+            groups: [detail]
         mode:
             expose: true
+            groups: [detail]

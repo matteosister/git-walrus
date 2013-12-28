@@ -31,7 +31,6 @@ describe 'Controllers', ->
             expect(scope.date).toBeDefined()
             expect(scope.date).toEqual(new Date())
 
-
     describe 'TreeController', ->
         scope = null
         ctrl = null

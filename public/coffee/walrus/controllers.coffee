@@ -8,7 +8,7 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $interval) ->
         $scope.branch = _.find $scope.branches, (b) ->
             b.name = 'master'
 
-    $http.get("/api/log/master").success (data) ->
+    $http.get("/api/log/master?context=detail").success (data) ->
         $scope.logs = data.commits
 
     $scope.changeBranch = ->
@@ -19,6 +19,9 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $interval) ->
     updateDate = ->
         $scope.date = new Date()
     $interval updateDate, 1000
+
+    $scope.changeLog = (log) ->
+        $scope.selected_log = log
 
 gitWalrusApp.controller 'TreeController', ($scope, $http, $location) ->
     $http.get("/api#{ $location.path() }").success (data) ->

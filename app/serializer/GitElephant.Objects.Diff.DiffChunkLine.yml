@@ -1,5 +1,5 @@
-GitElephant\Objects\Diff\DiffChunkLineChanged:
-    xml_root_name: diff_chunk_line_added
+GitElephant\Objects\Diff\DiffChunkLine:
+    xml_root_name: diff_chunk_line
     exclusion_policy: ALL
     properties:
         type:

@@ -23,8 +23,9 @@ $app['serializer'] = \JMS\Serializer\SerializerBuilder::create()
         $dispatcher->addSubscriber(new \CypressLab\GitWalrus\Event\SerializerSubscriber($app));
     })
     ->build();
-$app['serializer.list_context'] = function () {
-    return \JMS\Serializer\SerializationContext::create()->setGroups(['list']);
+$app['serializer.list_context.names'] = ['list'];
+$app['serializer.list_context'] = function () use ($app) {
+    return \JMS\Serializer\SerializationContext::create()->setGroups($app['serializer.list_context.names']);
 };
 
 // providers

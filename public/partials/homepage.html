@@ -7,17 +7,29 @@
         <hr />
         <h4><span class="label label-default">{{ branch.name }}</span> branch log</h4>
         <ul class="list-group logs">
-            <li class="list-group-item" ng-repeat="log in logs">
+            <li class="list-group-item" ng-repeat="log in logs" ng-model="selected_log">
                 <div class="row">
                     <div class="col-md-2">
                         <img ng-src="{{ log.author.email | gravatar:50 }}" class="img-circle"/>
                     </div>
                     <div class="col-md-10">
-                        <p>{{ log.message | title }}</p>
+                        <p><a href="#" ng-click="changeLog(log)">{{ log.message | title }}</a></p>
                         <span class="sha label label-info pull-right" gw-hover-details="{{ log.sha }}" gw-hover-details-small="{{ log.sha | limitTo: 8 }}"></span>
                     </div>
                 </div>
             </li>
         </ul>
+    </div>
+    <div class="col-md-8">
+        <div class="diff_object" ng-repeat="diff_object in selected_log.diff.diff_objects">
+            <div>
+                <h3>{{ diff_object.original_path }}</h3>
+                <div class="chunk" ng-repeat="chunk in diff_object.chunks">
+                    <pre>
+                        <div class="line" ng-repeat="line in chunk.lines"><span class="orig">{{ chunk.origin_start_line }}</span>{{ line.content }}</div>
+                    </pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

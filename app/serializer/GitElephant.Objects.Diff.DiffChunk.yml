@@ -4,11 +4,16 @@ GitElephant\Objects\Diff\DiffChunk:
     properties:
         originStartLine:
             expose: true
+            groups: [detail]
         originEndLine:
             expose: true
+            groups: [detail]
         destStartLine:
             expose: true
+            groups: [detail]
         destEndLine:
             expose: true
+            groups: [detail]
         lines:
             expose: true
+            groups: [detail]
