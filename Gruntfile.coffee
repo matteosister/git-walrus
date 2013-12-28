@@ -102,6 +102,6 @@ module.exports = (grunt) ->
     grunt.registerTask 'e2e', ['coffee', 'concurrent:protractor']
     grunt.registerTask 'e2e-chrome', ['coffee', 'protractor:chrome']
     grunt.registerTask 'unit', ['coffee', 'karma:unit']
-    grunt.registerTask 'test', ['coffee', 'shell:phpserver', 'karma:unit', 'protractor:chrome']
+    grunt.registerTask 'test', ['coffee', 'php:test', 'karma:unit', 'protractor:chrome']
     grunt.registerTask 'travis', ['coffee', 'karma:travis', 'protractor:travis']
     grunt.registerTask 'serve', ['shell:phpserver', 'watch']
