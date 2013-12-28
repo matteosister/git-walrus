@@ -29,11 +29,8 @@ module.exports = (grunt) ->
             chrome:
                 options:
                     args: {browser: 'chrome'}
-            travis:
+            phantomjs:
                 options:
-                    configFile: "public/config/protractor_travis.conf.js"
-                    noColor: true
-                    keepAlive: false
                     args: {browser: 'phantomjs'}
         watch:
             coffee:
@@ -81,6 +78,12 @@ module.exports = (grunt) ->
         concurrent:
             test: ['unit', 'protractor:chrome']
         shell:
+            phantom_webdriver:
+                command: 'node_modules/.bin/phantomjs --webdriver=4444'
+                options:
+                    stdout: false
+                    stderr: false
+                    async: true
             phpserver:
                 command: '/usr/bin/php -S localhost:8000 -t public public/dev.php'
                 options:
@@ -100,7 +103,8 @@ module.exports = (grunt) ->
 
     grunt.registerTask 'default', ['test']
     grunt.registerTask 'e2e', ['coffee', 'concurrent:protractor']
-    grunt.registerTask 'e2e-chrome', ['coffee', 'protractor:chrome']
+    grunt.registerTask 'e2e-chrome', ['coffee', 'php:test', 'protractor:chrome']
+    grunt.registerTask 'e2e-phantomjs', ['coffee', 'php:test', 'shell:phantom_webdriver', 'protractor:phantomjs', 'shell:phantom_webdriver:kill']
     grunt.registerTask 'unit', ['coffee', 'karma:unit']
     grunt.registerTask 'test', ['coffee', 'php:test', 'karma:unit', 'protractor:chrome']
     grunt.registerTask 'travis', ['coffee', 'karma:travis', 'protractor:travis']
