@@ -20,3 +20,10 @@ describe 'Filters: ', ->
             expect(filter('test')).toEqual('Test')
             expect(filter('test test')).toEqual('Test Test')
             expect(filter('test test 2 i')).toEqual('Test Test 2 I')
+
+    describe 'hide_zero', ->
+        it 'should return empty string for 0', inject ($filter) ->
+            filter = $filter('hide_zero')
+            expect(filter).not.toEqual(null)
+            expect(filter(2)).toEqual(2)
+            expect(filter(0)).toEqual('')

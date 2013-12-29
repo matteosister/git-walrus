@@ -17,3 +17,7 @@ GitElephant\Objects\Diff\DiffChunk:
         lines:
             expose: true
             groups: [detail]
+    virtual_properties:
+        getHeaderLine:
+            expose: true
+            groups: [detail]

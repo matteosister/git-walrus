@@ -3,20 +3,132 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
-@import "compass/css3/border-radius";
+@import "base";
 
-td.code {
-    padding: 0 !important;
-    pre {
-        margin: 0;
-        border: none;
-        @include border-radius(0px);
-        padding: 0;
-    }
+@mixin code {
+    font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+}
+
+html {
+    overflow: -moz-scrollbars-vertical;
+    overflow-y: scroll;
 }
 
 .clock {
     position: fixed;
     right: 1em;
     top: 1em
+}
+
+.diff-container {
+    overflow: auto;
+}
+
+ul.logs {
+    li.selected {
+        background-color: #EEE;
+    }
+}
+
+table {
+    &.diff {
+        width: 100%;
+        td {
+            &.code {
+                width: 100%;
+            }
+            &.ln {
+                height: 14px;
+                line-height: 14px;
+                padding: 4px 6px 1px;
+                background-color: #EEE;
+                color: #333;
+                font-size: 0.85em;
+                font-weight: bold;
+                text-align: center;
+                border-bottom: 1px solid #DDD;
+                width: 0%;
+                @include code;
+                &.dest {
+                    border-left: 1px solid #DDD;
+                    border-right: 1px solid #DDD;
+                }
+            }
+            &.header {
+                padding: 0 0 0 1em;
+                color: #999;
+                background-color: $header;
+                font-size: 0.8em;
+            }
+        }
+        .code {
+            &.unchanged {
+                background-color: #FFF !important;
+                &:hover {
+                    background-color: $codeHover !important;
+                }
+            }
+            &.deleted {
+                pre {
+                    position: relative;
+                    color: $red - #444;
+                    &:before {
+                        content: '-';
+                        position: absolute;
+                        left: 0;
+                        width: 20px;
+                        text-align: center;
+                    }
+                }
+                background-color: $deleted !important;
+                &:hover {
+                    background-color: $codeHover !important;
+                }
+            }
+            &.added {
+                pre {
+                    position: relative;
+                    color: $green - #666;
+                    &:before {
+                        content: '+';
+                        position: absolute;
+                        left: 0;
+                        width: 20px;
+                        text-align: center;
+                    }
+                }
+                background-color: $added !important;
+                &:hover {
+                    background-color: $codeHover !important;
+                }
+            }
+        }
+        .code_table {
+            background-color: #FFF;
+            width: 100%;
+            padding: 0;
+            border-right: 1px solid #DDD;
+            border-bottom: 1px solid #DDD;
+            table {
+                width: 100%;
+            }
+            td.code {
+                padding: 0;
+            }
+        }
+    }
+}
+
+pre {
+    word-break: keep-all;
+    word-wrap: normal;
+    white-space: pre;
+    background: none !important;
+    border: none !important;
+    margin: 0;
+    border-radius: 0 !important;
+    &.line {
+        padding: 0 0 0 20px;
+        height: 20px;
+    }
 }

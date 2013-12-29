@@ -30,7 +30,7 @@ class Git
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      */
-    public function log(Request $request, Application $app, $ref, $num = 5)
+    public function log(Request $request, Application $app, $ref, $num = 8)
     {
         if (null !== $context = $request->get('context', null)) {
             $app['serializer.list_context.names'] = array_merge(

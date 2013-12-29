@@ -16,3 +16,8 @@ angular.module('gitWalrusFilters', [])
             arr = _.map arr, (v) ->
                 v.charAt(0).toUpperCase() + v.slice(1).toLowerCase();
             arr.join ' '
+
+    .filter 'hide_zero', ->
+        (value) ->
+            return '' if value == 0
+            value

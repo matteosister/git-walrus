@@ -1,5 +1,5 @@
-GitElephant\Objects\Diff\DiffChunkLineChanged:
-    xml_root_name: diff_chunk_line_changed
+GitElephant\Objects\Diff\DiffChunkLineUnchanged:
+    xml_root_name: diff_chunk_line_unchanged
     exclusion_policy: ALL
     properties:
         type:
@@ -8,6 +8,14 @@ GitElephant\Objects\Diff\DiffChunkLineChanged:
         content:
             expose: true
             groups: [detail]
+        originNumber:
+            expose: true
+            groups: [detail]
+            type: integer
+        destNumber:
+            expose: true
+            groups: [detail]
+            type: integer
     virtual_properties:
         getOriginNumber:
             expose: true
