@@ -7,13 +7,13 @@
         <hr />
         <h4><span class="label label-default">{{ branch.name }}</span> branch log</h4>
         <ul class="list-group logs">
-            <li class="list-group-item" ng-repeat="log in logs" ng-model="selected_log" ng-class="{ selected: selected_log == log }">
+            <li class="list-group-item" ng-repeat="log in logs" ng-model="selected_log" ng-class="{ selected: selected_log.sha == log.sha }">
                 <div class="row">
                     <div class="col-md-2">
                         <img ng-src="{{ log.author.email | gravatar:50 }}" class="img-circle"/>
                     </div>
                     <div class="col-md-10">
-                        <p><a href="javascript:void(0)" ng-click="changeLog(log)">{{ log.message | title }}</a><i ng-if="selected_log == log" class="fa fa-2g fa-chevron-right pull-right"></i></p>
+                        <p><a href="javascript:void(0)" ng-click="changeLog(log)">{{ log.message }}</a><i ng-if="selected_log.sha == log.sha" class="fa fa-2g fa-chevron-right pull-right"></i></p>
                         <span class="sha label label-info pull-right" gw-hover-details="{{ log.sha }}" gw-hover-details-small="{{ log.sha | limitTo: 8 }}"></span>
                     </div>
                 </div>
@@ -21,28 +21,30 @@
         </ul>
     </div>
     <div class="col-md-8">
-        <div class="diff-container" ng-repeat="diff_object in selected_log.diff.diff_objects">
+        <div ng-repeat="diff_object in selected_log.diff.diff_objects" ng-animate=" 'animate' " class="diff-object">
             <h3>{{ diff_object.original_path }}</h3>
-            <table class="diff">
-                <tbody class="chunk" ng-repeat="chunk in diff_object.chunks">
-                    <tr>
-                        <td class="ln">...</td>
-                        <td class="ln dest">...</td>
-                        <td class="header">{{ chunk.header_line }}</td>
-                    </tr>
-                    <tr class="line" ng-repeat="line in chunk.lines">
-                        <td class="ln">{{ line.origin_number|hide_zero }}</td>
-                        <td class="ln dest">{{ line.dest_number|hide_zero }}</td>
-                        <td class="code_table" ng-if="$index == 0" rowspan="{{ chunk.lines.length }}">
-                            <table>
-                                <tr ng-repeat="code_line in chunk.lines">
-                                    <td class="code {{ code_line.type }}"><pre class="line">{{ code_line.content }}</pre></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="diff-container">
+                <table class="diff">
+                    <tbody class="chunk" ng-repeat="chunk in diff_object.chunks">
+                        <tr>
+                            <td class="ln">...</td>
+                            <td class="ln dest">...</td>
+                            <td class="header">{{ chunk.header_line }}</td>
+                        </tr>
+                        <tr class="line" ng-repeat="line in chunk.lines">
+                            <td class="ln">{{ line.origin_number|hide_zero }}</td>
+                            <td class="ln dest">{{ line.dest_number|hide_zero }}</td>
+                            <td class="code_table" ng-if="$index == 0" rowspan="{{ chunk.lines.length }}">
+                                <table>
+                                    <tr ng-repeat="code_line in chunk.lines">
+                                        <td class="code {{ code_line.type }}"><pre class="line">{{ code_line.content }}</pre></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

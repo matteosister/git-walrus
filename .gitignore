@@ -2,3 +2,5 @@
 /public/bower/
 /node_modules/
 /public/js/
+/public/compass/stylesheets/*
+/public/compass/.sass-cache

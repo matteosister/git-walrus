@@ -10,7 +10,7 @@ describe 'Controllers', ->
             $httpBackend = _$httpBackend_;
             $httpBackend.expectGET('/api/branches')
                 .respond('[{"name":"master"}]')
-            $httpBackend.expectGET('/api/log/master?context=detail')
+            $httpBackend.expectGET('/api/log/master')
                 .respond('{"commits":[{"message":"test message"}]}')
             scope = $rootScope.$new();
             ctrl = $controller('HomepageController', {$scope: scope});
