@@ -102,7 +102,6 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-shell-spawn'
 
     grunt.registerTask 'default', ['test']
-    grunt.registerTask 'e2e', ['coffee', 'concurrent:protractor']
     grunt.registerTask 'e2e-chrome', ['coffee', 'php:test', 'protractor:chrome']
     grunt.registerTask 'e2e-phantomjs', ['coffee', 'php:test', 'shell:phantom_webdriver', 'protractor:phantomjs', 'shell:phantom_webdriver:kill']
     grunt.registerTask 'unit', ['coffee', 'karma:unit']
