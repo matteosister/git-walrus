@@ -31,23 +31,49 @@ html {
     transition: 0.2s linear all;
     opacity: 1;
     position: relative;
-    top: 0;
+    left: 0;
     &.ng-enter {
         opacity: 0;
-        top: 5px;
+        left: 5px;
     }
     &.ng-leave {
         opacity: 0;
     }
+    h4 {
+        &.index i {
+            color: #999;
+        }
+        &.deleted_file {
+            color: $red - #999;
+            i {
+                color: $red - #444;
+            }
+        }
+        &.new_file {
+            color: $green - #444;
+            i {
+                color: $green - #222;
+            }
+        }
+    }
 }
 
 ul.logs {
+    width: 360px;
     li.selected {
         background-color: #EEE;
     }
 }
 
 table {
+    &.tree {
+        td.code {
+            padding: 0;
+        }
+        pre {
+            padding: 0 !important;
+        }
+    }
     &.diff {
         width: 100%;
         td {
