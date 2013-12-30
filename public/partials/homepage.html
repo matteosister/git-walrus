@@ -20,7 +20,7 @@
             </li>
         </ul>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 diff">
         <div ng-repeat="diff_object in selected_log.diff.diff_objects" ng-animate=" 'animate' " class="diff-object">
             <h4 class="{{ diff_object.mode }}">
                 <i class="fa fa-1g fa-minus" ng-if="diff_object.mode == 'deleted_file'"></i>

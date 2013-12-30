@@ -149,4 +149,34 @@ class GitTest extends WebTestCase
         $client->request('get', '/api/tree/master/.test');
         $this->isJsonResponse($client);
     }
+
+    public function testIndexStatus()
+    {
+        $client = $this->createClient();
+        $client->request('get', '/api/status/working_tree');
+        $this->isJsonResponse($client);
+        $result = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('all', $result);
+        $this->assertArrayHasKey('untracked', $result);
+        $this->assertArrayHasKey('modified', $result);
+        $this->assertArrayHasKey('added', $result);
+        $this->assertArrayHasKey('deleted', $result);
+        $this->assertArrayHasKey('renamed', $result);
+        $this->assertArrayHasKey('copied', $result);
+    }
+
+    public function testWorkingTreeStatus()
+    {
+        $client = $this->createClient();
+        $client->request('get', '/api/status/index');
+        $this->isJsonResponse($client);
+        $result = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('all', $result);
+        $this->assertArrayHasKey('untracked', $result);
+        $this->assertArrayHasKey('modified', $result);
+        $this->assertArrayHasKey('added', $result);
+        $this->assertArrayHasKey('deleted', $result);
+        $this->assertArrayHasKey('renamed', $result);
+        $this->assertArrayHasKey('copied', $result);
+    }
 }

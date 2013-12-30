@@ -32,14 +32,16 @@ describe 'HomepageController', ->
         mainLink.click().then ->
             expect(browser.getCurrentUrl()).toBe 'http://localhost:8000/'
 
-    it 'should show the full commit sha on mouseover', ->
+    it 'should show a diff by clicking on a link log', ->
         browser.get 'http://localhost:8000'
-        sha = element(findBy.css '.sha')
-        sha.getText().then (title) ->
-            expect(title.length).toBe 8
-            browser.actions().mouseMove(browser.findElement(findBy.css '.sha')).perform()
-            element(findBy.css '.sha').getText().then (title) ->
-                expect(title.length).toBe 40
+        logLink = element(findBy.css '.logs .list-group-item p a')
+        diffColumn = element(findBy.css('.diff'))
+        diffColumn.isElementPresent(findBy.css('.diff-object')).then (finded) ->
+            expect(finded).toBeFalsy()
+        logLink.click().then ->
+            diffColumn.isElementPresent(findBy.css('.diff-object')).then (finded) ->
+                expect(finded).toBeTruthy()
+
 
 
 

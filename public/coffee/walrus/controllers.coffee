@@ -22,6 +22,7 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $interval) ->
 
     $scope.changeLog = (log) ->
         $scope.selected_log = null
+
         $http.get(log.url).success (data) ->
             $scope.selected_log = data
 

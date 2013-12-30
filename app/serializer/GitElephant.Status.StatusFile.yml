@@ -1,0 +1,22 @@
+GitElephant\Status\StatusFile:
+    xml_root_name: status_file
+    exclusion_policy: ALL
+    properties:
+        x:
+            expose: true
+            groups: [list]
+        y:
+            expose: true
+            groups: [list]
+        name:
+            expose: true
+            groups: [list]
+        renamed:
+            expose: true
+            groups: [list]
+        type:
+            expose: true
+            groups: [list]
+        description:
+            expose: true
+            groups: [list]

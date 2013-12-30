@@ -25,7 +25,9 @@ $app['serializer'] = \JMS\Serializer\SerializerBuilder::create()
     ->build();
 $app['serializer.list_context.names'] = ['list'];
 $app['serializer.list_context'] = function () use ($app) {
-    return \JMS\Serializer\SerializationContext::create()->setGroups($app['serializer.list_context.names']);
+    return \JMS\Serializer\SerializationContext::create()
+        ->setGroups($app['serializer.list_context.names'])
+        ->setSerializeNull(true);
 };
 
 // providers
@@ -61,6 +63,10 @@ $api->get('/log/{ref}', 'CypressLab\GitWalrus\Controller\Git::log')
 $api->get('/commit/{sha}', 'CypressLab\GitWalrus\Controller\Git::commit')
     ->bind('commit')
     ->value('ref', 'master');
+$api->get('/status/index', 'CypressLab\GitWalrus\Controller\Git::indexStatus')
+    ->bind('status_index');
+$api->get('/status/working-tree', 'CypressLab\GitWalrus\Controller\Git::workingTreeStatus')
+    ->bind('status_working_tree');
 $app->mount('api', $api);
 $app->get('/', 'CypressLab\GitWalrus\Controller\Main::homepage')->bind('homepage');
 $app->match('{url}', 'CypressLab\GitWalrus\Controller\Main::homepage')->assert('url', '.+');

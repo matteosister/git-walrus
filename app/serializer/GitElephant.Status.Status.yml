@@ -1,0 +1,25 @@
+GitElephant\Status\Status:
+    xml_root_name: status
+    exclusion_policy: ALL
+    virtual_properties:
+        all:
+            expose: true
+            groups: [list]
+        untracked:
+            expose: true
+            groups: [list]
+        modified:
+            expose: true
+            groups: [list]
+        added:
+            expose: true
+            groups: [list]
+        deleted:
+            expose: true
+            groups: [list]
+        renamed:
+            expose: true
+            groups: [list]
+        copied:
+            expose: true
+            groups: [list]

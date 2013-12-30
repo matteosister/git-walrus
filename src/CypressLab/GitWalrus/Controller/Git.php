@@ -100,4 +100,26 @@ class Git
         $tree = $app->getRepository()->getTree($ref, $path);
         return $app->rawJson($app->serialize($tree, 'json', $app['serializer.list_context']));
     }
+
+    /**
+     * @param Application $app
+     *
+     * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
+     */
+    public function indexStatus(Application $app)
+    {
+        $status = $app->getRepository()->getIndexStatus();
+        return $app->rawJson($app->serialize($status, 'json', $app['serializer.list_context']));
+    }
+
+    /**
+     * @param Application $app
+     *
+     * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
+     */
+    public function workingTreeStatus(Application $app)
+    {
+        $status = $app->getRepository()->getWorkingTreeStatus();
+        return $app->rawJson($app->serialize($status, 'json', $app['serializer.list_context']));
+    }
 }
