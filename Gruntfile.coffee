@@ -36,27 +36,27 @@ module.exports = (grunt) ->
             coffee:
                 files: ['Gruntfile.coffee', 'public/coffee/**/*.coffee']
                 tasks: ['coffee']
-            unit_tests:
-                files: ['public/coffee/test/unit/*.coffee']
-                tasks: ['karma:unit']
-            e2e_tests:
-                files: ['public/coffee/test/e2e/*.coffee', 'public/coffee/walrus/*.coffee']
-                tasks: ['e2e-chrome']
+#            unit_tests:
+#                files: ['public/coffee/test/unit/*.coffee']
+#                tasks: ['karma:unit']
+#            e2e_tests:
+#                files: ['public/coffee/test/e2e/*.coffee', 'public/coffee/walrus/*.coffee']
+#                tasks: ['e2e-chrome']
             css:
                 files: ['public/compass/sass/*.scss']
                 tasks: ['compass']
-            protractor_configuration:
-                files: ['public/config/protractor.conf.js']
-                tasks: ['e2e']
-            karma_configuration:
-                files: ['public/config/karma.conf.js']
-                tasks: ['karma:unit']
+#            protractor_configuration:
+#                files: ['public/config/protractor.conf.js']
+#                tasks: ['e2e']
+#            karma_configuration:
+#                files: ['public/config/karma.conf.js']
+#                tasks: ['karma:unit']
         coffee:
             compileWithMaps:
                 options:
                     sourceMap: true
                 files:
-                    'public/js/git-walrus.js': ['public/coffee/walrus/*.coffee']
+                    'public/js/git-walrus.js': ['public/coffee/walrus/*.coffee', 'public/coffee/walrus/**/*.coffee']
             compile:
                 files:
                     'public/js/test/unit.js': ['public/coffee/test/unit/*.coffee']
