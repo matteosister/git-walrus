@@ -16,3 +16,5 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
 $app = require_once "phar://git-walrus.phar/app.php";
 
 $app->run();
+
+exec('php -S localhost:8000 -t phar://git-walrus.phar/public phar://git-walrus.phar/public/index.php');

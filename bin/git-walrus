@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+$serverRun = new CypressLab\GitWalrus\Command\ServerRunCommand();
+$serverRun->run(
+    new \Symfony\Component\Console\Input\ArrayInput([
+        'address' => 'localhost:8000',
+        '--docroot' => __DIR__.'/../public',
+        '--router' => __DIR__.'/../public/dev.php'
+    ]),
+    new \Symfony\Component\Console\Output\ConsoleOutput()
+);
