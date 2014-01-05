@@ -71,3 +71,16 @@ $finder->files()
 foreach ($finder as $file) {
     addFile($phar, $file);
 }
+
+$finder->files()
+    ->ignoreVCS(true)
+    ->name('index.php')
+    ->name('git-walrus.js')
+    ->name('screen.css')
+    ->name('ie.css')
+    ->name('print.css')
+    ->in($webDir)
+;
+foreach ($finder as $file) {
+    addFile($phar, $file);
+}

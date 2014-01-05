@@ -3,7 +3,7 @@
  * @author Matteo Giachino <matteog@gmail.com>
  */
 
-require_once "phar://git-walrus.phar/libraries/git-walrus/vendor/autoload.php";
+//require_once "phar://git-walrus.phar/libraries/git-walrus/vendor/autoload.php";
 
 define('DEBUG', false);
 define('SERIALIZER_METADATA_DIR', 'phar://git-walrus.phar/libraries/git-walrus/app/serializer');
@@ -13,8 +13,8 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
     return false;
 }*/
 
-$app = require_once "phar://git-walrus.phar/app.php";
+//$app = require_once "phar://git-walrus.phar/app.php";
+//
+//$app->run();
 
-$app->run();
-
-exec('php -S localhost:8000 -t phar://git-walrus.phar/public phar://git-walrus.phar/public/index.php');
+exec('php -S localhost:8000 -t phar://git-walrus.phar/libraries/git-walrus/public phar://git-walrus.phar/libraries/git-walrus/public/index.php');
