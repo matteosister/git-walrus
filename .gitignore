@@ -4,3 +4,4 @@
 /public/js/
 /public/compass/stylesheets/*
 /public/compass/.sass-cache
+/build/*

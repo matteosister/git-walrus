@@ -6,9 +6,9 @@
  * Just for fun...
  */
 
-require_once __DIR__.'/../vendor/autoload.php';
-
 $debug = defined('DEBUG') ? constant('DEBUG') : false;
+$serializerDir = defined('SERIALIZER_METADATA_DIR') ? constant('SERIALIZER_METADATA_DIR') : __DIR__.'/serializer';
+$twigViewsDir = defined('TWIG_VIEWS_DIR') ? constant('TWIG_VIEWS_DIR') : __DIR__.'/views';
 
 $app = new \CypressLab\GitWalrus\Application();
 $app['debug'] = $debug;
@@ -18,7 +18,7 @@ $rootDir = isset($repositoryRoot) ? $repositoryRoot : __DIR__.'/../';
 $app['repository'] = \GitElephant\Repository::open($rootDir);
 $app['serializer'] = \JMS\Serializer\SerializerBuilder::create()
     ->setDebug($debug)
-    ->addMetadataDir(__DIR__.'/serializer')
+    ->addMetadataDir($serializerDir)
     ->configureListeners(function (\JMS\Serializer\EventDispatcher\EventDispatcher $dispatcher) use ($app) {
         $dispatcher->addSubscriber(new \CypressLab\GitWalrus\Event\SerializerSubscriber($app));
     })
@@ -33,7 +33,7 @@ $app['serializer.list_context'] = function () use ($app) {
 // providers
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__.'/views',
+    'twig.path' => $twigViewsDir,
 ));
 $lexer = new Twig_Lexer($app['twig'], array(
     'tag_comment'  => array('<%#', '%>'),

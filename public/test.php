@@ -6,6 +6,8 @@
  * Just for fun...
  */
 
+require_once __DIR__.'/../vendor/autoload.php';
+
 define('DEBUG', true);
 $app = require_once __DIR__.'/../app/app.php';
 
