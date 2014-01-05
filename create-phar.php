@@ -21,6 +21,8 @@ $phar = new Phar(
     FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::KEY_AS_FILENAME,
     "git-walrus.phar"
 );
+$phar->startBuffering();
+
 $phar->addFromString('index.php', file_get_contents($appDir.'/phar/index.php'));
 $phar->addFromString('app.php', file_get_contents($appDir.'/app.php'));
 $phar->setStub($phar->createDefaultStub('index.php'));
@@ -84,3 +86,5 @@ $finder->files()
 foreach ($finder as $file) {
     addFile($phar, $file);
 }
+
+$phar->stopBuffering();
