@@ -71,5 +71,6 @@ $app->mount('api', $api);
 $app->get('/', 'CypressLab\GitWalrus\Controller\Main::homepage')->bind('homepage');
 $app->get('/git-walrus.css', 'CypressLab\GitWalrus\Controller\Assets::css')->bind('css');
 $app->get('/git-walrus.js', 'CypressLab\GitWalrus\Controller\Assets::js')->bind('js');
+$app->get('/partial/{name}', 'CypressLab\GitWalrus\Controller\Assets::partial')->bind('partial');
 $app->match('{url}', 'CypressLab\GitWalrus\Controller\Main::homepage')->assert('url', '.+');
 return $app;

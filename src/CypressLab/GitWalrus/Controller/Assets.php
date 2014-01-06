@@ -55,4 +55,10 @@ class Assets
 
         return $r;
     }
+
+    public function partial($name)
+    {
+        $baseFolder = __DIR__.'/../../../../public/partials/';
+        return new Response(file_get_contents($baseFolder.$name));
+    }
 }

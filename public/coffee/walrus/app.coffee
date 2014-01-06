@@ -11,10 +11,10 @@ gitWalrusApp = angular.module 'gitWalrusApp', [
 gitWalrusApp.config ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
     $routeProvider
         .when '/',
-            templateUrl: '/partials/homepage.html'
+            templateUrl: '/partial/homepage.html'
             controller: 'HomepageController'
         .when '/tree/:ref*',
-            templateUrl: '/partials/tree.html'
+            templateUrl: '/partial/tree.html'
             controller: 'TreeController'
         .otherwise
             redirectTo: '/'
