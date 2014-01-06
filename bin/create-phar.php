@@ -56,10 +56,9 @@ $phar = new Phar(
     FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::KEY_AS_FILENAME,
     "git-walrus.phar"
 );
-$phar->startBuffering();
+//$phar->startBuffering();
 
-$finder = new Finder();
-$finder
+$finder = Finder::create()
     ->ignoreVCS(true)
     ->files()
     ->name('phar.php')
@@ -68,22 +67,27 @@ foreach ($finder as $file) {
     addFile($phar, $file);
 }
 
-$finder->files()
+$finder = Finder::create()
     ->ignoreVCS(true)
+    ->files()
     ->name('*.php')
+    ->exclude('Tests')
+    ->exclude('phpunit')
+    ->exclude('mockery')
     ->in([__DIR__.'/../vendor', __DIR__.'/../src']);
 foreach ($finder as $file) {
     addFile($phar, $file);
 }
 
-$finder->files()
+$finder = Finder::create()
     ->ignoreVCS(true)
+    ->files()
     ->in(__DIR__.'/../public');
 foreach ($finder as $file) {
     addFile($phar, $file);
 }
 
-$finder
+$finder = Finder::create()
     ->ignoreVCS(true)
     ->files()
     ->in(__DIR__.'/../app');
@@ -94,4 +98,4 @@ foreach ($finder as $file) {
 $phar->addFromString('bin/git-walrus', file_get_contents(__DIR__.'/git-walrus'));
 
 $phar->setStub(getStub());
-$phar->stopBuffering();
+//$phar->stopBuffering();
