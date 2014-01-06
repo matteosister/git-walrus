@@ -39,7 +39,25 @@ class WebTestCase extends SilexWebTestCase
      */
     protected function isJsonResponse(Client $client)
     {
-        $this->assertEquals('application/json', $client->getResponse()->headers->get('content-type'));
+        $this->isContentTypeResponse($client, 'application/json');
+    }
+
+    /**
+     * @param Client $client
+     * @param string $type
+     */
+    protected function isContentTypeResponse(Client $client, $type)
+    {
+        $this->assertEquals($type, $client->getResponse()->headers->get('content-type'));
+    }
+
+
+    /**
+     * @param Client $client
+     */
+    protected function isOK(Client $client)
+    {
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
     protected function countItems(Client $client, $expected, $key = null)
