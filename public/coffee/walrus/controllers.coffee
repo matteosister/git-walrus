@@ -11,8 +11,9 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $interval, logServ
         $scope.logs = data.commits
 
     $scope.changeBranch = ->
+        console.log 'ssisi'
         $scope.selected_log = null
-        logService.get($scope.branch.name).success (data) ->
+        logService.getLogs($scope.branch.name).success (data) ->
             $scope.logs = data.commits
 
     $scope.changeLog = (log) ->
