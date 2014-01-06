@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="tests/bootstrap.php"
+<phpunit bootstrap="src/CypressLab/Tests/bootstrap.php"
         colors="false"
         stopOnFailure="false">
     <testsuites>
         <testsuite name="GitWalrus Test Suite">
-            <directory>tests/CypressLab/</directory>
+            <directory>src/CypressLab/Tests/</directory>
         </testsuite>
     </testsuites>
 

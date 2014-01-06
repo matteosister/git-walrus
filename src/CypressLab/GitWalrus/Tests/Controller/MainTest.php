@@ -8,8 +8,7 @@
 
 namespace CypressLab\GitWalrus\Controller;
 
-use CypressLab\WebTestCase;
-use Symfony\Component\HttpKernel\HttpKernel;
+use CypressLab\GitWalrus\Tests\WebTestCase;
 
 class MainTest extends WebTestCase
 {

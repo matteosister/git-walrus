@@ -7,7 +7,7 @@
  */
 
 
-namespace CypressLab;
+namespace CypressLab\GitWalrus\Tests;
 
 use CypressLab\GitWalrus\Application;
 use GitElephant\Command\Caller\Caller;
@@ -65,7 +65,7 @@ class WebTestCase extends SilexWebTestCase
     {
         $this->createRepository();
         $repositoryRoot = $this->path;
-        $app = require __DIR__.'/../../app/app.php';
+        $app = require __DIR__ . '/../../../../app/app.php';
         $app['debug'] = true;
         $app['exception_handler']->disable();
 

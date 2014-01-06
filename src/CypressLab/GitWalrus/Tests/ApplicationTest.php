@@ -6,9 +6,7 @@
  * Just for fun...
  */
 
-namespace CypressLab\GitWalrus;
-
-use CypressLab\WebTestCase;
+namespace CypressLab\GitWalrus\Tests;
 
 class ApplicationTest extends WebTestCase
 {

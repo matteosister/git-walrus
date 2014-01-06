@@ -6,9 +6,9 @@
  * Just for fun...
  */
 
-namespace CypressLab\GitWalrus\Controller;
+namespace CypressLab\GitWalrus\Tests\Controller;
 
-use CypressLab\WebTestCase;
+use CypressLab\GitWalrus\Tests\WebTestCase;
 
 /**
  * Class GitTest
@@ -153,7 +153,7 @@ class GitTest extends WebTestCase
     public function testIndexStatus()
     {
         $client = $this->createClient();
-        $client->request('get', '/api/status/working_tree');
+        $client->request('get', '/api/status/working-tree');
         $this->isJsonResponse($client);
         $result = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('all', $result);
