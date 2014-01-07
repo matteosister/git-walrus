@@ -79,14 +79,7 @@ EOF
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $env = 'dev';
-
-        if ('prod' === $env) {
-            $output->writeln('<error>Running PHP built-in server in production environment is NOT recommended!</error>');
-        }
-
         $output->writeln(sprintf("Server running on <info>%s</info>\n", $input->getArgument('address')));
-
         $builder = new ProcessBuilder(array(PHP_BINARY, '-S', $input->getArgument('address')));
         $builder->setWorkingDirectory($input->getOption('docroot'));
         if ($input->hasOption('router')) {

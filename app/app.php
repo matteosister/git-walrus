@@ -7,6 +7,7 @@
  */
 
 $debug = defined('DEBUG') ? constant('DEBUG') : false;
+$repositoryRoot = defined('REPOSITORY_ROOT') ? constant('REPOSITORY_ROOT') : __DIR__.'/../';
 $serializerDir = defined('SERIALIZER_METADATA_DIR') ? constant('SERIALIZER_METADATA_DIR') : __DIR__.'/serializer';
 $twigViewsDir = defined('TWIG_VIEWS_DIR') ? constant('TWIG_VIEWS_DIR') : __DIR__.'/views';
 
@@ -14,8 +15,7 @@ $app = new \CypressLab\GitWalrus\Application();
 $app['debug'] = $debug;
 
 // git elephant
-$rootDir = isset($repositoryRoot) ? $repositoryRoot : __DIR__.'/../';
-$app['repository'] = \GitElephant\Repository::open($rootDir);
+$app['repository'] = \GitElephant\Repository::open($repositoryRoot);
 $app['serializer'] = \JMS\Serializer\SerializerBuilder::create()
     ->setDebug($debug)
     ->addMetadataDir($serializerDir)

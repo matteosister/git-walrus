@@ -14,6 +14,16 @@ use Symfony\Component\Finder\Finder;
 
 class PharBuildCommand extends Command
 {
+    /**
+     * @var InputInterface
+     */
+    private $input;
+
+    /**
+     * @var OutputInterface
+     */
+    private $output;
+
     protected function configure()
     {
         $this
@@ -24,6 +34,8 @@ class PharBuildCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->input = $input;
+        $this->output = $output;
         $name = $input->getArgument('name');
         $pharName = $name.'.phar';
         $baseDir = __DIR__.'/../../../..';
@@ -44,7 +56,9 @@ class PharBuildCommand extends Command
             $pharName
         );
 
-        $output->writeln('<info>Adding vendor files...</info>');
+        $phar->startBuffering();
+
+        $output->writeln('<info>Adding vendor/src files...</info>');
         $this->addFinder(
             Finder::create()
                 ->ignoreVCS(true)
@@ -63,7 +77,7 @@ class PharBuildCommand extends Command
             Finder::create()
                 ->ignoreVCS(true)
                 ->files()
-                ->name('/\.js$|\.css$/')
+                ->name('/index.php|\.js$|\.css$|\.html$/')
                 ->in($publicDir),
             $phar,
             $output
@@ -80,49 +94,44 @@ class PharBuildCommand extends Command
         );
 
         $phar->addFromString('bin/git-walrus', file_get_contents($binDir.'/git-walrus'));
-        $phar->setStub($this->getStub($pharName));
+        $phar->setStub($this->getStub());
+        $phar->stopBuffering();
         rename($buildDir.'/'.$pharName, $buildDir.'/'. $name);
     }
 
-    private function addFinder(Finder $finder, \Phar $phar, OutputInterface $output)
+    private function addFinder(Finder $finder, \Phar $phar)
     {
-        $phar->startBuffering();
         /** @var ProgressHelper $progress */
         $progress = $this->getHelperSet()->get('progress');
         $progress->setBarCharacter('<comment>=</comment>');
         $progress->setEmptyBarCharacter(' ');
         $progress->setBarWidth(50);
-        $progress->start($output, $finder->count());
+        //$progress->start($this->output, $finder->count());
         foreach ($finder as $file) {
-            $this->addFile($phar, $file, $output);
-            $progress->advance();
+            $this->addFile($phar, $file);
+            //$progress->advance();
         }
-        $phar->stopBuffering();
-        $progress->finish();
+        //$progress->finish();
     }
 
-    private function getStub($name)
+    private function getStub()
     {
-        return sprintf(
-            '#!/usr/bin/env php
-            <?php
+        return <<<'EOF'
+#!/usr/bin/env php
+<?php
 
-            Phar::mapPhar("%s");
+Phar::mapPhar("git-walrus.phar");
 
-            require "phar://%s/bin/git-walrus";
+require "phar://git-walrus.phar/bin/git-walrus";
 
-            __HALT_COMPILER();
-            ',
-            $name,
-            $name
-        );
+__HALT_COMPILER();
+EOF;
     }
 
-    private function addFile(\Phar $phar, \SplFileInfo $file, OutputInterface $output, $strip = true)
+    private function addFile(\Phar $phar, \SplFileInfo $file, $strip = true)
     {
-        $path = strtr(str_replace(dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR, '', $file->getRealPath()), '\\', '/');
-        $path = preg_replace('/^git-walrus\//', '', $path);
-        //$output->writeln($path);
+        $path = strtr(str_replace(dirname(dirname(dirname(dirname(__DIR__)))).DIRECTORY_SEPARATOR, '', $file->getRealPath()), '\\', '/');
+        var_dump($path);
 
         $content = file_get_contents($file);
         if ($strip) {
@@ -131,11 +140,6 @@ class PharBuildCommand extends Command
             $content = "\n".$content."\n";
         }
 
-        if ($path === 'src/Composer/Composer.php') {
-            $content = str_replace('@package_version@', $this->version, $content);
-            $content = str_replace('@release_date@', $this->versionDate, $content);
-        }
-
-        $phar->addFromString($path, $content);
+        $phar->addFile($file, $path);
     }
 }
