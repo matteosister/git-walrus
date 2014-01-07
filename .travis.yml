@@ -13,8 +13,8 @@ before_script:
   - php composer.phar install
   - git config --global user.email "test@travis-ci.org"
   - git config --global user.name "Travis"
-  #- npm install
-  #- ./node_modules/.bin/bower install
+  - npm install
+  - ./node_modules/.bin/bower install
 
 script:
   - bin/phpunit --coverage-clover "clover"
