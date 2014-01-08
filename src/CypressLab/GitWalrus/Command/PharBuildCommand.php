@@ -28,7 +28,7 @@ class PharBuildCommand extends Command
     {
         $this
             ->setName('phar:build')
-            ->addArgument('name', InputArgument::OPTIONAL, 'archive name', 'git-walrus')
+            ->addArgument('name', InputArgument::OPTIONAL, 'archive name', 'git-walrus.phar')
             ->setDescription('Build the phar archive');
     }
 
@@ -37,7 +37,11 @@ class PharBuildCommand extends Command
         $this->input = $input;
         $this->output = $output;
         $name = $input->getArgument('name');
-        $pharName = $name.'.phar';
+        if (preg_match('/(.*)\.phar$/', $name)) {
+            $pharName = $name;
+        } else {
+            $pharName = $name.'.phar';
+        }
         $baseDir = __DIR__.'/../../../..';
         $srcDir = $baseDir.'/src';
         $buildDir = $baseDir.'/build';
@@ -58,7 +62,7 @@ class PharBuildCommand extends Command
 
         $phar->startBuffering();
 
-        $output->writeln('<info>Adding vendor/src files...</info>');
+        $output->writeln('<info>Adding vendor/ and src/ files...</info>');
         $this->addFinder(
             Finder::create()
                 ->ignoreVCS(true)
@@ -78,6 +82,9 @@ class PharBuildCommand extends Command
                 ->ignoreVCS(true)
                 ->files()
                 ->name('/index.php|\.js$|\.css$|\.html$/')
+                ->notPath('bower/font-awesome/src')
+                ->notPath('js/test')
+                ->notPath('config')
                 ->in($publicDir),
             $phar,
             $output
@@ -97,6 +104,12 @@ class PharBuildCommand extends Command
         $phar->setStub($this->getStub());
         $phar->stopBuffering();
         rename($buildDir.'/'.$pharName, $buildDir.'/'. $name);
+        $this->output->writeln(
+            sprintf(
+                '<info>Phar generated</info> Total size: <comment>%s</comment>',
+                filesize($buildDir.'/'. $name)
+            )
+        );
     }
 
     private function addFinder(Finder $finder, \Phar $phar)
@@ -106,12 +119,18 @@ class PharBuildCommand extends Command
         $progress->setBarCharacter('<comment>=</comment>');
         $progress->setEmptyBarCharacter(' ');
         $progress->setBarWidth(50);
-        //$progress->start($this->output, $finder->count());
+        if (!$this->output->isVerbose()) {
+            $progress->start($this->output, $finder->count());
+        }
         foreach ($finder as $file) {
             $this->addFile($phar, $file);
-            //$progress->advance();
+            if (!$this->output->isVerbose()) {
+                $progress->advance();
+            }
         }
-        //$progress->finish();
+        if (!$this->output->isVerbose()) {
+            $progress->finish();
+        }
     }
 
     private function getStub()
@@ -131,7 +150,9 @@ EOF;
     private function addFile(\Phar $phar, \SplFileInfo $file, $strip = true)
     {
         $path = strtr(str_replace(dirname(dirname(dirname(dirname(__DIR__)))).DIRECTORY_SEPARATOR, '', $file->getRealPath()), '\\', '/');
-        var_dump($path);
+        if ($this->output->isVerbose()) {
+            $this->output->writeln($path);
+        }
 
         $content = file_get_contents($file);
         if ($strip) {
