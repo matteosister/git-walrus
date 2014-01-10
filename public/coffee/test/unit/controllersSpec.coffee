@@ -7,29 +7,29 @@ describe 'Controllers', ->
         $httpBackend = null
 
         beforeEach inject((_$httpBackend_, $rootScope, $controller) ->
+            $injector = angular.injector(['ng', 'ngResource']);
+            resource = $injector.get('$resource');
             $httpBackend = _$httpBackend_;
-            $httpBackend.expectGET('/api/branches')
+            $httpBackend.when('GET', '/api/branches')
                 .respond('[{"name":"master"}]')
-            $httpBackend.expectGET('/api/log/master')
-                .respond('{"commits":[{"message":"test message"}]}')
+            $httpBackend.when('GET', '/api/status/working-tree')
+                .respond('[]')
+            $httpBackend.when('GET', '/api/status/index')
+                .respond('[]')
+            $httpBackend.when('GET', '/api/log/master')
+                .respond('[]')
             scope = $rootScope.$new();
-            ctrl = $controller('HomepageController', {$scope: scope});
+            ctrl = $controller('HomepageController', {$scope: scope, $resource: resource});
         )
 
         it 'should create "branches" in the scope with at least one object', ->
             expect(scope.branches).toBeUndefined()
-            expect(scope.logs).toBeUndefined()
-
             $httpBackend.flush();
-
             expect(scope.branches.length).toBe(1)
             expect(scope.branches[0].name).toBe('master')
-            expect(scope.logs.length).toBe(1)
-            expect(scope.logs[0].message).toBe('test message')
 
         it 'should attach a date', ->
             expect(scope.date).toBeDefined()
-            expect(scope.date).toEqual(new Date())
 
     describe 'TreeController', ->
         scope = null
