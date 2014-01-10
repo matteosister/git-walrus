@@ -6,10 +6,10 @@
  * Just for fun...
  */
 
-$debug = defined('DEBUG') ? constant('DEBUG') : false;
-$repositoryRoot = defined('REPOSITORY_ROOT') ? constant('REPOSITORY_ROOT') : __DIR__.'/../';
-$serializerDir = defined('SERIALIZER_METADATA_DIR') ? constant('SERIALIZER_METADATA_DIR') : __DIR__.'/serializer';
-$twigViewsDir = defined('TWIG_VIEWS_DIR') ? constant('TWIG_VIEWS_DIR') : __DIR__.'/views';
+$debug = $debug ?: false;
+$repositoryRoot = $repositoryRoot ?: __DIR__.'/../';
+$serializerDir = $serializerDir ?: __DIR__.'/serializer';
+$twigViewsDir = $twigViewsDir ?: __DIR__.'/views';
 
 $app = new \CypressLab\GitWalrus\Application();
 $app['debug'] = $debug;

@@ -8,7 +8,7 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-define('DEBUG', true);
+$debug = true;
 $app = require_once __DIR__.'/../app/app.php';
 
 $app->run();
