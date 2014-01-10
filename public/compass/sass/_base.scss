@@ -13,3 +13,8 @@ $linksHover: $alternate; //$links - #444;
 $greyLight: #969696;
 $diffFileHeader: $header - #111;
 $red: #F00;
+
+$status_untracked: $disabled - #444;
+$status_modified: #d0b44c;
+$status_added: #6cc644;
+$status_deleted: #bd2c00;

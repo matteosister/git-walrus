@@ -1,11 +1,12 @@
 "use strict"
 
 gitWalrusApp = angular.module 'gitWalrusApp', [
-    'ngRoute',
-    'gitWalrusFilters',
-    'angular-underscore',
-    'hljs',
+    'ngRoute'
+    'gitWalrusFilters'
+    'angular-underscore'
+    'hljs'
     'ngAnimate'
+    'ngResource'
 ]
 
 gitWalrusApp.config ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->

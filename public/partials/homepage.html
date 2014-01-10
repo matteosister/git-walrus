@@ -21,7 +21,50 @@
         </ul>
     </div>
     <div class="col-md-8 diff">
-        <div ng-repeat="diff_object in selected_log.diff.diff_objects" ng-animate=" 'animate' " class="diff-object">
+        <div class="status" ng-if="selected_log == null">
+            <h3>Index</h3>
+            <div ng-repeat="file in index.untracked" class="working-tree">
+                <h4 class="untracked"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+            </div>
+            <div ng-repeat="file in index.modified" class="working-tree">
+                <h4 class="modified"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+            </div>
+            <div ng-repeat="file in index.added" class="working-tree">
+                <h4 class="added"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+            </div>
+            <div ng-repeat="file in index.deleted" class="working-tree">
+                <h4 class="deleted"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+            </div>
+            <div ng-repeat="file in index.renamed" class="working-tree">
+                <h4 class="renamed"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+            </div>
+            <div ng-repeat="file in index.copied" class="working-tree">
+                <h4 class="copied"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+            </div>
+            <h3>Working Tree</h3>
+            <div ng-repeat="file in working_tree.untracked" class="working-tree">
+                <h4 class="untracked"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+            </div>
+            <div ng-repeat="file in working_tree.modified" class="working-tree">
+                <h4 class="modified"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+            </div>
+            <div ng-repeat="file in working_tree.added" class="working-tree">
+                <h4 class="added"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+            </div>
+            <div ng-repeat="file in working_tree.deleted" class="working-tree">
+                <h4 class="deleted"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+            </div>
+            <div ng-repeat="file in working_tree.renamed" class="working-tree">
+                <h4 class="renamed"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+            </div>
+            <div ng-repeat="file in working_tree.copied" class="working-tree">
+                <h4 class="copied"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+            </div>
+        </div>
+        <a href="#" ng-click="selected_log = null">
+            <i ng-if="selected_log != null" class="fa fa-2x fa-arrow-circle-o-left"></i>
+        </a>
+        <div ng-repeat="diff_object in selected_log.diff.diff_objects" ng-animate class="diff-object index-{{ $index }}">
             <h4 class="{{ diff_object.mode }}">
                 <i class="fa fa-1g fa-minus" ng-if="diff_object.mode == 'deleted_file'"></i>
                 <i class="fa fa-1g fa-plus" ng-if="diff_object.mode == 'new_file'"></i>

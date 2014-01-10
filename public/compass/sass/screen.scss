@@ -26,7 +26,25 @@ html {
     border-left: 1px solid #DDD;
 }
 
+.status {
+    .untracked {
+        color: $status_untracked;
+    }
+    .modified {
+        color: $status_modified;
+    }
+    .added {
+        color: $status_added;
+    }
+    .deleted {
+        color: $status_deleted;
+    }
+}
+
 .diff-object {
+    &.index-0 {
+        padding-top: 30px;
+    }
     -webkit-transition: 0.2s linear all; /* Chrome */
     transition: 0.2s linear all;
     opacity: 1;

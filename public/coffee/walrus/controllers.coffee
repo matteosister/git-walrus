@@ -1,7 +1,15 @@
 'use strict'
 
 # HOMEPAGE
-gitWalrusApp.controller 'HomepageController', ($scope, $http, $interval, logService) ->
+gitWalrusApp.controller 'HomepageController', ($scope, $http, $interval, $resource, logService) ->
+    workingTree = $resource('/api/status/working-tree');
+    workingTree.get {}, (data) ->
+        $scope.working_tree = data
+
+    index = $resource('/api/status/index');
+    index.get {}, (data) ->
+        $scope.index = data
+
     $http.get('/api/branches').success (data) ->
         $scope.branches = data
         $scope.branch = _.find $scope.branches, (b) ->
@@ -18,7 +26,6 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $interval, logServ
 
     $scope.changeLog = (log) ->
         $scope.selected_log = null
-
         $http.get(log.url).success (data) ->
             $scope.selected_log = data
 
