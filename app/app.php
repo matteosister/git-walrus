@@ -63,10 +63,14 @@ $api->get('/log/{ref}', 'CypressLab\GitWalrus\Controller\Git::log')
 $api->get('/commit/{sha}', 'CypressLab\GitWalrus\Controller\Git::commit')
     ->bind('commit')
     ->value('ref', 'master');
-$api->get('/status/index', 'CypressLab\GitWalrus\Controller\Git::indexStatus')
+$api->get('/status/index', 'CypressLab\GitWalrus\Controller\Git::index')
     ->bind('status_index');
-$api->get('/status/working-tree', 'CypressLab\GitWalrus\Controller\Git::workingTreeStatus')
+$api->post('/status/index', 'CypressLab\GitWalrus\Controller\Git::index')
+    ->bind('post_status_index');
+$api->get('/status/working-tree', 'CypressLab\GitWalrus\Controller\Git::workingTree')
     ->bind('status_working_tree');
+$api->post('/status/working-tree', 'CypressLab\GitWalrus\Controller\Git::workingTree')
+    ->bind('post_status_working_tree');
 $app->mount('api', $api);
 $app->get('/', 'CypressLab\GitWalrus\Controller\Main::homepage')->bind('homepage');
 $app->get('/git-walrus.css', 'CypressLab\GitWalrus\Controller\Assets::css')->bind('css');

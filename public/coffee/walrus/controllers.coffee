@@ -28,6 +28,20 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $interval, $resour
         $http.get(log.url).success (data) ->
             $scope.selected_log = data
 
+    $scope.stage = (file) ->
+        $http.post('/api/status/index', file).success ->
+            index.get {}, (data) ->
+                $scope.index = data
+            workingTree.get {}, (data) ->
+                $scope.working_tree = data
+
+    $scope.unstage = (file) ->
+        $http.post('/api/status/working-tree', file).success ->
+            index.get {}, (data) ->
+                $scope.index = data
+            workingTree.get {}, (data) ->
+                $scope.working_tree = data
+
     $scope.date = new Date()
     updateDate = ->
         $scope.date = new Date()

@@ -102,23 +102,35 @@ class Git
     }
 
     /**
-     * @param Application $app
+     * @param Application                               $app
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      */
-    public function indexStatus(Application $app)
+    public function index(Application $app, Request $request)
     {
+        if ('POST' == $request->getMethod()) {
+            $file = json_decode($request->getContent());
+            $app->getRepository()->stage($file->name);
+            return new Response();
+        }
         $status = $app->getRepository()->getIndexStatus();
         return $app->rawJson($app->serialize($status, 'json', $app['serializer.list_context']));
     }
 
     /**
-     * @param Application $app
+     * @param Application                               $app
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      */
-    public function workingTreeStatus(Application $app)
+    public function workingTree(Application $app, Request $request)
     {
+        if ('POST' == $request->getMethod()) {
+            $file = json_decode($request->getContent());
+            $app->getRepository()->unstage($file->name);
+            return new Response();
+        }
         $status = $app->getRepository()->getWorkingTreeStatus();
         return $app->rawJson($app->serialize($status, 'json', $app['serializer.list_context']));
     }

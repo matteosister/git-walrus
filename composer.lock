@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/matteosister/GitElephant.git",
-                "reference": "a33f39d3643877072d840d58b4c6543c2403bb29"
+                "reference": "c9cd89f489502c6eec31902c37325a5a05d5dcb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matteosister/GitElephant/zipball/a33f39d3643877072d840d58b4c6543c2403bb29",
-                "reference": "a33f39d3643877072d840d58b4c6543c2403bb29",
+                "url": "https://api.github.com/repos/matteosister/GitElephant/zipball/c9cd89f489502c6eec31902c37325a5a05d5dcb5",
+                "reference": "c9cd89f489502c6eec31902c37325a5a05d5dcb5",
                 "shasum": ""
             },
             "require": {
@@ -54,7 +54,7 @@
             "keywords": [
                 "git"
             ],
-            "time": "2014-01-04 22:34:41"
+            "time": "2014-01-11 23:24:54"
         },
         {
             "name": "doctrine/annotations",
