@@ -26,6 +26,11 @@ use Symfony\Component\Process\ProcessBuilder;
 class ServerRunCommand extends Command
 {
     /**
+     * @var OutputInterface
+     */
+    private $output;
+
+    /**
      * {@inheritdoc}
      */
     public function isEnabled()
@@ -46,7 +51,7 @@ class ServerRunCommand extends Command
             ->setDefinition(array(
                 new InputArgument('address', InputArgument::OPTIONAL, 'Address:port', 'localhost:8000'),
                 new InputOption('docroot', 'd', InputOption::VALUE_REQUIRED, 'Document root', 'public/'),
-                new InputOption('router', 'r', InputOption::VALUE_REQUIRED, 'Path to custom router script'),
+                new InputOption('router', 'r', InputOption::VALUE_REQUIRED, 'Path to custom router script', '../public/dev.php'),
             ))
             ->setName('server:run')
             ->setDescription('Runs PHP built-in web server')
@@ -79,7 +84,8 @@ EOF
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln(sprintf("Server running on <info>%s</info>\n", $input->getArgument('address')));
+        $output->writeln($this->walrus());
+        $output->writeln(sprintf("Server running on <info>%s</info>\n", 'http://'.$input->getArgument('address')));
         $builder = new ProcessBuilder(array(PHP_BINARY, '-S', $input->getArgument('address')));
         $builder->setWorkingDirectory($input->getOption('docroot'));
         if ($input->hasOption('router')) {
@@ -91,5 +97,18 @@ EOF
                 $output->write($buffer);
             }
         });
+    }
+
+    protected function walrus()
+    {
+        return <<<EOF
+           ___
+        .-9 9 `\
+      =(:(::)=  ;
+        ||||     \
+        ||||      `-.
+       ,\|\|    <info>I</info> am the <comment>Walrus</comment>
+      /                \
+EOF;
     }
 }
