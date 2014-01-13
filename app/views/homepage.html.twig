@@ -7,7 +7,7 @@
         <script src="<%= app.url_generator.generate('js') %>"></script>
     </head>
     <body ng-controller="HomepageController">
-        <div class="container">
+        <div class="git-walrus">
             <div class="row">
                 <div class="col-md-12">
                     <div class="pull-right label label-default clock">
@@ -15,7 +15,13 @@
                     </div>
                 </div>
             </div>
-            <h1 class="logo"><a href="/">Git Walrus</a></h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h1 class="logo"><a href="/">Git Walrus</a> <small>manage git from the browser</small></h1>
+                    </div>
+                </div>
+            </div>
             <div ng-view></div>
         </div>
     </body>

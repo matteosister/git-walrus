@@ -1,0 +1,61 @@
+<ul class="nav nav-pills">
+    <li><a href="/">Status</a></li>
+    <li class="active"><a href="#">Log</a></li>
+</ul>
+<hr />
+<div class="row">
+    <div class="col-md-3 col-sm-5 branches">
+        select branch: <select ng-model="branch" ng-options="branch.name for branch in branches" ng-change="changeBranch()"></select>
+        <hr />
+        <i class="fa fa-1g fa-folder-open"></i> <a href="/tree/{{ branch.name }}">browse {{ branch.name }} tree</a>
+        <hr />
+        <h4><span class="label label-default">{{ branch.name }}</span> branch log</h4>
+        <ul class="list-group logs" bs-affix data-offset-top="60" data-offset-bottom="200">
+            <li class="list-group-item" ng-repeat="log in logs" ng-model="selected_log" ng-class="{ selected: selected_log.sha == log.sha }">
+                <div class="gravatar">
+                    <img ng-src="{{ log.author.email | gravatar:50 }}" class="img-circle"/>
+                </div>
+                <div class="content">
+                    <p><a href="javascript:void(0)" ng-click="changeLog(log)">{{ log.message }}</a><i ng-if="selected_log.sha == log.sha" class="fa fa-2g fa-chevron-right pull-right"></i></p>
+                    <div class="sha label label-info" gw-hover-details="{{ log.sha }}" gw-hover-details-small="{{ log.sha | limitTo: 8 }}"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-9 col-sm-7 diff">
+        <div ng-repeat="diff_object in selected_log.diff.diff_objects" ng-animate class="diff-object index-{{ $index }}">
+            <h4 class="{{ diff_object.mode }}">
+                <i class="fa fa-1g fa-minus" ng-if="diff_object.mode == 'deleted_file'"></i>
+                <i class="fa fa-1g fa-plus" ng-if="diff_object.mode == 'new_file'"></i>
+                <i class="fa fa-1g fa-pencil" ng-if="diff_object.mode == 'index'"></i>
+                {{ diff_object.original_path }}
+            </h4>
+            <div class="diff-container">
+                <table class="diff">
+                    <tbody class="chunk" ng-repeat="chunk in diff_object.chunks">
+                        <tr>
+                            <td class="ln">...</td>
+                            <td class="ln dest">...</td>
+                            <td class="header">{{ chunk.header_line }}</td>
+                        </tr>
+                        <tr class="line" ng-repeat="line in chunk.lines">
+                            <td class="ln">{{ line.origin_number|hide_zero }}</td>
+                            <td class="ln dest">{{ line.dest_number|hide_zero }}</td>
+                            <td class="code_table" ng-if="$index == 0" rowspan="{{ chunk.lines.length }}">
+                                <table>
+                                    <tr ng-repeat="code_line in chunk.lines">
+                                        <td class="code {{ code_line.type }}"><pre class="line">{{ code_line.content }}</pre></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr ng-if="!$last" />
+        </div>
+        <div class="empty">
+            <h1><i class="fa fa-chevron-left fa-1x"></i> Select a commit from the left column</h1>
+        </div>
+    </div>
+</div>

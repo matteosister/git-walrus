@@ -85,7 +85,7 @@ module.exports = (grunt) ->
                     stderr: false
                     async: true
             phpserver:
-                command: '/usr/bin/php -S localhost:8000 -t public public/dev.php'
+                command: '/usr/bin/php app/console.php server:run'
                 options:
                     stdout: false
                     stderr: false

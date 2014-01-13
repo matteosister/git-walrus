@@ -13,7 +13,7 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
     return false;
 }
 $debug = true;
-$repositoryRoot = '/home/matteo/libraries/test';
+//$repositoryRoot = '/home/matteo/libraries/test';
 $app = require_once __DIR__.'/../app/app.php';
 
 $app->run();

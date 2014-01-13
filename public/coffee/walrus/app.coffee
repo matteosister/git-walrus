@@ -14,6 +14,9 @@ gitWalrusApp.config ['$routeProvider', '$locationProvider', ($routeProvider, $lo
         .when '/',
             templateUrl: '/partial/homepage.html'
             controller: 'HomepageController'
+        .when '/log',
+            templateUrl: '/partial/log.html'
+            controller: 'LogController'
         .when '/tree/:ref*',
             templateUrl: '/partial/tree.html'
             controller: 'TreeController'

@@ -1,7 +1,7 @@
 'use strict'
 
 # HOMEPAGE
-gitWalrusApp.controller 'HomepageController', ($scope, $http, $interval, $resource, logService) ->
+gitWalrusApp.controller 'HomepageController', ($scope, $http, $resource, $interval) ->
     workingTree = $resource('/api/status/working-tree');
     workingTree.get {}, (data) ->
         $scope.working_tree = data
@@ -10,6 +10,21 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $interval, $resour
     index.get {}, (data) ->
         $scope.index = data
 
+    $scope.stage = (file) ->
+        $http.post('/api/status/index', file).success ->
+            index.get {}, (data) ->
+                $scope.index = data
+            workingTree.get {}, (data) ->
+                $scope.working_tree = data
+
+    $scope.unstage = (file) ->
+        $http.post('/api/status/working-tree', file).success ->
+            index.get {}, (data) ->
+                $scope.index = data
+            workingTree.get {}, (data) ->
+                $scope.working_tree = data
+
+gitWalrusApp.controller 'LogController', ($scope, $http, $interval, logService) ->
     $http.get('/api/branches').success (data) ->
         $scope.branches = data
         $scope.branch = _.find $scope.branches, (b) ->
@@ -27,20 +42,6 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $interval, $resour
         $scope.selected_log = null
         $http.get(log.url).success (data) ->
             $scope.selected_log = data
-
-    $scope.stage = (file) ->
-        $http.post('/api/status/index', file).success ->
-            index.get {}, (data) ->
-                $scope.index = data
-            workingTree.get {}, (data) ->
-                $scope.working_tree = data
-
-    $scope.unstage = (file) ->
-        $http.post('/api/status/working-tree', file).success ->
-            index.get {}, (data) ->
-                $scope.index = data
-            workingTree.get {}, (data) ->
-                $scope.working_tree = data
 
     $scope.date = new Date()
     updateDate = ->
