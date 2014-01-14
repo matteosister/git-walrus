@@ -8,4 +8,15 @@ gitWalrusApp.directive 'gwHoverDetails', ->
         element.on 'mouseleave', (event) ->
             element.html attr.gwHoverDetailsSmall
 
-    link: link
+    return link: link
+
+gitWalrusApp.directive 'clock', ->
+    link = ->
+        console.log 'clock link'
+    controller = ($scope, $interval) ->
+        $scope.date = new Date()
+        $scope.updateDate = ->
+            $scope.date = new Date()
+        $interval $scope.updateDate, 1000
+
+    return restrict: 'A', link: link, controller: controller

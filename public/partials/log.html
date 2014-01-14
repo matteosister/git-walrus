@@ -54,7 +54,7 @@
             </div>
             <hr ng-if="!$last" />
         </div>
-        <div class="empty">
+        <div class="empty" ng-if="selected_log == null">
             <h1><i class="fa fa-chevron-left fa-1x"></i> Select a commit from the left column</h1>
         </div>
     </div>

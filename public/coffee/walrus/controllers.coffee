@@ -24,7 +24,7 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $resource, $interv
             workingTree.get {}, (data) ->
                 $scope.working_tree = data
 
-gitWalrusApp.controller 'LogController', ($scope, $http, $interval, logService) ->
+gitWalrusApp.controller 'LogController', ($scope, $http, logService) ->
     $http.get('/api/branches').success (data) ->
         $scope.branches = data
         $scope.branch = _.find $scope.branches, (b) ->
@@ -42,11 +42,6 @@ gitWalrusApp.controller 'LogController', ($scope, $http, $interval, logService) 
         $scope.selected_log = null
         $http.get(log.url).success (data) ->
             $scope.selected_log = data
-
-    $scope.date = new Date()
-    updateDate = ->
-        $scope.date = new Date()
-    $interval updateDate, 1000
 
 gitWalrusApp.controller 'TreeController', ($scope, $http, $location) ->
     $http.get("/api#{ $location.path() }").success (data) ->

@@ -36,6 +36,9 @@ module.exports = (grunt) ->
             coffee:
                 files: ['Gruntfile.coffee', 'public/coffee/**/*.coffee']
                 tasks: ['coffee']
+            coffee_unit:
+                files: ['Gruntfile.coffee', 'public/coffee/**/*.coffee']
+                tasks: ['coffee', 'karma:unit']
 #            unit_tests:
 #                files: ['public/coffee/test/unit/*.coffee']
 #                tasks: ['karma:unit']
@@ -105,6 +108,7 @@ module.exports = (grunt) ->
     grunt.registerTask 'e2e-chrome', ['coffee', 'shell:phpserver', 'protractor:chrome']
     grunt.registerTask 'e2e-phantomjs', ['coffee', 'php:test', 'shell:phantom_webdriver', 'protractor:phantomjs', 'shell:phantom_webdriver:kill']
     grunt.registerTask 'unit', ['coffee', 'karma:unit']
+    grunt.registerTask 'unit:watch', ['coffee', 'watch:coffee_unit']
     grunt.registerTask 'test', ['coffee', 'php:test', 'karma:unit', 'protractor:chrome']
     grunt.registerTask 'travis', ['coffee', 'karma:travis', 'protractor:travis']
     grunt.registerTask 'serve', ['shell:phpserver', 'watch']
