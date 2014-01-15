@@ -9,6 +9,7 @@ namespace CypressLab\GitWalrus\Controller;
 
 use Assetic\Asset\AssetCollection;
 use Assetic\Asset\FileAsset;
+use Assetic\Filter\CssRewriteFilter;
 use CypressLab\GitWalrus\Application;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -22,7 +23,7 @@ class Assets
 
         $css = new AssetCollection([
             new FileAsset($baseFolder.'/bower/bootstrap/dist/css/bootstrap.min.css'),
-            new FileAsset($baseFolder.'/bower/font-awesome/css/font-awesome.min.css'),
+            //new FileAsset($baseFolder.'/bower/font-awesome/css/font-awesome.min.css'),
             new FileAsset($baseFolder.'/css/github.min.css'),
             new FileAsset($baseFolder.'/compass/stylesheets/screen.css'),
             new FileAsset($baseFolder.'/compass/stylesheets/print.css')

@@ -40,7 +40,7 @@ module.exports = (grunt) ->
                 files: ['Gruntfile.coffee', 'public/coffee/**/*.coffee']
                 tasks: ['coffee', 'karma:unit']
             css:
-                files: ['public/compass/sass/*.scss']
+                files: ['public/compass/sass/*.scss', 'public/compass/sass/**/*.scss']
                 tasks: ['compass']
 #            protractor_configuration:
 #                files: ['public/config/protractor.conf.js']
