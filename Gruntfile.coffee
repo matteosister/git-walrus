@@ -39,12 +39,6 @@ module.exports = (grunt) ->
             coffee_unit:
                 files: ['Gruntfile.coffee', 'public/coffee/**/*.coffee']
                 tasks: ['coffee', 'karma:unit']
-#            unit_tests:
-#                files: ['public/coffee/test/unit/*.coffee']
-#                tasks: ['karma:unit']
-#            e2e_tests:
-#                files: ['public/coffee/test/e2e/*.coffee', 'public/coffee/walrus/*.coffee']
-#                tasks: ['e2e-chrome']
             css:
                 files: ['public/compass/sass/*.scss']
                 tasks: ['compass']
@@ -54,6 +48,12 @@ module.exports = (grunt) ->
 #            karma_configuration:
 #                files: ['public/config/karma.conf.js']
 #                tasks: ['karma:unit']
+#            unit_tests:
+#                files: ['public/coffee/test/unit/*.coffee']
+#                tasks: ['karma:unit']
+#            e2e_tests:
+#                files: ['public/coffee/test/e2e/*.coffee', 'public/coffee/walrus/*.coffee']
+#                tasks: ['e2e-chrome']
         coffee:
             compileWithMaps:
                 options:
@@ -79,7 +79,10 @@ module.exports = (grunt) ->
                 singleRun: true
                 reporters: 'dots'
         concurrent:
+            options:
+                logConcurrentOutput: true
             test: ['unit', 'protractor:chrome']
+            watch_assets: ['watch:css', 'watch:coffee']
         shell:
             phantom_webdriver:
                 command: 'node_modules/.bin/phantomjs --webdriver=4444'
@@ -105,10 +108,11 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-shell-spawn'
 
     grunt.registerTask 'default', ['test']
+    grunt.registerTask 'e2e', ['e2e-chrome']
     grunt.registerTask 'e2e-chrome', ['coffee', 'shell:phpserver', 'protractor:chrome']
     grunt.registerTask 'e2e-phantomjs', ['coffee', 'php:test', 'shell:phantom_webdriver', 'protractor:phantomjs', 'shell:phantom_webdriver:kill']
     grunt.registerTask 'unit', ['coffee', 'karma:unit']
     grunt.registerTask 'unit:watch', ['coffee', 'watch:coffee_unit']
     grunt.registerTask 'test', ['coffee', 'php:test', 'karma:unit', 'protractor:chrome']
     grunt.registerTask 'travis', ['coffee', 'karma:travis', 'protractor:travis']
-    grunt.registerTask 'serve', ['shell:phpserver', 'watch']
+    grunt.registerTask 'serve', ['shell:phpserver', 'concurrent:watch_assets']
