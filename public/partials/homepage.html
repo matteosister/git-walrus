@@ -10,44 +10,29 @@
             <h3>Working Tree</h3>
             <p ng-if="working_tree.all.length == 0" class="text-muted">Your working tree is clean! Keep coding... :)</p>
             <div ng-repeat="file in working_tree.untracked" class="working-tree">
-                <statusfile></statusfile>
-                <!--<h4 statusfile class="untracked">
-                    <i class="fa fa-1g fa-file"></i> {{ file.name }}
-                    <a class="btn btn-default btn-xs" role="button" ng-click="stage(file)">
-                        <i class="fa fa-arrow-circle-right"></i> Stage
-                    </a>
-                </h4>-->
+                <statusfile class="untracked"></statusfile>
             </div>
             <div ng-repeat="file in working_tree.modified" class="working-tree">
-                <h4 class="modified">
-                    <i class="fa fa-1g fa-file"></i> {{ file.name }}
-                    <a class="btn btn-default btn-xs" role="button" ng-click="stage(file)">
-                        <i class="fa fa-arrow-circle-right"></i> Stage
-                    </a>
-                </h4>
+                <statusfile class="modified"></statusfile>
             </div>
             <div ng-repeat="file in working_tree.added" class="working-tree">
-                <h4 class="added"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+                <statusfile class="added"></statusfile>
             </div>
             <div ng-repeat="file in working_tree.deleted" class="working-tree">
-                <h4 class="deleted">
-                    <i class="fa fa-1g fa-file"></i> {{ file.name }}
-                    <a class="btn btn-default btn-xs" role="button" ng-click="stage(file)">
-                        <i class="fa fa-arrow-circle-right"></i> Stage
-                    </a>
-                </h4>
+                <statusfile class="deleted"></statusfile>
             </div>
             <div ng-repeat="file in working_tree.renamed" class="working-tree">
-                <h4 class="renamed"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+                <statusfile class="renamed"></statusfile>
             </div>
             <div ng-repeat="file in working_tree.copied" class="working-tree">
-                <h4 class="copied"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
+                <statusfile class="copied"></statusfile>
             </div>
         </div>
     </div>
     <div class="col-md-6 diff">
         <div class="status">
             <h3>Index</h3>
+            <p ng-if="index.all.length == 0" class="text-muted">Stage empty...</p>
             <div ng-repeat="file in index.untracked" class="working-tree">
                 <h4 class="untracked"><i class="fa fa-1g fa-file"></i> {{ file.name }}</h4>
             </div>

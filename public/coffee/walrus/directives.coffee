@@ -21,16 +21,15 @@ gitWalrusApp.directive 'clock', ->
 
 gitWalrusApp.directive 'statusfile', ->
     link = (scope, element, attr) ->
-        console.log scope.file
-        title = $('<h4>').addClass(scope.file.description)
-        element.append title
-        icon = $('<i>').addClass 'fa fa-1g fa-file'
-        title.append icon
-        title.append " #{scope.file.name} "
-        title.append """
-<a class="btn btn-default btn-xs" role="button" ng-click="stage(file)">
-    <i class="fa fa-arrow-circle-right"></i> Stage
-</a>
+        tpl = _.template """
+<h4 class="<%= attr.class %>">
+    <i class="fa fa-1g fa-file"></i> <%= file.name %>
+</h4>
 """
-
+        element.append tpl(file: scope.file, attr: attr)
+        Draggable.create element,
+            type:"x,y"
+            edgeResistance:0.65
+            bounds:".row"
+            throwProps:true
     return restrict: 'E', link: link
