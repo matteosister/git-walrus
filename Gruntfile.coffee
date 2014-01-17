@@ -116,3 +116,4 @@ module.exports = (grunt) ->
     grunt.registerTask 'test', ['coffee', 'php:test', 'karma:unit', 'protractor:chrome']
     grunt.registerTask 'travis', ['coffee', 'karma:travis', 'protractor:travis']
     grunt.registerTask 'serve', ['shell:phpserver', 'concurrent:watch_assets']
+    grunt.registerTask 'assets', ['coffee', 'compass:dev']

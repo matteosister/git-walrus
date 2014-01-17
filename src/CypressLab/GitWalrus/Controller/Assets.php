@@ -52,7 +52,7 @@ class Assets
             new FileAsset($baseFolder.'/bower/angular-animate/angular-animate.min.js'),
             new FileAsset($baseFolder.'/bower/angular-underscore/angular-underscore.js'),
             new FileAsset($baseFolder.'/bower/angular-highlightjs/angular-highlightjs.min.js'),
-            new FileAsset($baseFolder.'/js/highlight.min.js'),
+            //new FileAsset($baseFolder.'/js/highlight.min.js'),
             new FileAsset($baseFolder.'/js/git-walrus.js'),
         ]);
         $r->setContent($js->dump());
