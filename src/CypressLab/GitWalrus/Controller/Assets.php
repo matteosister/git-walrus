@@ -23,7 +23,6 @@ class Assets
 
         $css = new AssetCollection([
             new FileAsset($baseFolder.'/bower/bootstrap/dist/css/bootstrap.min.css'),
-            //new FileAsset($baseFolder.'/bower/font-awesome/css/font-awesome.min.css'),
             new FileAsset($baseFolder.'/css/github.min.css'),
             new FileAsset($baseFolder.'/compass/stylesheets/screen.css'),
             new FileAsset($baseFolder.'/compass/stylesheets/print.css')
@@ -44,8 +43,10 @@ class Assets
             new FileAsset($baseFolder.'/bower/underscore/underscore-min.js'),
             new FileAsset($baseFolder.'/bower/bootstrap/js/affix.js'),
             new FileAsset($baseFolder.'/bower/greensock/src/minified/TweenMax.min.js'),
-            //new FileAsset($baseFolder.'/bower/greensock/src/minified/plugins/CSSPlugin.min.js'),
+            new FileAsset($baseFolder.'/bower/greensock/src/minified/plugins/CSSPlugin.min.js'),
             new FileAsset($baseFolder.'/bower/greensock/src/minified/utils/Draggable.min.js'),
+            new FileAsset($baseFolder.'/bower/spin.js/spin.js'),
+            new FileAsset($baseFolder.'/bower/spin.js/jquery.spin.js'),
             new FileAsset($baseFolder.'/bower/angular/angular.min.js'),
             new FileAsset($baseFolder.'/bower/angular-resource/angular-resource.min.js'),
             new FileAsset($baseFolder.'/bower/angular-route/angular-route.min.js'),

@@ -46,6 +46,10 @@ html {
     }
 }
 
+.diff {
+    min-height: 300px;
+}
+
 .diff-object {
     -webkit-transition: 0.2s linear all; /* Chrome */
     transition: 0.2s linear all;

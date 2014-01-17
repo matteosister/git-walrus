@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 gitWalrusApp = angular.module 'gitWalrusApp', [
     'ngRoute'

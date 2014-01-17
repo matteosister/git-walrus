@@ -81,7 +81,7 @@ class PharBuildCommand extends Command
             Finder::create()
                 ->ignoreVCS(true)
                 ->files()
-                ->name('/index.php|\.js$|\.css$|\.html$/')
+                ->name('/index.php|\.js$|\.css$|\.html$|\.otf$|\.eot$|\.svg$|\.ttf$|\.woff$/')
                 ->notPath('bower/font-awesome/src')
                 ->notPath('js/test')
                 ->notPath('config')

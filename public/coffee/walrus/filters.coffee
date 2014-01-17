@@ -1,3 +1,5 @@
+'use strict'
+
 angular.module('gitWalrusFilters', [])
     .filter 'strip_last_tree_portion', ->
         (input) ->
