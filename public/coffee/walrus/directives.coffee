@@ -21,16 +21,13 @@ gitWalrusApp.directive 'clock', ->
 gitWalrusApp.directive 'statusfile', ->
     link = (scope, element, attr) ->
         tpl = _.template """
-        <h4 class="<%= attr.class %>">
+        <h4 class="status_file <%= attr.class %>">
             <i class="fa fa-1g fa-file"></i> <%= file.name %>
         </h4>
         """
         element.append tpl(file: scope.file, attr: attr)
-        Draggable.create element,
-            type:"x,y"
-            edgeResistance:0.65
-            bounds:".row"
-            throwProps:true
+        element.draggable
+            revert: true
     return restrict: 'E', link: link
 
 gitWalrusApp.directive 'loader', ->

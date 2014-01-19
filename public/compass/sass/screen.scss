@@ -50,6 +50,10 @@ html {
     min-height: 300px;
 }
 
+.ui-draggable {
+    cursor: move;
+}
+
 .diff-object {
     -webkit-transition: 0.2s linear all; /* Chrome */
     transition: 0.2s linear all;

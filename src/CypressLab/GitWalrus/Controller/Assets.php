@@ -42,9 +42,6 @@ class Assets
             new FileAsset($baseFolder.'/bower/jquery/jquery.min.js'),
             new FileAsset($baseFolder.'/bower/underscore/underscore-min.js'),
             new FileAsset($baseFolder.'/bower/bootstrap/js/affix.js'),
-            new FileAsset($baseFolder.'/bower/greensock/src/minified/TweenMax.min.js'),
-            new FileAsset($baseFolder.'/bower/greensock/src/minified/plugins/CSSPlugin.min.js'),
-            new FileAsset($baseFolder.'/bower/greensock/src/minified/utils/Draggable.min.js'),
             new FileAsset($baseFolder.'/bower/spin.js/spin.js'),
             new FileAsset($baseFolder.'/bower/spin.js/jquery.spin.js'),
             new FileAsset($baseFolder.'/bower/angular/angular.min.js'),
@@ -56,6 +53,13 @@ class Assets
             new FileAsset($baseFolder.'/libs/highlight.pack.js'),
             new FileAsset($baseFolder.'/js/git-walrus.js'),
         ]);
+        $js->add(new AssetCollection([
+            new FileAsset($baseFolder.'/bower/jquery.ui/ui/jquery.ui.core.js'),
+            new FileAsset($baseFolder.'/bower/jquery.ui/ui/jquery.ui.widget.js'),
+            new FileAsset($baseFolder.'/bower/jquery.ui/ui/jquery.ui.mouse.js'),
+            new FileAsset($baseFolder.'/bower/jquery.ui/ui/jquery.ui.draggable.js'),
+            new FileAsset($baseFolder.'/bower/jquery.ui/ui/jquery.ui.droppable.js')
+        ]));
         $r->setContent($js->dump());
 
         return $r;
