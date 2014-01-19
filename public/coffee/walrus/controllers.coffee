@@ -39,7 +39,7 @@ gitWalrusApp.controller 'LogController', ($scope, $http, logService) ->
             $scope.logs = data.commits
 
     $scope.changeLog = (log) ->
-        $scope.selected_log = null
+        $scope.loading = true
         $http.get(log.url).success (data) ->
             $scope.selected_log = data
 

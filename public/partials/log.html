@@ -21,7 +21,7 @@
             </li>
         </ul>
     </div>
-    <div class="col-md-9 col-sm-7 diff" loader>
+    <div class="col-md-9 col-sm-7 diff-content">
         <div ng-repeat="diff_object in selected_log.diff.diff_objects" ng-animate class="diff-object index-{{ $index }}">
             <h4 class="{{ diff_object.mode }}">
                 <i class="fa fa-1g fa-minus" ng-if="diff_object.mode == 'deleted_file'"></i>

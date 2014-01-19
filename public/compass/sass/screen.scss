@@ -46,7 +46,15 @@ html {
     }
 }
 
-.diff {
+.page-header {
+    .loader {
+        position: absolute;
+        right: 45px;
+        top: 50px;
+    }
+}
+
+.diff-content {
     min-height: 300px;
 }
 
