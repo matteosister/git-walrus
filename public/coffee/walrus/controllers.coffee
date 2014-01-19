@@ -42,6 +42,7 @@ gitWalrusApp.controller 'LogController', ($scope, $http, logService) ->
         $scope.loading = true
         $http.get(log.url).success (data) ->
             $scope.selected_log = data
+            $scope.loading = false
 
 gitWalrusApp.controller 'TreeController', ($scope, $http, $location) ->
     $http.get("/api#{ $location.path() }").success (data) ->
