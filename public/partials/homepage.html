@@ -1,3 +1,4 @@
+<div loader ng-show="loading" class="loader"></div>
 <ul class="nav nav-pills">
     <li class="active"><a href="#">Status</a></li>
     <li><a href="#/log">Log</a></li>
@@ -6,7 +7,7 @@
 <hr />
 <div class="row">
     <div class="col-md-6 diff">
-        <div class="status">
+        <div class="status working-tree">
             <h3>Working Tree</h3>
             <p ng-if="working_tree.all.length == 0" class="text-muted">Your working tree is clean! Keep coding... :)</p>
             <div ng-repeat="file in working_tree.untracked" class="working-tree">
@@ -30,7 +31,7 @@
         </div>
     </div>
     <div class="col-md-6 diff">
-        <div class="status">
+        <div class="status" stagingarea>
             <h3>Index</h3>
             <p ng-if="index.all.length == 0" class="text-muted">Stage empty...</p>
             <div ng-repeat="file in index.untracked" class="working-tree">

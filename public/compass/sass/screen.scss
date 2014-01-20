@@ -25,6 +25,12 @@ html {
     top: 1em
 }
 
+.loader {
+    position: fixed;
+    right: 3.5em;
+    top: 4em;
+}
+
 .diff-container {
     overflow: auto;
     border-right: 1px solid #DDD;
@@ -43,14 +49,6 @@ html {
     }
     .deleted {
         color: $status_deleted;
-    }
-}
-
-.page-header {
-    .loader {
-        position: absolute;
-        right: 45px;
-        top: 50px;
     }
 }
 

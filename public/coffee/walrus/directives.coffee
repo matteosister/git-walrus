@@ -51,3 +51,14 @@ gitWalrusApp.directive 'loader', ->
     link = (scope, element, attr) ->
         element.spin(opts);
     return restrict: 'A', link: link
+
+gitWalrusApp.directive 'stagingarea', ->
+    link = (scope, element, attr) ->
+        element.droppable
+            hoverClass: 'state-hover'
+            drop: ( event, ui ) ->
+                $( this )
+                    .addClass( "state-highlight" )
+                    .find( "p" )
+                    .html( "Dropped!" );
+    return restrict: 'A', link: link

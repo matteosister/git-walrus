@@ -11,14 +11,18 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $resource, $interv
         $scope.index = data
 
     $scope.stage = (file) ->
+        $scope.loading = true
         $http.post('/api/status/index', file).success ->
+            $scope.loading = false
             index.get {}, (data) ->
                 $scope.index = data
             workingTree.get {}, (data) ->
                 $scope.working_tree = data
 
     $scope.unstage = (file) ->
+        $scope.loading = true
         $http.post('/api/status/working-tree', file).success ->
+            $scope.loading = false
             index.get {}, (data) ->
                 $scope.index = data
             workingTree.get {}, (data) ->
@@ -34,18 +38,23 @@ gitWalrusApp.controller 'LogController', ($scope, $http, logService) ->
         $scope.logs = data.commits
 
     $scope.changeBranch = ->
+        $scope.loading = true
         $scope.selected_log = null
         logService.getLogs($scope.branch.name).success (data) ->
+            $scope.loading = false
             $scope.logs = data.commits
 
     $scope.changeLog = (log) ->
         $scope.loading = true
         $http.get(log.url).success (data) ->
+            $scope.loading = false
             $scope.selected_log = data
             $scope.loading = false
 
 gitWalrusApp.controller 'TreeController', ($scope, $http, $location) ->
+    $scope.loading = true
     $http.get("/api#{ $location.path() }").success (data) ->
+        $scope.loading = false
         $scope.tree = data
         $scope.path = $location.path()
 
