@@ -18,18 +18,6 @@ gitWalrusApp.directive 'clock', ->
 
     return restrict: 'A', controller: controller
 
-gitWalrusApp.directive 'statusfile', ->
-    link = (scope, element, attr) ->
-        tpl = _.template """
-        <h4 class="status_file <%= attr.class %>">
-            <i class="fa fa-1g fa-file"></i> <%= file.name %>
-        </h4>
-        """
-        element.append tpl(file: scope.file, attr: attr)
-        element.draggable
-            revert: true
-    return restrict: 'E', link: link
-
 gitWalrusApp.directive 'loader', ->
     opts =
         lines: 13
@@ -52,13 +40,18 @@ gitWalrusApp.directive 'loader', ->
         element.spin(opts);
     return restrict: 'A', link: link
 
+gitWalrusApp.directive 'statusfile', ->
+    link = (scope, element, attr) ->
+        tpl = _.template """
+        <h4 class="status_file <%= attr.class %>">
+            <i class="fa fa-1g fa-file"></i> <%= file.name %>
+        </h4>
+        """
+        element.append tpl(file: scope.file, attr: attr)
+        element.selectable
+            filter: "h4"
+    return restrict: 'E', link: link
+
 gitWalrusApp.directive 'stagingarea', ->
     link = (scope, element, attr) ->
-        element.droppable
-            hoverClass: 'state-hover'
-            drop: ( event, ui ) ->
-                $( this )
-                    .addClass( "state-highlight" )
-                    .find( "p" )
-                    .html( "Dropped!" );
     return restrict: 'A', link: link

@@ -38,11 +38,20 @@ html {
 }
 
 .status {
+    &.state-hover {
+        background-color: #EEE;
+    }
     .untracked {
         color: $status_untracked;
     }
     .modified {
         color: $status_modified;
+        .ui-selected {
+            color: $status_modified - #666;
+        }
+        .ui-selecting {
+            color: $status_modified - #333;
+        }
     }
     .added {
         color: $status_added;

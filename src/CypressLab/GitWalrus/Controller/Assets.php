@@ -57,8 +57,7 @@ class Assets
             new FileAsset($baseFolder.'/bower/jquery.ui/ui/jquery.ui.core.js'),
             new FileAsset($baseFolder.'/bower/jquery.ui/ui/jquery.ui.widget.js'),
             new FileAsset($baseFolder.'/bower/jquery.ui/ui/jquery.ui.mouse.js'),
-            new FileAsset($baseFolder.'/bower/jquery.ui/ui/jquery.ui.draggable.js'),
-            new FileAsset($baseFolder.'/bower/jquery.ui/ui/jquery.ui.droppable.js')
+            new FileAsset($baseFolder.'/bower/jquery.ui/ui/jquery.ui.selectable.js')
         ]));
         $r->setContent($js->dump());
 
