@@ -42,15 +42,28 @@ gitWalrusApp.directive 'loader', ->
 
 gitWalrusApp.directive 'statusfile', ->
     link = (scope, element, attr) ->
-        tpl = _.template """
-        <h4 class="status_file <%= attr.class %>">
-            <i class="fa fa-1g fa-file"></i> <%= file.name %>
-        </h4>
-        """
-        element.append tpl(file: scope.file, attr: attr)
+        scope.file.selected = false
         element.selectable
             filter: "h4"
-    return restrict: 'E', link: link
+            selected: ->
+                scope.file.selected = true
+                scope.$digest()
+            unselected: ->
+                scope.file.selected = false
+                scope.$digest()
+#        element.on 'selectableselected', ->
+#            scope.file.selected = true
+#        element.on 'selectableunselected', ->
+#            scope.file.selected = false
+
+    return {
+        restrict: 'E',
+        link: link
+        template: '<h4 class="status_file <%= attr.class %>">
+                <input type="checkbox" ng-model="file.selected" />
+                <i class="fa fa-1g fa-file"></i> {{ file.name }} sel: {{ file.selected }}
+            </h4>'
+    }
 
 gitWalrusApp.directive 'stagingarea', ->
     link = (scope, element, attr) ->

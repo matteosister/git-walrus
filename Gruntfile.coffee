@@ -96,6 +96,10 @@ module.exports = (grunt) ->
                     stdout: false
                     stderr: false
                     async: true
+        open:
+            dev:
+              path: 'http://127.0.0.1:8000/',
+              app: 'google-chrome'
 
     grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-contrib-coffee'
@@ -106,6 +110,7 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-php'
     grunt.loadNpmTasks 'grunt-concurrent'
     grunt.loadNpmTasks 'grunt-shell-spawn'
+    grunt.loadNpmTasks 'grunt-open'
 
     grunt.registerTask 'default', ['test']
     grunt.registerTask 'e2e', ['e2e-chrome']
@@ -115,5 +120,5 @@ module.exports = (grunt) ->
     grunt.registerTask 'unit:watch', ['coffee', 'watch:coffee_unit']
     grunt.registerTask 'test', ['coffee', 'php:test', 'karma:unit', 'protractor:chrome']
     grunt.registerTask 'travis', ['coffee', 'karma:travis', 'protractor:travis']
-    grunt.registerTask 'serve', ['assets', 'shell:phpserver', 'concurrent:watch_assets']
+    grunt.registerTask 'serve', ['assets', 'shell:phpserver', 'open', 'concurrent:watch_assets']
     grunt.registerTask 'assets', ['coffee', 'compass:dev']
