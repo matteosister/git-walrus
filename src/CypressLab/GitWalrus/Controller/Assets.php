@@ -44,6 +44,7 @@ class Assets
             new FileAsset($baseFolder.'/bower/bootstrap/js/affix.js'),
             new FileAsset($baseFolder.'/bower/spin.js/spin.js'),
             new FileAsset($baseFolder.'/bower/spin.js/jquery.spin.js'),
+            new FileAsset($baseFolder.'/bower/sugar/release/sugar-full.min.js'),
             new FileAsset($baseFolder.'/bower/angular/angular.min.js'),
             new FileAsset($baseFolder.'/bower/angular-resource/angular-resource.min.js'),
             new FileAsset($baseFolder.'/bower/angular-route/angular-route.min.js'),

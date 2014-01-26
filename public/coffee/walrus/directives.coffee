@@ -10,13 +10,16 @@ gitWalrusApp.directive 'gwHoverDetails', ->
     return link: link
 
 gitWalrusApp.directive 'clock', ->
+    link = (scope, element, attr) ->
+        element.addClass 'clock'
+
     controller = ($scope, $interval) ->
         $scope.date = new Date()
         $scope.updateDate = ->
             $scope.date = new Date()
         $interval $scope.updateDate, 1000
 
-    return restrict: 'A', controller: controller
+    return restrict: 'E', controller: controller, link: link
 
 gitWalrusApp.directive 'loader', ->
     opts =
@@ -51,17 +54,18 @@ gitWalrusApp.directive 'statusfile', ->
             unselected: ->
                 scope.file.selected = false
                 scope.$digest()
-#        element.on 'selectableselected', ->
-#            scope.file.selected = true
-#        element.on 'selectableunselected', ->
-#            scope.file.selected = false
+        element.find('input[type=checkbox]').on 'change', (e) ->
+            if $(e.target).is(':checked')
+                element.find('h4').addClass 'ui-selected'
+            else
+                element.find('h4').removeClass 'ui-selected'
 
     return {
         restrict: 'E',
         link: link
         template: '<h4 class="status_file <%= attr.class %>">
                 <input type="checkbox" ng-model="file.selected" />
-                <i class="fa fa-1g fa-file"></i> {{ file.name }} sel: {{ file.selected }}
+                <i class="fa fa-1g fa-file"></i> {{ file.name }}
             </h4>'
     }
 

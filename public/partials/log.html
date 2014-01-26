@@ -6,7 +6,7 @@
 </ul>
 <hr />
 <div class="row">
-    <div class="col-md-3 col-sm-5 branches">
+    <div class="col-md-4 col-sm-5 branches">
         select branch: <select ng-model="branch" ng-options="branch.name for branch in branches" ng-change="changeBranch()"></select>
         <hr />
         <h4><span class="label label-default">{{ branch.name }}</span> branch log</h4>
@@ -22,7 +22,7 @@
             </li>
         </ul>
     </div>
-    <div class="col-md-9 col-sm-7 diff-content">
+    <div class="col-md-8 col-sm-7 diff-content">
         <div ng-repeat="diff_object in selected_log.diff.diff_objects" ng-animate class="diff-object index-{{ $index }}">
             <h4 class="{{ diff_object.mode }}">
                 <i class="fa fa-1g fa-minus" ng-if="diff_object.mode == 'deleted_file'"></i>
