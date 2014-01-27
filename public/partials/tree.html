@@ -5,7 +5,7 @@
     <li class="active"><a href="/tree/master">Tree</a></li>
 </ul>
 <hr />
-<table class="table table-bordered table-striped table-hover tree">
+<table class="table table-bordered table-striped tree">
     <tr>
         <td data-ng-if="!tree.root" width="50%">
             <a href="{{ path|strip_last_tree_portion }}"><span class="fa fa-arrow-up fa-1g"></span></a>
@@ -24,7 +24,8 @@
     </tr>
     <tr data-ng-if="tree.subject.type == 'blob'">
         <td class="code" colspan="2">
-            <div hljs source="tree.binary_data"></div>
+            <!--<div hljs source="tree.binary_data"></div>-->
+            <pre prettyprint></pre>
         </td>
     </tr>
 </table>

@@ -23,7 +23,7 @@ class Assets
 
         $css = new AssetCollection([
             new FileAsset($baseFolder.'/bower/bootstrap/dist/css/bootstrap.min.css'),
-            new FileAsset($baseFolder.'/css/github.min.css'),
+            new FileAsset($baseFolder.'/bower/google-code-prettify/src/prettify.css'),
             new FileAsset($baseFolder.'/compass/stylesheets/screen.css'),
             new FileAsset($baseFolder.'/compass/stylesheets/print.css')
         ]);
@@ -50,8 +50,7 @@ class Assets
             new FileAsset($baseFolder.'/bower/angular-route/angular-route.min.js'),
             new FileAsset($baseFolder.'/bower/angular-animate/angular-animate.min.js'),
             new FileAsset($baseFolder.'/bower/angular-underscore/angular-underscore.js'),
-            new FileAsset($baseFolder.'/bower/angular-highlightjs/angular-highlightjs.min.js'),
-            new FileAsset($baseFolder.'/libs/highlight.pack.js'),
+            new FileAsset($baseFolder.'/bower/google-code-prettify/src/prettify.js'),
             new FileAsset($baseFolder.'/js/git-walrus.js'),
         ]);
         $js->add(new AssetCollection([

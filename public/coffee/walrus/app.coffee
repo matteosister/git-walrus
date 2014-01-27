@@ -4,7 +4,7 @@ gitWalrusApp = angular.module 'gitWalrusApp', [
     'ngRoute'
     'gitWalrusFilters'
     'angular-underscore'
-    'hljs'
+    #'hljs'
     'ngAnimate'
     'ngResource'
 ]

@@ -72,3 +72,13 @@ gitWalrusApp.directive 'statusfile', ->
 gitWalrusApp.directive 'stagingarea', ->
     link = (scope, element, attr) ->
     return restrict: 'A', link: link
+
+gitWalrusApp.directive 'prettyprint', ->
+    link = (scope, element, attr) ->
+        outputContent = scope.tree.binary_data.toString()
+        content = "<pre>" + outputContent.escapeHTML() + "</pre>"
+        element.html prettyPrintOne(content, null, true)
+    return {
+        restrict: 'A',
+        link: link
+    }
