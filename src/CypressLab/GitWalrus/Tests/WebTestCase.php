@@ -123,6 +123,14 @@ class WebTestCase extends SilexWebTestCase
     }
 
     /**
+     * @return \GitElephant\Status\Status|int
+     */
+    public function getGitStatus()
+    {
+        return $this->repo->getStatus();
+    }
+
+    /**
      * @param $name
      */
     public function createBranch($name)

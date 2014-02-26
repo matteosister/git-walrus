@@ -27,4 +27,11 @@ class AssetsTest extends WebTestCase
         $this->isOK($client);
         $this->isContentTypeResponse($client, 'text/javascript; charset=UTF-8');
     }
+
+    public function testPartial()
+    {
+        $client = $this->createClient();
+        $client->request('get', '/partial/homepage.html');
+        $this->assertNotEmpty($client->getResponse()->getContent());
+    }
 }

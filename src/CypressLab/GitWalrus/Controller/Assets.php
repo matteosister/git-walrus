@@ -7,6 +7,7 @@
 namespace CypressLab\GitWalrus\Controller;
 
 
+use Assert\Assertion;
 use Assetic\Asset\AssetCollection;
 use Assetic\Asset\FileAsset;
 use Assetic\Filter\CssRewriteFilter;
@@ -66,7 +67,8 @@ class Assets
 
     public function partial($name)
     {
-        $baseFolder = __DIR__.'/../../../../public/partials/';
-        return new Response(file_get_contents($baseFolder.$name));
+        $partialName = __DIR__.'/../../../../public/partials/'.$name;
+        Assertion::file($partialName);
+        return new Response(file_get_contents($partialName));
     }
 }

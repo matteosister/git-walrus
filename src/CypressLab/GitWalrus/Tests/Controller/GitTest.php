@@ -48,6 +48,15 @@ class GitTest extends WebTestCase
         $this->assertArrayNotHasKey('diff', $jsonContent['commits'][0]);
     }
 
+    public function testLogWithContext()
+    {
+        $this->addFile('test');
+        $this->commit();
+        $client = $this->createClient();
+        $client->request('get', '/api/log?context=details');
+        $this->isJsonResponse($client);
+    }
+
     public function testCommit()
     {
         $this->addFile('test');
@@ -165,6 +174,17 @@ class GitTest extends WebTestCase
         $this->assertArrayHasKey('copied', $result);
     }
 
+    public function testPostIndex()
+    {
+        $this->addFile('test');
+        $this->assertCount(1, $this->getGitStatus()->untracked());
+        $this->assertCount(0, $this->getGitStatus()->added());
+        $client = $this->createClient();
+        $client->request('post', '/api/status/index', [], [], [], json_encode(['name' => 'test']));
+        $this->assertCount(0, $this->getGitStatus()->untracked());
+        $this->assertCount(1, $this->getGitStatus()->added());
+    }
+
     public function testWorkingTreeStatus()
     {
         $client = $this->createClient();
@@ -178,5 +198,20 @@ class GitTest extends WebTestCase
         $this->assertArrayHasKey('deleted', $result);
         $this->assertArrayHasKey('renamed', $result);
         $this->assertArrayHasKey('copied', $result);
+    }
+
+    /**
+     * @depends testPostIndex
+     */
+    public function testPostWorkingTreeStatus()
+    {
+        $this->addFile('test');
+        $client = $this->createClient();
+        $client->request('post', '/api/status/index', [], [], [], json_encode(['name' => 'test']));
+        $this->assertCount(0, $this->getGitStatus()->untracked());
+        $this->assertCount(1, $this->getGitStatus()->added());
+        $client->request('post', '/api/status/working-tree', [], [], [], json_encode(['name' => 'test']));
+        $this->assertCount(1, $this->getGitStatus()->untracked());
+        $this->assertCount(0, $this->getGitStatus()->added());
     }
 }
