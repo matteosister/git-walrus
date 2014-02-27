@@ -30,7 +30,7 @@
     "karma-junit-reporter": "~0.1.0",
     "karma-ubuntu-reporter": "0.0.3",
     "bower": "~1.2.8",
-    "grunt-protractor-runner": "~0.2.0",
+    "grunt-protractor-runner": "~0.2",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-jshint": "~0.7.2",
     "grunt-contrib-coffee": "~0.7.0",
@@ -42,7 +42,7 @@
     "grunt-php": "~0.3.1",
     "grunt-concurrent": "~0.4.2",
     "grunt-shell-spawn": "~0.3.0",
-    "protractor": "~0.15.0",
+    "protractor": "~0.19",
     "grunt-open": "~0.2.3"
   }
 }

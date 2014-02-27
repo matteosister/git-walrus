@@ -21,16 +21,10 @@ describe 'LogController', ->
         expect(ulLogs.isPresent()).toBeTruthy()
         expect(ulLogs.isDisplayed()).toBeTruthy()
 
-    it 'should show a tree of files', ->
-        browser.get 'http://localhost:8000/log'
-        treeLink = element(findBy.linkText 'browse master tree')
-        treeLink.click().then ->
-            expect(browser.getCurrentUrl()).toContain 'tree/master'
-
     it 'should show a diff by clicking on a link log', ->
         browser.get 'http://localhost:8000/log'
         logLink = element(findBy.css '.logs .list-group-item p a')
-        diffColumn = element(findBy.css('.diff'))
+        diffColumn = element(findBy.css('.diff-content'))
         diffColumn.isElementPresent(findBy.css('.diff-object')).then (finded) ->
             expect(finded).toBeFalsy()
         logLink.click().then ->
