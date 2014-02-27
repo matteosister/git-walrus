@@ -13,10 +13,11 @@ before_script:
   - php composer.phar install --no-progress
   - git config --global user.email "test@travis-ci.org"
   - git config --global user.name "Travis"
-  - npm install
-  - ./node_modules/.bin/bower install
   - gem install compass
-  - cd public/compass && compass compile
+  - gem install bootstrap-sass
+  - npm install
+  - ./node_modules/.bin/grunt compass
+  - ./node_modules/.bin/bower install
 
 script:
   - bin/phpunit --coverage-clover "clover"
