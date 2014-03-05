@@ -17,6 +17,7 @@ before_script:
   - gem install bootstrap-sass
   - npm install
   - ./node_modules/.bin/grunt compass
+  - ./node_modules/.bin/grunt coffee
   - ./node_modules/.bin/bower install
 
 script:
