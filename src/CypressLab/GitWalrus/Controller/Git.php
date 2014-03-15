@@ -8,6 +8,7 @@
 
 namespace CypressLab\GitWalrus\Controller;
 
+use Swagger\Annotations as SWG;
 use CypressLab\GitWalrus\Application;
 use GitElephant\Objects\Tree;
 use JMS\Serializer\SerializationContext;
@@ -19,6 +20,13 @@ use Symfony\Component\HttpFoundation\Response;
  * Class Git
  *
  * git controller
+ *
+ * @SWG\Resource(
+ *     apiVersion="1.0",
+ *     swaggerVersion="1.2",
+ *     resourcePath="/",
+ *     basePath="/"
+ * )
  */
 class Git
 {
@@ -29,6 +37,25 @@ class Git
      * @param int                                       $num
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
+     *
+     * @SWG\Api(
+     *   path="http://127.0.0.1:8000/api/log/{ref}",
+     *   @SWG\Operation(
+     *     method="GET",
+     *     summary="get the log for the specified tree",
+     *     type="Document",
+     *     @SWG\Parameters(
+     *       @SWG\Parameter(
+     *         name="ref",
+     *         description="reference",
+     *         paramType="path",
+     *         required=true,
+     *         type="string",
+     *         defaultValue="master"
+     *       )
+     *     )
+     *   )
+     * )
      */
     public function log(Request $request, Application $app, $ref, $num = 8)
     {
@@ -47,6 +74,25 @@ class Git
      * @param int         $sha
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
+     *
+     * @SWG\Api(
+     *   path="http://127.0.0.1:8000/api/commit/{sha}",
+     *   @SWG\Operation(
+     *     method="GET",
+     *     summary="get a single commit",
+     *     type="Document",
+     *     @SWG\Parameters(
+     *       @SWG\Parameter(
+     *         name="sha",
+     *         description="reference",
+     *         paramType="path",
+     *         required=true,
+     *         type="string",
+     *         defaultValue=""
+     *       )
+     *     )
+     *   )
+     * )
      */
     public function commit(Application $app, $sha)
     {

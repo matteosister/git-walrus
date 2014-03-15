@@ -15,7 +15,8 @@
         "symfony/filesystem": "~2.3",
         "phpunit/phpunit": "~3.7",
         "mockery/mockery": "~0.8",
-        "symfony/browser-kit": ">=2.3,<2.4-dev"
+        "symfony/browser-kit": ">=2.3,<2.4-dev",
+        "zircote/swagger-php": "*"
     },
     "license": "LGPL-3.0+",
     "authors": [
