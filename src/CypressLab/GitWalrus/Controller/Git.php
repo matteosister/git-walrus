@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @SWG\Resource(
  *     apiVersion="1.0",
  *     swaggerVersion="1.2",
- *     resourcePath="/",
+ *     resourcePath="/git",
  *     basePath="/"
  * )
  */
@@ -39,11 +39,11 @@ class Git
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
-     *   path="http://127.0.0.1:8000/api/log/{ref}",
+     *   path="http://127.0.0.1:8000/api/git/log/{ref}",
      *   @SWG\Operation(
      *     method="GET",
-     *     summary="get the log for the specified tree",
-     *     type="Document",
+     *     summary="log for the specified tree",
+     *     type="Log",
      *     @SWG\Parameters(
      *       @SWG\Parameter(
      *         name="ref",
@@ -76,11 +76,11 @@ class Git
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
-     *   path="http://127.0.0.1:8000/api/commit/{sha}",
+     *   path="http://127.0.0.1:8000/api/git/commit/{sha}",
      *   @SWG\Operation(
      *     method="GET",
-     *     summary="get a single commit",
-     *     type="Document",
+     *     summary="single commit",
+     *     type="Commit",
      *     @SWG\Parameters(
      *       @SWG\Parameter(
      *         name="sha",
@@ -103,6 +103,15 @@ class Git
      * @param Application $app
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
+     *
+     * @SWG\Api(
+     *   path="http://127.0.0.1:8000/api/git/branches",
+     *   @SWG\Operation(
+     *     method="GET",
+     *     summary="lists branches",
+     *     type="Branch"
+     *   )
+     * )
      */
     public function branches(Application $app)
     {
@@ -115,6 +124,25 @@ class Git
      * @param string      $name
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
+     *
+     * @SWG\Api(
+     *   path="http://127.0.0.1:8000/api/git/branch/{name}",
+     *   @SWG\Operation(
+     *     method="GET",
+     *     summary="single branch",
+     *     type="Branch",
+     *     @SWG\Parameters(
+     *       @SWG\Parameter(
+     *         name="name",
+     *         description="name of the branch",
+     *         paramType="path",
+     *         required=true,
+     *         type="string",
+     *         defaultValue="master"
+     *       )
+     *     )
+     *   )
+     * )
      */
     public function branch(Application $app, $name)
     {
@@ -127,6 +155,25 @@ class Git
      * @param string      $ref
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
+     *
+     * @SWG\Api(
+     *   path="http://127.0.0.1:8000/api/git/tree/{ref}",
+     *   @SWG\Operation(
+     *     method="GET",
+     *     summary="tree",
+     *     type="Tree",
+     *     @SWG\Parameters(
+     *       @SWG\Parameter(
+     *         name="ref",
+     *         description="reference",
+     *         paramType="path",
+     *         required=true,
+     *         type="string",
+     *         defaultValue="master"
+     *       )
+     *     )
+     *   )
+     * )
      */
     public function tree(Application $app, $ref)
     {
@@ -140,6 +187,32 @@ class Git
      * @param             $path
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
+     *
+     * @SWG\Api(
+     *   path="http://127.0.0.1:8000/api/git/tree/{ref}/{path}",
+     *   @SWG\Operation(
+     *     method="GET",
+     *     summary="single commit",
+     *     type="Commit",
+     *     @SWG\Parameters(
+     *       @SWG\Parameter(
+     *         name="ref",
+     *         description="reference",
+     *         paramType="path",
+     *         required=true,
+     *         type="string",
+     *         defaultValue="master"
+     *       ),
+     *       @SWG\Parameter(
+     *         name="path",
+     *         description="path of the tree root",
+     *         paramType="path",
+     *         required=true,
+     *         type="string"
+     *       )
+     *     )
+     *   )
+     * )
      */
     public function treeObject(Application $app, $ref, $path)
     {
@@ -152,6 +225,28 @@ class Git
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
+     *
+     * @SWG\Api(
+     *   path="http://127.0.0.1:8000/api/git/status/index",
+     *   @SWG\Operation(
+     *     method="GET",
+     *     summary="index status"
+     *   ),
+     *   @SWG\Operation(
+     *     method="POST",
+     *     summary="update the index (stage)",
+     *     @SWG\Parameters(
+     *       @SWG\Parameter(
+     *         name="data",
+     *         description="expression to match files",
+     *         paramType="body",
+     *         required=true,
+     *         type="string",
+     *         defaultValue=""
+     *       )
+     *     )
+     *   )
+     * )
      */
     public function index(Application $app, Request $request)
     {
@@ -169,6 +264,28 @@ class Git
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
+     *
+     * @SWG\Api(
+     *   path="http://127.0.0.1:8000/api/git/status/working-tree",
+     *   @SWG\Operation(
+     *     method="GET",
+     *     summary="working tree status"
+     *   ),
+     *   @SWG\Operation(
+     *     method="POST",
+     *     summary="update the working tree (unstage)",
+     *     @SWG\Parameters(
+     *       @SWG\Parameter(
+     *         name="data",
+     *         description="expression to match files",
+     *         paramType="body",
+     *         required=true,
+     *         type="string",
+     *         defaultValue=""
+     *       )
+     *     )
+     *   )
+     * )
      */
     public function workingTree(Application $app, Request $request)
     {

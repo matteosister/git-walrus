@@ -15,7 +15,7 @@ class Main
     public function index(Application $app)
     {
         $swagger = new Swagger(__DIR__.'/../Controller');
-        $r = new Response($swagger->getResource('/', ['output' => 'json']));
+        $r = new Response($swagger->getResource('/git', ['output' => 'json']));
         return $r;
     }
 }
