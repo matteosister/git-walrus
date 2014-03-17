@@ -56,7 +56,7 @@ $app->mount('swagger', $swagger);
 $api->get('/tree/{ref}', 'CypressLab\GitWalrus\Controller\Git::tree')
     ->bind('tree')
     ->value('ref', 'master');
-$api->get('/tree/{ref}/{path}', 'CypressLab\GitWalrus\Controller\Git::treeObject')
+$api->get('/tree/{ref}/{path}', 'CypressLab\GitWalrus\Controller\Git::tree')
     ->bind('tree_object')
     ->assert('path', '\S+');
 $api->get('/branches', 'CypressLab\GitWalrus\Controller\Git::branches')
@@ -71,15 +71,15 @@ $api->get('/commit/{sha}', 'CypressLab\GitWalrus\Controller\Git::commit')
     ->value('ref', 'master');
 $api->get('/status/index', 'CypressLab\GitWalrus\Controller\Git::index')
     ->bind('status_index');
-$api->post('/status/index', 'CypressLab\GitWalrus\Controller\Git::index')
+$api->put('/status/index', 'CypressLab\GitWalrus\Controller\Git::index')
     ->bind('post_status_index');
 $api->get('/status/working-tree', 'CypressLab\GitWalrus\Controller\Git::workingTree')
     ->bind('status_working_tree');
-$api->post('/status/working-tree', 'CypressLab\GitWalrus\Controller\Git::workingTree')
+$api->put('/status/working-tree', 'CypressLab\GitWalrus\Controller\Git::workingTree')
     ->bind('post_status_working_tree');
 $app->mount('api/git', $api);
-$app->get('/api', 'CypressLab\GitWalrus\Controller\Main::api')
-    ->bind('api');
+$app->get('/api', 'CypressLab\GitWalrus\Swagger\Main::index');
+$app->get('/api/git', 'CypressLab\GitWalrus\Swagger\Main::git');
 
 
 // frontend

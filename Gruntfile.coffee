@@ -72,6 +72,10 @@ module.exports = (grunt) ->
             dev:
               path: 'http://127.0.0.1:8000/',
               app: 'google-chrome'
+            swagger:
+              path: 'http://127.0.0.1:8000/swagger-ui/index.html',
+              app: 'google-chrome'
+
 
     grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-contrib-coffee'

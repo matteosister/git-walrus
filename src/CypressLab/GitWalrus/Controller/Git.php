@@ -17,15 +17,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class Git
- *
- * git controller
+ * Git controller
  *
  * @SWG\Resource(
+ *     description="Git actions",
  *     apiVersion="1.0",
  *     swaggerVersion="1.2",
  *     resourcePath="/git",
- *     basePath="/"
+ *     basePath="/api/git"
  * )
  */
 class Git
@@ -39,10 +38,10 @@ class Git
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
-     *   path="http://127.0.0.1:8000/api/git/log/{ref}",
+     *   path="/log/{ref}",
      *   @SWG\Operation(
      *     method="GET",
-     *     summary="log for the specified tree",
+     *     summary="log for a given tree",
      *     type="Log",
      *     @SWG\Parameters(
      *       @SWG\Parameter(
@@ -76,7 +75,7 @@ class Git
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
-     *   path="http://127.0.0.1:8000/api/git/commit/{sha}",
+     *   path="/commit/{sha}",
      *   @SWG\Operation(
      *     method="GET",
      *     summary="single commit",
@@ -105,7 +104,7 @@ class Git
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
-     *   path="http://127.0.0.1:8000/api/git/branches",
+     *   path="/branches",
      *   @SWG\Operation(
      *     method="GET",
      *     summary="lists branches",
@@ -126,7 +125,7 @@ class Git
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
-     *   path="http://127.0.0.1:8000/api/git/branch/{name}",
+     *   path="/branch/{name}",
      *   @SWG\Operation(
      *     method="GET",
      *     summary="single branch",
@@ -153,11 +152,12 @@ class Git
     /**
      * @param Application $app
      * @param string      $ref
+     * @param null        $path
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
-     *   path="http://127.0.0.1:8000/api/git/tree/{ref}",
+     *   path="/tree/{ref}",
      *   @SWG\Operation(
      *     method="GET",
      *     summary="tree",
@@ -174,25 +174,11 @@ class Git
      *     )
      *   )
      * )
-     */
-    public function tree(Application $app, $ref)
-    {
-        $tree = $app->getRepository()->getTree($ref);
-        return $app->rawJson($app->serialize($tree, 'json', $app['serializer.list_context']));
-    }
-
-    /**
-     * @param Application $app
-     * @param string      $ref
-     * @param             $path
-     *
-     * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
-     *
      * @SWG\Api(
-     *   path="http://127.0.0.1:8000/api/git/tree/{ref}/{path}",
+     *   path="/tree/{ref}/{path}",
      *   @SWG\Operation(
      *     method="GET",
-     *     summary="single commit",
+     *     summary="tree for a given path",
      *     type="Commit",
      *     @SWG\Parameters(
      *       @SWG\Parameter(
@@ -208,13 +194,14 @@ class Git
      *         description="path of the tree root",
      *         paramType="path",
      *         required=true,
-     *         type="string"
+     *         type="string",
+     *         defaultValue="src"
      *       )
      *     )
      *   )
      * )
      */
-    public function treeObject(Application $app, $ref, $path)
+    public function tree(Application $app, $ref, $path = null)
     {
         $tree = $app->getRepository()->getTree($ref, $path);
         return $app->rawJson($app->serialize($tree, 'json', $app['serializer.list_context']));
@@ -227,13 +214,13 @@ class Git
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
-     *   path="http://127.0.0.1:8000/api/git/status/index",
+     *   path="/status/index",
      *   @SWG\Operation(
      *     method="GET",
      *     summary="index status"
      *   ),
      *   @SWG\Operation(
-     *     method="POST",
+     *     method="PUT",
      *     summary="update the index (stage)",
      *     @SWG\Parameters(
      *       @SWG\Parameter(
@@ -250,7 +237,7 @@ class Git
      */
     public function index(Application $app, Request $request)
     {
-        if ('POST' == $request->getMethod()) {
+        if ('PUT' == $request->getMethod()) {
             $file = json_decode($request->getContent());
             $app->getRepository()->stage($file->name);
             return new Response();
@@ -266,13 +253,13 @@ class Git
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
-     *   path="http://127.0.0.1:8000/api/git/status/working-tree",
+     *   path="/status/working-tree",
      *   @SWG\Operation(
      *     method="GET",
      *     summary="working tree status"
      *   ),
      *   @SWG\Operation(
-     *     method="POST",
+     *     method="PUT",
      *     summary="update the working tree (unstage)",
      *     @SWG\Parameters(
      *       @SWG\Parameter(
@@ -289,7 +276,7 @@ class Git
      */
     public function workingTree(Application $app, Request $request)
     {
-        if ('POST' == $request->getMethod()) {
+        if ('PUT' == $request->getMethod()) {
             $file = json_decode($request->getContent());
             $app->getRepository()->unstage($file->name);
             return new Response();
