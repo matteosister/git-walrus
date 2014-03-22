@@ -9,6 +9,7 @@ GitElephant\Objects\Tree:
             expose: true
             groups: [list]
         children:
+            max_depth: 1
             expose: true
             groups: [list]
         pathChildren:

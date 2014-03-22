@@ -1,18 +1,19 @@
 'use strict'
 
 # HOMEPAGE
-gitWalrusApp.controller 'HomepageController', ($scope, $http, $resource, $interval) ->
-    workingTree = $resource('/api/status/working-tree');
-    workingTree.get {}, (data) ->
-        $scope.working_tree = data
+gitWalrusApp.controller 'HomepageController', ($scope, $http, $resource, $interval, WorkingTree) ->
+    #workingTree = $resource('/api/git/status/working-tree')
+    #$scope.working_tree = workingTree.get()
+    $scope.working_tree = WorkingTree
 
-    index = $resource('/api/status/index');
+
+    index = $resource('/api/git/status/index')
     index.get {}, (data) ->
         $scope.index = data
 
     $scope.stage = (file) ->
         $scope.loading = true
-        $http.post('/api/status/index', file).success ->
+        $http.post('/api/git/status/index', file).success ->
             $scope.loading = false
             index.get {}, (data) ->
                 $scope.index = data
@@ -21,7 +22,7 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $resource, $interv
 
     $scope.unstage = (file) ->
         $scope.loading = true
-        $http.post('/api/status/working-tree', file).success ->
+        $http.post('/api/git/status/working-tree', file).success ->
             $scope.loading = false
             index.get {}, (data) ->
                 $scope.index = data
@@ -29,7 +30,7 @@ gitWalrusApp.controller 'HomepageController', ($scope, $http, $resource, $interv
                 $scope.working_tree = data
 
 gitWalrusApp.controller 'LogController', ($scope, $http, logService) ->
-    $http.get('/api/branches').success (data) ->
+    $http.get('/api/git/branches').success (data) ->
         $scope.branches = data
         $scope.branch = _.find $scope.branches, (b) ->
             b.name = 'master'
@@ -53,7 +54,7 @@ gitWalrusApp.controller 'LogController', ($scope, $http, logService) ->
 
 gitWalrusApp.controller 'TreeController', ($scope, $http, $location) ->
     $scope.loading = true
-    $http.get("/api#{ $location.path() }").success (data) ->
+    $http.get("/api/git#{ $location.path() }").success (data) ->
         $scope.loading = false
         $scope.tree = data
         $scope.path = $location.path()
