@@ -11,22 +11,22 @@
             <h3>Working Tree</h3>
             <a href="#" class="stage-selected pull-right">stage selected <i class="fa fa-chevron-right"></i></a>
             <p ng-if="working_tree.all.length == 0" class="text-muted">Your working tree is clean! Keep coding... :)</p>
-            <div ng-repeat="file in working_tree.contents.untracked">
+            <div ng-repeat="file in working_tree.files.untracked">
                 <statusfile class="untracked"></statusfile>
             </div>
-            <div ng-repeat="file in working_tree.contents.modified">
+            <div ng-repeat="file in working_tree.files.modified">
                 <statusfile class="modified"></statusfile>
             </div>
-            <div ng-repeat="file in working_tree.contents.added">
+            <div ng-repeat="file in working_tree.files.added">
                 <statusfile class="added"></statusfile>
             </div>
-            <div ng-repeat="file in working_tree.contents.deleted">
+            <div ng-repeat="file in working_tree.files.deleted">
                 <statusfile class="deleted"></statusfile>
             </div>
-            <div ng-repeat="file in working_tree.contents.renamed">
+            <div ng-repeat="file in working_tree.files.renamed">
                 <statusfile class="renamed"></statusfile>
             </div>
-            <div ng-repeat="file in working_tree.contents.copied">
+            <div ng-repeat="file in working_tree.files.copied">
                 <statusfile class="copied"></statusfile>
             </div>
         </div>

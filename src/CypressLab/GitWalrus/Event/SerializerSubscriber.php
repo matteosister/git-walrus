@@ -14,6 +14,7 @@ use GitElephant\Objects\Commit;
 use GitElephant\Objects\Object;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
+use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 
 class SerializerSubscriber implements EventSubscriberInterface
 {
@@ -91,6 +92,9 @@ class SerializerSubscriber implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @param ObjectEvent $event
+     */
     public function onPostSerializeBranch(ObjectEvent $event)
     {
         /** @var Branch $branch */
@@ -99,6 +103,9 @@ class SerializerSubscriber implements EventSubscriberInterface
         $event->getVisitor()->addData('url', $branchUrl);
     }
 
+    /**
+     * @param ObjectEvent $event
+     */
     public function onPostSerializeCommit(ObjectEvent $event)
     {
         /** @var Commit $commit */
