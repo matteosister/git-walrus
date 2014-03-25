@@ -27,12 +27,14 @@ module.exports = (grunt) ->
                 files: ['public/compass/sass/*.scss', 'public/compass/sass/**/*.scss']
                 tasks: ['compass']
         coffee:
-            compileWithMaps:
+            gitWalrus:
                 options:
                     sourceMap: true
                 files:
                     'public/js/git-walrus.js': ['public/coffee/walrus/*.coffee', 'public/coffee/walrus/**/*.coffee']
-            compile:
+            tests:
+                options:
+                    sourceMap: true
                 files:
                     'public/js/test/unit.js': ['public/coffee/test/unit/*.coffee']
                     'public/js/test/e2e.js': ['public/coffee/test/e2e/*.coffee']

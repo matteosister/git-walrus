@@ -5,7 +5,11 @@ class WorkingTree
     files: null
 
     constructor: ($resource) ->
-        @res = $resource '/api/git/status/working-tree', {}, {'query': { method: 'GET', isArray: false }}
+        @res = $resource(
+            '/api/git/status/working-tree'
+            {}
+            {'query': { method: 'GET', isArray: false }}
+        )
         @files = @res.query()
 
 gitWalrusApp.factory 'WorkingTree', ($resource) ->

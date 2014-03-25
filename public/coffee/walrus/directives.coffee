@@ -46,7 +46,7 @@ gitWalrusApp.directive 'loader', ->
 gitWalrusApp.directive 'statusfile', ->
     link = (scope, element, attr) ->
         scope.file.selected = false
-        element.selectable
+        ###element.selectable
             filter: "h4"
             selected: ->
                 scope.file.selected = true
@@ -58,13 +58,12 @@ gitWalrusApp.directive 'statusfile', ->
             if $(e.target).is(':checked')
                 element.find('h4').addClass 'ui-selected'
             else
-                element.find('h4').removeClass 'ui-selected'
+                element.find('h4').removeClass 'ui-selected'###
 
     return {
         restrict: 'E',
         link: link
         template: '<h4 class="status_file <%= attr.class %>">
-                <input type="checkbox" ng-model="file.selected" />
                 <i class="fa fa-1g fa-file"></i> {{ file.name }}
             </h4>'
     }
