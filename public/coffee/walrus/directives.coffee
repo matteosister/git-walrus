@@ -59,13 +59,18 @@ gitWalrusApp.directive 'statusfile', ->
                 element.find('h4').addClass 'ui-selected'
             else
                 element.find('h4').removeClass 'ui-selected'###
+        element.find('a.stage').on 'click', ->
+            console.log "click"
 
     return {
         restrict: 'E',
         link: link
-        template: '<h4 class="status_file <%= attr.class %>">
-                <i class="fa fa-1g fa-file"></i> {{ file.name }}
-            </h4>'
+        template: """
+<h4 class="status_file <%= attr.class %>">
+    <i class="fa fa-1g fa-file"></i> {{ file.name }}
+    <a href="#" class="pull-right stage"><i class="fa fa-1g fa-arrow-right"></i></a>
+</h4>
+"""
     }
 
 gitWalrusApp.directive 'stagingarea', ->
