@@ -10,9 +10,6 @@ namespace CypressLab\GitWalrus\Controller;
 
 use Swagger\Annotations as SWG;
 use CypressLab\GitWalrus\Application;
-use GitElephant\Objects\Tree;
-use JMS\Serializer\SerializationContext;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -35,6 +32,7 @@ class Git
      * @param string                                    $ref
      * @param int                                       $num
      *
+     * @throws \InvalidArgumentException
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
@@ -53,6 +51,7 @@ class Git
      *         defaultValue="master"
      *       )
      *     )
+     *
      *   )
      * )
      */
@@ -101,6 +100,9 @@ class Git
     /**
      * @param Application $app
      *
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     * @throws \Symfony\Component\Process\Exception\RuntimeException
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
@@ -122,6 +124,7 @@ class Git
      * @param Application $app
      * @param string      $name
      *
+     * @throws \RuntimeException
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
@@ -154,6 +157,8 @@ class Git
      * @param string      $ref
      * @param null        $path
      *
+     * @throws \RuntimeException
+     * @throws \Symfony\Component\Process\Exception\RuntimeException
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
@@ -210,19 +215,42 @@ class Git
     /**
      * @param Application                               $app
      * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string                                    $area index or working tree
+     *
+     * @throws \LogicException
+     * @throws \InvalidArgumentException
+     * @internal param null $type
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
-     *   path="/status/index",
+     *   path="/status/{area}",
      *   @SWG\Operation(
      *     method="GET",
-     *     summary="index status"
+     *     summary="working tree or index status",
+     *     @SWG\Parameters(
+     *       @SWG\Parameter(
+     *         name="area",
+     *         description="index or working-tree",
+     *         paramType="path",
+     *         required=true,
+     *         type="string",
+     *         defaultValue="index"
+     *       )
+     *     )
      *   ),
      *   @SWG\Operation(
      *     method="PUT",
-     *     summary="update the index (stage)",
+     *     summary="working tree or index status",
      *     @SWG\Parameters(
+     *       @SWG\Parameter(
+     *         name="area",
+     *         description="index or working-tree",
+     *         paramType="path",
+     *         required=true,
+     *         type="string",
+     *         defaultValue="index"
+     *       ),
      *       @SWG\Parameter(
      *         name="data",
      *         description="expression to match files",
@@ -235,53 +263,87 @@ class Git
      *   )
      * )
      */
-    public function index(Application $app, Request $request)
+    public function status(Application $app, Request $request, $area)
     {
         if ('PUT' == $request->getMethod()) {
-            $file = json_decode($request->getContent());
-            $app->getRepository()->stage($file->name);
+            $file = json_decode($request->getContent(), true);
+            if (is_null($file)) {
+                return new Response("you should pass a json with file name", Response::HTTP_BAD_REQUEST);
+            }
+            try {
+                if ('working-tree' === $area) {
+                    $app->getRepository()->unstage($file['name']);
+                } elseif ('index' === $area) {
+                    $app->getRepository()->stage($file['name']);
+                }
+            } catch (\Exception $e) {
+                return new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
+            }
             return new Response();
         }
-        $status = $app->getRepository()->getIndexStatus();
+        if ('working-tree' === $area) {
+            $status = $app->getRepository()->getWorkingTreeStatus();
+        } elseif ('index' === $area) {
+            $status = $app->getRepository()->getIndexStatus();
+        } else {
+            return new Response(
+                "The $area area do not exists. Possible values: working-tree and index",
+                Response::HTTP_BAD_REQUEST
+            );
+        }
         return $app->rawJson($app->serialize($status, 'json', $app['serializer.list_context']));
     }
 
     /**
-     * @param Application                               $app
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Application $app
+     * @param             $area
+     * @param             $type
      *
      * @return \CypressLab\GitWalrus\HttpFoundation\JsonRawResponse
      *
      * @SWG\Api(
-     *   path="/status/working-tree",
+     *   path="/status/{area}/{type}",
      *   @SWG\Operation(
      *     method="GET",
-     *     summary="working tree status"
-     *   ),
-     *   @SWG\Operation(
-     *     method="PUT",
-     *     summary="update the working tree (unstage)",
+     *     summary="area status filtered by type",
      *     @SWG\Parameters(
      *       @SWG\Parameter(
-     *         name="data",
-     *         description="expression to match files",
-     *         paramType="body",
+     *         name="area",
+     *         description="index or working-tree",
+     *         paramType="path",
      *         required=true,
      *         type="string",
-     *         defaultValue=""
+     *         defaultValue="index"
+     *       ),
+     *       @SWG\Parameter(
+     *         name="type",
+     *         description="file type",
+     *         paramType="path",
+     *         required=true,
+     *         type="string",
+     *         defaultValue="all"
      *       )
      *     )
      *   )
      * )
      */
-    public function workingTree(Application $app, Request $request)
+    public function statusType(Application $app, $area, $type)
     {
-        if ('PUT' == $request->getMethod()) {
-            $file = json_decode($request->getContent());
-            $app->getRepository()->unstage($file->name);
-            return new Response();
+        if ('working-tree' === $area) {
+            $status = $app->getRepository()->getWorkingTreeStatus();
+        } elseif ('index' === $area) {
+            $status = $app->getRepository()->getIndexStatus();
+        } else {
+            return new Response(
+                "The $area area do not exists. Possible values: working-tree and index",
+                Response::HTTP_BAD_REQUEST
+            );
         }
-        $status = $app->getRepository()->getWorkingTreeStatus();
-        return $app->rawJson($app->serialize($status, 'json', $app['serializer.list_context']));
+        if (! is_callable([$status, $type])) {
+            return new Response("the type \"$type\" doesn't exists", Response::HTTP_BAD_REQUEST);
+        }
+        return $app->rawJson(
+            $app->serialize(call_user_func([$status, $type]), 'json', $app['serializer.list_context'])
+        );
     }
 }

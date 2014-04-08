@@ -200,6 +200,15 @@ class GitTest extends WebTestCase
         $this->assertArrayHasKey('copied', $result);
     }
 
+    public function testWorkingTreeStatusFiltered()
+    {
+        $client = $this->createClient();
+        $client->request('get', '/api/status/index/all');
+        $this->isJsonResponse($client);
+        $result = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('all', $result);
+    }
+
     /**
      * @depends testPostIndex
      */
