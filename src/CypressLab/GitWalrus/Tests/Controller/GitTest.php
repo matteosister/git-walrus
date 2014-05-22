@@ -23,25 +23,25 @@ class GitTest extends WebTestCase
         $this->addFile('test');
         $this->commit();
         $client = $this->createClient();
-        $client->request('get', '/api/log');
+        $client->request('get', '/api/git/log');
         $this->isJsonResponse($client);
         $this->countItems($client, 1, 'commits');
         $this->addFile('test2');
         $this->commit();
-        $client->request('get', '/api/log');
+        $client->request('get', '/api/git/log');
         $this->isJsonResponse($client);
         $this->countItems($client, 2, 'commits');
         $this->createBranch('develop');
-        $client->request('get', '/api/log/develop');
+        $client->request('get', '/api/git/log/develop');
         $this->isJsonResponse($client);
         $this->countItems($client, 2, 'commits');
         $this->checkout('develop');
         $this->addFile('test3');
         $this->commit();
-        $client->request('get', '/api/log/develop');
+        $client->request('get', '/api/git/log/develop');
         $this->isJsonResponse($client);
         $this->countItems($client, 3, 'commits');
-        $client->request('get', '/api/log/master');
+        $client->request('get', '/api/git/log/master');
         $this->isJsonResponse($client);
         $this->countItems($client, 2, 'commits');
         $jsonContent = json_decode($client->getResponse()->getContent(), true);
@@ -53,7 +53,7 @@ class GitTest extends WebTestCase
         $this->addFile('test');
         $this->commit();
         $client = $this->createClient();
-        $client->request('get', '/api/log?context=details');
+        $client->request('get', '/api/git/log?context=details');
         $this->isJsonResponse($client);
     }
 
@@ -64,7 +64,7 @@ class GitTest extends WebTestCase
         $log = $this->getRepo()->getLog('HEAD', null, 1);
         $lastCommit = $log[0];
         $client = $this->createClient();
-        $url = '/api/commit/'.$lastCommit->getSha();
+        $url = '/api/git/commit/'.$lastCommit->getSha();
         $client->request('get', $url);
         $this->isJsonResponse($client);
         $jsonResponse = json_decode($client->getResponse()->getContent(), true);
@@ -76,15 +76,15 @@ class GitTest extends WebTestCase
     public function testBranches()
     {
         $client = $this->createClient();
-        $client->request('get', '/api/branches');
+        $client->request('get', '/api/git/branches');
         $this->isJsonResponse($client);
         $this->countItems($client, 0);
         $this->addFile('test');
         $this->commit();
-        $client->request('get', '/api/branches');
+        $client->request('get', '/api/git/branches');
         $this->countItems($client, 1);
         $this->createBranch('test');
-        $client->request('get', '/api/branches');
+        $client->request('get', '/api/git/branches');
         $this->countItems($client, 2);
     }
 
@@ -93,7 +93,7 @@ class GitTest extends WebTestCase
         $this->addFile('test');
         $this->commit();
         $client = $this->createClient();
-        $client->request('get', '/api/branch/master');
+        $client->request('get', '/api/git/branch/master');
         $this->isJsonResponse($client);
         $result = json_decode($client->getResponse()->getContent(), true);
         $this->assertEquals('master', $result['name']);
@@ -101,7 +101,7 @@ class GitTest extends WebTestCase
         $this->assertTrue($result['current']);
         $this->assertEquals('commit automatic test message', $result['comment']);
         $this->createBranch('test-branch');
-        $client->request('get', '/api/branch/test-branch');
+        $client->request('get', '/api/git/branch/test-branch');
         $this->isJsonResponse($client);
         $result = json_decode($client->getResponse()->getContent(), true);
         $this->assertEquals('test-branch', $result['name']);
@@ -115,7 +115,7 @@ class GitTest extends WebTestCase
         $this->addFile('test');
         $this->commit();
         $client = $this->createClient();
-        $client->request('get', '/api/tree/master');
+        $client->request('get', '/api/git/tree/master');
         $this->isJsonResponse($client);
         $result = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('root', $result);
@@ -127,7 +127,7 @@ class GitTest extends WebTestCase
         $this->assertEquals('test', $result['children'][0]['name']);
         $this->assertStringEndsWith('test', $result['children'][0]['url']);
 
-        $client->request('get', '/api/tree');
+        $client->request('get', '/api/git/tree');
         $this->isJsonResponse($client);
         $result = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('root', $result);
@@ -146,7 +146,7 @@ class GitTest extends WebTestCase
         $this->addFile('.test');
         $this->commit();
         $client = $this->createClient();
-        $client->request('get', '/api/tree/master/test');
+        $client->request('get', '/api/git/tree/master/test');
         $this->isJsonResponse($client);
         $result = json_decode($client->getResponse()->getContent(), true);
         $this->assertEquals('master', $result['ref']);
@@ -155,14 +155,14 @@ class GitTest extends WebTestCase
         $this->assertEquals(false, $result['root']);
         $this->assertEquals('test content', $result['binary_data']);
 
-        $client->request('get', '/api/tree/master/.test');
+        $client->request('get', '/api/git/tree/master/.test');
         $this->isJsonResponse($client);
     }
 
     public function testIndexStatus()
     {
         $client = $this->createClient();
-        $client->request('get', '/api/status/working-tree');
+        $client->request('get', '/api/git/status/working-tree');
         $this->isJsonResponse($client);
         $result = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('all', $result);
@@ -180,7 +180,7 @@ class GitTest extends WebTestCase
         $this->assertCount(1, $this->getGitStatus()->untracked());
         $this->assertCount(0, $this->getGitStatus()->added());
         $client = $this->createClient();
-        $client->request('post', '/api/status/index', [], [], [], json_encode(['name' => 'test']));
+        $client->request('put', '/api/git/status/index', [], [], [], json_encode(['name' => 'test']));
         $this->assertCount(0, $this->getGitStatus()->untracked());
         $this->assertCount(1, $this->getGitStatus()->added());
     }
@@ -188,7 +188,7 @@ class GitTest extends WebTestCase
     public function testWorkingTreeStatus()
     {
         $client = $this->createClient();
-        $client->request('get', '/api/status/index');
+        $client->request('get', '/api/git/status/index');
         $this->isJsonResponse($client);
         $result = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('all', $result);
@@ -203,10 +203,10 @@ class GitTest extends WebTestCase
     public function testWorkingTreeStatusFiltered()
     {
         $client = $this->createClient();
-        $client->request('get', '/api/status/index/all');
+        $client->request('get', '/api/git/status/index/all');
         $this->isJsonResponse($client);
         $result = json_decode($client->getResponse()->getContent(), true);
-        $this->assertArrayHasKey('all', $result);
+        $this->assertInternalType('array', $result);
     }
 
     /**
@@ -216,10 +216,10 @@ class GitTest extends WebTestCase
     {
         $this->addFile('test');
         $client = $this->createClient();
-        $client->request('post', '/api/status/index', [], [], [], json_encode(['name' => 'test']));
+        $client->request('put', '/api/git/status/index', [], [], [], json_encode(['name' => 'test']));
         $this->assertCount(0, $this->getGitStatus()->untracked());
         $this->assertCount(1, $this->getGitStatus()->added());
-        $client->request('post', '/api/status/working-tree', [], [], [], json_encode(['name' => 'test']));
+        $client->request('put', '/api/git/status/working-tree', [], [], [], json_encode(['name' => 'test']));
         $this->assertCount(1, $this->getGitStatus()->untracked());
         $this->assertCount(0, $this->getGitStatus()->added());
     }

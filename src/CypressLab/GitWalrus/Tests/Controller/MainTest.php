@@ -15,7 +15,7 @@ class MainTest extends WebTestCase
     public function testHomepage()
     {
         $client = $this->createClient();
-        $client->request('get', '/api/');
+        $client->request('get', '/api');
         $this->isJsonResponse($client);
     }
 }

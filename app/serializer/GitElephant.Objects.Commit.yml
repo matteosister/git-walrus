@@ -22,7 +22,6 @@ GitElephant\Objects\Commit:
             groups: [list]
         message:
             expose: true
-            inline: true
             type: string
             groups: [list]
         datetimeAuthor:
