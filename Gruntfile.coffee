@@ -16,6 +16,7 @@ module.exports = (grunt) ->
                     keepalive: true
             test:
                 options: {}
+
         watch:
             coffee:
                 files: ['Gruntfile.coffee', 'public/coffee/**/*.coffee']
@@ -26,6 +27,7 @@ module.exports = (grunt) ->
             css:
                 files: ['public/compass/sass/*.scss', 'public/compass/sass/**/*.scss']
                 tasks: ['compass']
+
         coffee:
             gitWalrus:
                 options:
@@ -38,25 +40,30 @@ module.exports = (grunt) ->
                 files:
                     'public/js/test/unit.js': ['public/coffee/test/unit/*.coffee']
                     'public/js/test/e2e.js': ['public/coffee/test/e2e/*.coffee']
+
         compass:
             dev:
                 options:
                     basePath: 'public/compass'
                     sassDir: 'sass'
                     cssDir: 'stylesheets'
+
         karma:
-            unit:
+            options:
                 configFile: 'public/config/karma.conf.js'
                 singleRun: true
+                client:
+                    args: []
+            unit: {}
             travis:
-                configFile: 'public/config/karma.conf.js'
-                singleRun: true
                 reporters: 'dots'
+
         concurrent:
             options:
                 logConcurrentOutput: true
             test: ['unit', 'protractor:chrome']
             watch_assets: ['watch:css', 'watch:coffee']
+
         shell:
             phantom_webdriver:
                 command: 'node_modules/.bin/phantomjs --webdriver=4444'
@@ -70,13 +77,14 @@ module.exports = (grunt) ->
                     stdout: false
                     stderr: false
                     async: true
+
         open:
             dev:
               path: 'http://127.0.0.1:8000/',
               app: 'google-chrome'
-            swagger:
-              path: 'http://127.0.0.1:8000/swagger-ui/index.html',
-              app: 'google-chrome'
+#            swagger:
+#              path: 'http://127.0.0.1:8000/swagger-ui/index.html',
+#              app: 'google-chrome'
 
 
     grunt.loadNpmTasks 'grunt-contrib-watch'
